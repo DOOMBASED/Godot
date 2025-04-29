@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EquipmentTool" load_steps=5 format=3 uid="uid://c084aqlfanatk"]
+
+[ext_resource type="Texture2D" uid="uid://bgbkcgw3moxcx" path="res://sprites/weapons/axe.png" id="1_14ofr"]
+[ext_resource type="Script" uid="uid://dfm0cwy7w8k4o" path="res://scripts/items/item_equipment_tool.gd" id="2_vbk27"]
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="3_14ofr"]
+[ext_resource type="Resource" uid="uid://suqkg17n4bll" path="res://tres/types/resource_type/woodcutting.tres" id="4_lro70"]
+
+[resource]
+script = ExtResource("2_vbk27")
+valid_node_types = Array[ExtResource("3_14ofr")]([ExtResource("4_lro70")])
+min_amount = 1
+max_amount = 1
+display_name = "Axe"
+display_texture = ExtResource("1_14ofr")
+metadata/_custom_type_script = "uid://dfm0cwy7w8k4o"

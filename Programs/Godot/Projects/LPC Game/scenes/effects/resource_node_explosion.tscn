@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://4qlkd0jqw82x"]
+
+[ext_resource type="Script" uid="uid://4uumumu4hwhs" path="res://scripts/effects/resource_node_explosion.gd" id="1_tu4y5"]
+
+[sub_resource type="Gradient" id="Gradient_egoex"]
+offsets = PackedFloat32Array(0.99, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tu4y5"]
+gradient = SubResource("Gradient_egoex")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_11sig"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="ResourceNodeExplosion" type="CPUParticles2D"]
+z_index = -4094
+texture_filter = 1
+amount = 150
+texture = SubResource("GradientTexture2D_tu4y5")
+lifetime = 0.75
+explosiveness = 1.0
+randomness = 1.0
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+angular_velocity_min = 50.0
+angular_velocity_max = 100.0
+damping_min = 33.0
+damping_max = 66.0
+scale_amount_min = 0.5
+color_ramp = SubResource("Gradient_11sig")
+script = ExtResource("1_tu4y5")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.55
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

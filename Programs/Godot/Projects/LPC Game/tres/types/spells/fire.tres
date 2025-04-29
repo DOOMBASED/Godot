@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpellType" load_steps=2 format=3 uid="uid://cpf0xae2o3tcg"]
+
+[ext_resource type="Script" uid="uid://b66moptanofaq" path="res://scripts/types/spell_type.gd" id="1_6rax4"]
+
+[resource]
+resource_name = "Fire"
+script = ExtResource("1_6rax4")
+display_name = "Fire"
+metadata/_custom_type_script = "uid://b66moptanofaq"

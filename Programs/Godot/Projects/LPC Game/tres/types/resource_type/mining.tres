@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceNodeType" load_steps=2 format=3 uid="uid://bqvvi31l0fqhc"]
+
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="1_g6b3o"]
+
+[resource]
+resource_name = "Mining"
+script = ExtResource("1_g6b3o")
+display_name = "Mining"
+metadata/_custom_type_script = "uid://cfhq8mgh8gaow"

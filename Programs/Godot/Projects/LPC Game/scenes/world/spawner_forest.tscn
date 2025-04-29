@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6vp68hxda0d2"]
+
+[ext_resource type="Script" uid="uid://bubh0jnl5o6fa" path="res://scripts/nodes/node_spawner.gd" id="1_d57bb"]
+[ext_resource type="PackedScene" uid="uid://dtwcamsjdfbdc" path="res://scenes/resources/resource_node_rock.tscn" id="2_750tr"]
+[ext_resource type="PackedScene" uid="uid://by7ago06nl40" path="res://scenes/resources/resource_node_tree.tscn" id="3_bo2th"]
+[ext_resource type="Texture2D" uid="uid://dxaj11vduey30" path="res://sprites/tiles/forest_tiles.png" id="4_750tr"]
+
+[node name="Spawner_Forest" type="Node2D"]
+z_index = -4094
+script = ExtResource("1_d57bb")
+scenes = Array[PackedScene]([ExtResource("3_bo2th"), ExtResource("2_750tr")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 0.588235)
+texture_filter = 1
+texture = ExtResource("4_750tr")
+region_enabled = true
+region_rect = Rect2(320, 32, 32, 64)

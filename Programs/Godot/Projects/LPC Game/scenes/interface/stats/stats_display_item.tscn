@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf4ajfqxih7al"]
+
+[ext_resource type="Script" uid="uid://d38omklvqlo3a" path="res://scripts/interface/stats/stats_display_item.gd" id="1_50wop"]
+[ext_resource type="Texture2D" uid="uid://mnp0r44d6y4k" path="res://sprites/stats/mining.png" id="2_50wop"]
+
+[node name="StatsItemDisplay" type="HBoxContainer" node_paths=PackedStringArray("display_texture", "display_label")]
+offset_right = 94.0
+offset_bottom = 17.0
+script = ExtResource("1_50wop")
+display_texture = NodePath("TextureRect")
+display_label = NodePath("XPLabel")
+
+[node name="LevelLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+text = "LEVEL 1"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_50wop")
+expand_mode = 3
+
+[node name="XPLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+text = "XP 0"

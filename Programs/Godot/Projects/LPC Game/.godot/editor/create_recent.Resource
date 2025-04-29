@@ -1,0 +1,2 @@
+SpellType
+EquipmentSpell

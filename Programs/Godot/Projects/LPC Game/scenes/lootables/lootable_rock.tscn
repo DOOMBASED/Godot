@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://bd0d1nhnq6gbn"]
+
+[ext_resource type="Script" uid="uid://bdlhli6jcen0i" path="res://scripts/items/item_lootable.gd" id="1_4bggh"]
+[ext_resource type="Resource" uid="uid://bvkqi5u3dmy2n" path="res://tres/items/resources/rock.tres" id="2_152fn"]
+[ext_resource type="Texture2D" uid="uid://bq35anxj85vjg" path="res://sprites/resources/rock.png" id="3_152fn"]
+[ext_resource type="Resource" uid="uid://q66geeblakk2" path="res://tres/vars/stats/mining.tres" id="3_psp0f"]
+
+[sub_resource type="Gradient" id="Gradient_atpat"]
+offsets = PackedFloat32Array(0.999, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_psp0f"]
+gradient = SubResource("Gradient_atpat")
+width = 26
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_152fn"]
+size = Vector2(24, 15)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_psp0f"]
+radius = 64.0
+
+[node name="Lootable_Rock" type="Area2D" node_paths=PackedStringArray("loot_shape", "stats_shape", "shadow")]
+z_index = -4094
+script = ExtResource("1_4bggh")
+resource_type = ExtResource("2_152fn")
+stats_type = ExtResource("3_psp0f")
+loot_shape = NodePath("LootShape")
+stats_shape = NodePath("Lootable_Stats/StatsShape")
+shadow = NodePath("Shadow")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.392157)
+z_index = -4095
+texture_filter = 1
+position = Vector2(0, 5)
+texture = SubResource("GradientTexture2D_psp0f")
+
+[node name="LootShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_152fn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -4096
+texture_filter = 1
+texture = ExtResource("3_152fn")
+region_rect = Rect2(386, 45, 10, 6)
+
+[node name="Lootable_Stats" type="Area2D" parent="."]
+
+[node name="StatsShape" type="CollisionShape2D" parent="Lootable_Stats"]
+shape = SubResource("CircleShape2D_psp0f")
+
+[connection signal="body_entered" from="Lootable_Stats" to="." method="_on_lootable_stats_body_entered"]

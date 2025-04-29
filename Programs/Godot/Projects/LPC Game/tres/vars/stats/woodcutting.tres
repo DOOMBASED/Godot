@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ResourceStats" load_steps=3 format=3 uid="uid://dvru87fowru31"]
+
+[ext_resource type="Texture2D" uid="uid://c01kq4wjq2pl2" path="res://sprites/stats/woodcutting.png" id="1_as3bi"]
+[ext_resource type="Script" uid="uid://dav8twovgf84p" path="res://scripts/types/resource_stats.gd" id="2_c686j"]
+
+[resource]
+script = ExtResource("2_c686j")
+display_name = "Woodcutting"
+display_texture = ExtResource("1_as3bi")
+metadata/_custom_type_script = "uid://dav8twovgf84p"

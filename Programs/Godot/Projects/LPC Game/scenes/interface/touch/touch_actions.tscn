@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://3gj76bx00176"]
+
+[ext_resource type="Texture2D" uid="uid://btcwxnplgqp4n" path="res://sprites/interface/touch/flatDark/flatDark37.png" id="1_kvu4x"]
+[ext_resource type="Texture2D" uid="uid://b450lt6vmlujo" path="res://sprites/interface/touch/flatDark/flatDark36.png" id="2_irias"]
+[ext_resource type="Texture2D" uid="uid://cfh31uuu3hkjk" path="res://sprites/interface/touch/flatDark/flatDark35.png" id="3_tpgfw"]
+[ext_resource type="Texture2D" uid="uid://b7oe47e71ueha" path="res://sprites/interface/touch/flatDark/flatDark38.png" id="4_fmsfc"]
+
+[node name="Actions" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Buttons" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(-112, -112)
+metadata/_edit_group_ = true
+
+[node name="1" type="TouchScreenButton" parent="Buttons"]
+texture_filter = 1
+position = Vector2(-96, -32)
+texture_normal = ExtResource("1_kvu4x")
+action = "1"
+
+[node name="2" type="TouchScreenButton" parent="Buttons"]
+texture_filter = 1
+position = Vector2(32, -32)
+texture_normal = ExtResource("2_irias")
+action = "2"
+
+[node name="Use" type="TouchScreenButton" parent="Buttons"]
+texture_filter = 1
+position = Vector2(-32, 32)
+texture_normal = ExtResource("3_tpgfw")
+passby_press = true
+action = "use"
+
+[node name="Run" type="TouchScreenButton" parent="Buttons"]
+texture_filter = 1
+position = Vector2(-32, -96)
+texture_normal = ExtResource("4_fmsfc")
+action = "run"

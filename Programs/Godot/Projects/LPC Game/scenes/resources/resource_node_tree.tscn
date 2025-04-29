@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://by7ago06nl40"]
+
+[ext_resource type="Script" uid="uid://nook8u33qqnp" path="res://scripts/nodes/node_resource.gd" id="1_ykhen"]
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="2_076fa"]
+[ext_resource type="Texture2D" uid="uid://dxaj11vduey30" path="res://sprites/tiles/forest_tiles.png" id="2_lebxu"]
+[ext_resource type="Resource" uid="uid://suqkg17n4bll" path="res://tres/types/resource_type/woodcutting.tres" id="3_dimnm"]
+[ext_resource type="PackedScene" uid="uid://c5uxkwcnta2ew" path="res://scenes/lootables/lootable_wood.tscn" id="4_bn5uu"]
+[ext_resource type="PackedScene" uid="uid://4qlkd0jqw82x" path="res://scenes/effects/resource_node_explosion.tscn" id="5_cyxkb"]
+
+[node name="ResourceNode_Tree" type="RigidBody2D" groups=["resource_node"]]
+z_index = -4094
+freeze = true
+script = ExtResource("1_ykhen")
+display_name = "Tree"
+node_type = Array[ExtResource("2_076fa")]([ExtResource("3_dimnm")])
+loot = ExtResource("4_bn5uu")
+explosion_scene = ExtResource("5_cyxkb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_lebxu")
+region_enabled = true
+region_rect = Rect2(320, 32, 32, 64)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 16)
+polygon = PackedVector2Array(16, -8, 4, -48, -4, -48, -16, -8, -16, 0, 0, 16, 16, 0)

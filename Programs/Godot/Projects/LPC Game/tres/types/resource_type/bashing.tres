@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceNodeType" load_steps=2 format=3 uid="uid://b8b7aumodfnrq"]
+
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="1_garhg"]
+
+[resource]
+resource_name = "Bashing"
+script = ExtResource("1_garhg")
+display_name = "Bashing"
+metadata/_custom_type_script = "uid://cfhq8mgh8gaow"

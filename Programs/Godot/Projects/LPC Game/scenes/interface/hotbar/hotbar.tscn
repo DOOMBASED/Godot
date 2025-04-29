@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://67kn8ks537o0"]
+
+[ext_resource type="Script" uid="uid://n8662hryyt1u" path="res://scripts/interface/hotbar/hotbar.gd" id="1_frn4j"]
+[ext_resource type="PackedScene" uid="uid://b63giumoaqmg2" path="res://scenes/interface/hotbar/hotbar_button.tscn" id="2_frn4j"]
+[ext_resource type="Resource" uid="uid://c084aqlfanatk" path="res://tres/items/tools/axe01.tres" id="3_frn4j"]
+[ext_resource type="Resource" uid="uid://c3201g4202iby" path="res://tres/items/tools/pickaxe01.tres" id="4_fny6s"]
+[ext_resource type="Resource" uid="uid://dmgy8o6exholc" path="res://tres/items/spells/fireball.tres" id="5_us3d7"]
+
+[node name="Hotbar" type="GridContainer"]
+offset_left = -114.0
+offset_top = -38.0
+offset_right = 2.0
+offset_bottom = 2.0
+theme_override_constants/h_separation = -2
+columns = 9
+script = ExtResource("1_frn4j")
+metadata/_edit_group_ = true
+
+[node name="1" parent="." instance=ExtResource("2_frn4j")]
+layout_mode = 2
+item = ExtResource("3_frn4j")
+
+[node name="2" parent="." instance=ExtResource("2_frn4j")]
+layout_mode = 2
+item = ExtResource("4_fny6s")
+
+[node name="3" parent="." instance=ExtResource("2_frn4j")]
+layout_mode = 2
+item = ExtResource("5_us3d7")

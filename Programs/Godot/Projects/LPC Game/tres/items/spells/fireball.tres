@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EquipmentSpell" load_steps=5 format=3 uid="uid://dmgy8o6exholc"]
+
+[ext_resource type="Script" uid="uid://dqp5a7tlceorg" path="res://scripts/items/item_equipment_spell.gd" id="1_8y4fw"]
+[ext_resource type="Script" uid="uid://b66moptanofaq" path="res://scripts/types/spell_type.gd" id="2_081kf"]
+
+[sub_resource type="Gradient" id="Gradient_bq4n2"]
+offsets = PackedFloat32Array(0.15, 0.3, 0.45)
+colors = PackedColorArray(1, 0.376471, 0, 1, 1, 0.188235, 0, 1, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_081kf"]
+gradient = SubResource("Gradient_bq4n2")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[resource]
+script = ExtResource("1_8y4fw")
+valid_spell_types = Array[ExtResource("2_081kf")]([])
+min_damage = 1
+max_damage = 1
+display_name = "Fireball"
+display_texture = SubResource("GradientTexture2D_081kf")
+metadata/_custom_type_script = "uid://dqp5a7tlceorg"

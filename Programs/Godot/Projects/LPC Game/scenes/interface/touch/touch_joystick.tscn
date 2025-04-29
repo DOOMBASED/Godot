@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://b01w1m4lay4qp"]
+
+[ext_resource type="Script" uid="uid://o7vj2d5q1fqm" path="res://scripts/interface/touch/stick.gd" id="1_q4mca"]
+
+[sub_resource type="Gradient" id="Gradient_bxen1"]
+offsets = PackedFloat32Array(0.96, 1)
+colors = PackedColorArray(0.304462, 0.304462, 0.304462, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q4mca"]
+gradient = SubResource("Gradient_bxen1")
+width = 192
+height = 192
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.525)
+
+[sub_resource type="Gradient" id="Gradient_ybdxi"]
+offsets = PackedFloat32Array(0.96, 1)
+colors = PackedColorArray(0.258824, 0.258824, 0.258824, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rneuc"]
+gradient = SubResource("Gradient_ybdxi")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Joystick" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(96, -96)
+metadata/_edit_group_ = true
+
+[node name="Base" type="Sprite2D" parent="Node2D"]
+texture_filter = 1
+texture = SubResource("GradientTexture2D_q4mca")
+
+[node name="Stick" type="Sprite2D" parent="Node2D"]
+texture_filter = 1
+texture = SubResource("GradientTexture2D_rneuc")
+script = ExtResource("1_q4mca")

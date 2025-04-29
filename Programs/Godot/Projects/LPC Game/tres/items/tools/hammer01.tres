@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EquipmentTool" load_steps=5 format=3 uid="uid://cnu4crgds1jgv"]
+
+[ext_resource type="Texture2D" uid="uid://bybc6ai8078xw" path="res://sprites/weapons/hammer.png" id="1_e0iwj"]
+[ext_resource type="Script" uid="uid://dfm0cwy7w8k4o" path="res://scripts/items/item_equipment_tool.gd" id="2_gtanb"]
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="3_xmlm3"]
+[ext_resource type="Resource" uid="uid://b8b7aumodfnrq" path="res://tres/types/resource_type/bashing.tres" id="4_xmlm3"]
+
+[resource]
+script = ExtResource("2_gtanb")
+valid_node_types = Array[ExtResource("3_xmlm3")]([ExtResource("4_xmlm3")])
+min_amount = 1
+max_amount = 1
+display_name = "Hammer"
+display_texture = ExtResource("1_e0iwj")
+metadata/_custom_type_script = "uid://dfm0cwy7w8k4o"
