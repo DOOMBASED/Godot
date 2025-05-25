@@ -84,7 +84,6 @@ offset_bottom = 16.0
 grow_horizontal = 0
 
 [node name="D-Pad" parent="." instance=ExtResource("5_yn0bl")]
-visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -95,7 +94,6 @@ offset_bottom = -144.0
 grow_vertical = 0
 
 [node name="Actions" parent="." instance=ExtResource("6_ht85w")]
-visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

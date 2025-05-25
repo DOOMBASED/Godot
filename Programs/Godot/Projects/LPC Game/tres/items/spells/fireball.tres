@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="EquipmentSpell" load_steps=5 format=3 uid="uid://dmgy8o6exholc"]
+[gd_resource type="Resource" script_class="EquipmentSpell" load_steps=6 format=3 uid="uid://dmgy8o6exholc"]
 
 [ext_resource type="Script" uid="uid://dqp5a7tlceorg" path="res://scripts/items/item_equipment_spell.gd" id="1_8y4fw"]
 [ext_resource type="Script" uid="uid://b66moptanofaq" path="res://scripts/types/spell_type.gd" id="2_081kf"]
+[ext_resource type="Resource" uid="uid://cpf0xae2o3tcg" path="res://tres/types/spells/fire.tres" id="3_081kf"]
 
 [sub_resource type="Gradient" id="Gradient_bq4n2"]
 offsets = PackedFloat32Array(0.15, 0.3, 0.45)
@@ -16,7 +17,7 @@ fill_from = Vector2(0.5, 0.5)
 
 [resource]
 script = ExtResource("1_8y4fw")
-valid_spell_types = Array[ExtResource("2_081kf")]([])
+valid_spell_types = Array[ExtResource("2_081kf")]([ExtResource("3_081kf")])
 min_damage = 1
 max_damage = 1
 display_name = "Fireball"

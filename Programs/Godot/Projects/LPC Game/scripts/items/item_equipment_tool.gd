@@ -5,6 +5,8 @@ extends ItemEquipment
 @export var min_amount: int = 1
 @export var max_amount: int = 1
 
+var is_displayed = false
+
 func interact(body):
 	for type in valid_node_types:
 		if body.node_type.has(type):

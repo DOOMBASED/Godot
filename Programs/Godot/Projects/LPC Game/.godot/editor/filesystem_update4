@@ -1,2 +1,7 @@
 res://scenes/world/world_main.tscn
 res://tres/items/spells/fireball.tres
+res://scenes/interface/interface.tscn
+res://scenes/characters/player.tscn
+res://scripts/control/control_hand.gd
+res://scripts/items/item_equipment_spell.gd
+res://scripts/items/item_equipment_tool.gd
