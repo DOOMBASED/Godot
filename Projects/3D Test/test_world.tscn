@@ -1,0 +1,207 @@
+[gd_scene load_steps=12 format=3 uid="uid://p0iwrbiqbgj"]
+
+[ext_resource type="Texture2D" uid="uid://dh7k0pg5qexam" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_dxppu"]
+[ext_resource type="PackedScene" uid="uid://80eii2ibwmxm" path="res://box.tscn" id="2_1lwx6"]
+[ext_resource type="PackedScene" uid="uid://d6s5lddw7wv7" path="res://player.tscn" id="2_gy3sr"]
+[ext_resource type="PackedScene" uid="uid://drbcwgb4oglyb" path="res://inventory_item.tscn" id="5_lf0gk"]
+[ext_resource type="Texture2D" uid="uid://bis42yak1m81q" path="res://test_item_icon.tres" id="6_cnaw2"]
+[ext_resource type="PackedScene" uid="uid://brfc6nglot15y" path="res://test_item_mesh.tscn" id="7_kt6p6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gy3sr"]
+size = Vector3(640, 2, 640)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gy3sr"]
+albedo_texture = ExtResource("1_dxppu")
+uv1_scale = Vector3(150, 150, 150)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dsnr4"]
+material = SubResource("StandardMaterial3D_gy3sr")
+size = Vector3(640, 2, 640)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1lwx6"]
+size = Vector3(640, 2, 160)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lf0gk"]
+material = SubResource("StandardMaterial3D_gy3sr")
+size = Vector3(640, 2, 160)
+
+[node name="TestWorld" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 135, 0)
+light_energy = 1.5
+
+[node name="Ceiling" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 160, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling"]
+shape = SubResource("BoxShape3D_gy3sr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling"]
+mesh = SubResource("BoxMesh_dsnr4")
+skeleton = NodePath("../..")
+
+[node name="Wall1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 80, 320)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1"]
+shape = SubResource("BoxShape3D_1lwx6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall1"]
+mesh = SubResource("BoxMesh_lf0gk")
+skeleton = NodePath("../..")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 80, -320)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("BoxShape3D_1lwx6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+mesh = SubResource("BoxMesh_lf0gk")
+skeleton = NodePath("../..")
+
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 320, 80, -1.39876e-05)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("BoxShape3D_1lwx6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+mesh = SubResource("BoxMesh_lf0gk")
+skeleton = NodePath("../..")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -320, 80, 1.39876e-05)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4"]
+shape = SubResource("BoxShape3D_1lwx6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
+mesh = SubResource("BoxMesh_lf0gk")
+skeleton = NodePath("../..")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_gy3sr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_dsnr4")
+skeleton = NodePath("../..")
+
+[node name="Boxes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -13)
+
+[node name="Box1" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Box2" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+
+[node name="Box3" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -4)
+
+[node name="Box4" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -6)
+
+[node name="Box5" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -8)
+
+[node name="Box6" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="Box7" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="Box8" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -4)
+
+[node name="Box9" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -6)
+
+[node name="Box10" parent="Boxes" instance=ExtResource("2_1lwx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -8)
+
+[node name="Player" parent="." instance=ExtResource("2_gy3sr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="InventoryItem1" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem2" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem3" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem4" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem5" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem6" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem7" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem8" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem9" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")
+
+[node name="InventoryItem10" parent="." instance=ExtResource("5_lf0gk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 1, -6)
+item_type = "Test"
+item_name = "Test"
+item_effect = "Test"
+item_texture = ExtResource("6_cnaw2")
+item_mesh = ExtResource("7_kt6p6")

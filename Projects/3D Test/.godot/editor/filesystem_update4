@@ -1,0 +1,8 @@
+res://test_world.tscn
+res://test_item_icon.tres
+res://player.tscn
+res://box.tscn
+res://chest.tscn
+res://inventory_item.tscn
+res://test_item_mesh.tscn
+res://inventory_slot.tscn
