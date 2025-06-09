@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://80eii2ibwmxm"]
+
+[ext_resource type="Script" uid="uid://dh1q6gdfldsnk" path="res://scripts/box.gd" id="1_oq5cr"]
+[ext_resource type="Texture2D" uid="uid://bvrwak6datsuj" path="res://addons/kenney_prototype_textures/green/texture_02.png" id="2_oq5cr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3wdy0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oq5cr"]
+albedo_texture = ExtResource("2_oq5cr")
+
+[sub_resource type="BoxMesh" id="BoxMesh_wago0"]
+material = SubResource("StandardMaterial3D_oq5cr")
+
+[sub_resource type="Animation" id="Animation_bqn3j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5, -0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody3D/CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5, -0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_oq5cr"]
+resource_name = "float"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.5, -0.1), Vector3(0, 0.7, -0.1), Vector3(0, 0.5, -0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody3D/CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.5, -0.1), Vector3(0, 0.7, -0.1), Vector3(0, 0.5, -0.1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3n43a"]
+_data = {
+&"RESET": SubResource("Animation_bqn3j"),
+&"float": SubResource("Animation_oq5cr")
+}
+
+[node name="Box" type="Node3D" groups=["Box", "Items"]]
+script = ExtResource("1_oq5cr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.1)
+shape = SubResource("BoxShape3D_3wdy0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.1)
+mesh = SubResource("BoxMesh_wago0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3n43a")
+}
+autoplay = "float"

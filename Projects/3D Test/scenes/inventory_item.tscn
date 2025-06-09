@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://drbcwgb4oglyb"]
+
+[ext_resource type="Script" uid="uid://gil4gygajvde" path="res://scripts/inventory_item.gd" id="1_5b765"]
+[ext_resource type="FontFile" uid="uid://duujpyh00pie6" path="res://fonts/JetBrainsMono-Regular.ttf" id="2_gmchj"]
+
+[sub_resource type="TextMesh" id="TextMesh_letey"]
+text = "ITEM AREA"
+font = ExtResource("2_gmchj")
+font_size = 127
+depth = 4.25
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wppb3"]
+height = 3.0
+radius = 4.0
+
+[node name="InventoryItem" type="Node3D" groups=["Items"]]
+script = ExtResource("1_5b765")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("TextMesh_letey")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_wppb3")
+
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+texture_filter = 0
+
+[node name="Label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0)
+billboard = 1
+texture_filter = 0
+font = ExtResource("2_gmchj")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
