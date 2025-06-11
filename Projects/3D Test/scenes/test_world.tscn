@@ -1,22 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://p0iwrbiqbgj"]
+[gd_scene load_steps=11 format=3 uid="uid://p0iwrbiqbgj"]
 
 [ext_resource type="Texture2D" uid="uid://dh7k0pg5qexam" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_dxppu"]
+[ext_resource type="Script" uid="uid://eo5jpijsqo1k" path="res://scripts/world.gd" id="1_ko4od"]
 [ext_resource type="PackedScene" uid="uid://d6s5lddw7wv7" path="res://scenes/player.tscn" id="2_gy3sr"]
-[ext_resource type="Texture2D" uid="uid://c0o1c3oj8qwj2" path="res://tres/test_item_apple_icon.tres" id="5_8hcw6"]
-[ext_resource type="PackedScene" uid="uid://drbcwgb4oglyb" path="res://scenes/inventory_item.tscn" id="5_lf0gk"]
-[ext_resource type="Texture2D" uid="uid://bis42yak1m81q" path="res://tres/test_item_sphere_icon.tres" id="6_cnaw2"]
-[ext_resource type="PackedScene" uid="uid://cdom3m54j5x2a" path="res://scenes/test_item_apple.tscn" id="6_ixgyf"]
-[ext_resource type="Texture2D" uid="uid://dl1i403j37vck" path="res://tres/test_item_apple_poison_icon.tres" id="7_dv75v"]
-[ext_resource type="PackedScene" uid="uid://brfc6nglot15y" path="res://scenes/test_item_sphere_mesh.tscn" id="7_kt6p6"]
-[ext_resource type="Texture2D" uid="uid://g57pr1xgeddw" path="res://tres/test_item_cube_icon.tres" id="7_uu1iw"]
-[ext_resource type="PackedScene" uid="uid://bp30bvxvauuag" path="res://scenes/test_item_cube_mesh.tscn" id="8_4tg7h"]
-[ext_resource type="PackedScene" uid="uid://dhrbp47b7chxy" path="res://scenes/test_item_apple_poison.tscn" id="8_x05cw"]
-[ext_resource type="Texture2D" uid="uid://c2hqxvq8kluhe" path="res://tres/test_item_apple_magic_icon.tres" id="9_bn472"]
-[ext_resource type="Texture2D" uid="uid://duc2sthl6v8ry" path="res://tres/test_item_prism_icon.tres" id="9_ud3vi"]
-[ext_resource type="PackedScene" uid="uid://d08730rcp155q" path="res://scenes/test_item_apple_magic.tscn" id="10_3xk6l"]
-[ext_resource type="PackedScene" uid="uid://cn55oqxce2vkj" path="res://scenes/test_item_prism_mesh.tscn" id="10_5457m"]
-[ext_resource type="Texture2D" uid="uid://b8r5jph7ipvlf" path="res://tres/test_item_bag_icon.tres" id="17_ko4od"]
-[ext_resource type="PackedScene" uid="uid://ciqyebgmirxsp" path="res://scenes/test_item_bag.tscn" id="18_y60ib"]
+[ext_resource type="Script" uid="uid://bv5xryj0wbe3m" path="res://scripts/global.gd" id="2_umbte"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gy3sr"]
 size = Vector3(640, 2, 640)
@@ -36,10 +23,17 @@ size = Vector3(640, 2, 160)
 material = SubResource("StandardMaterial3D_gy3sr")
 size = Vector3(640, 2, 160)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xk6l"]
+size = Vector3(80, 1, 80)
+
 [node name="TestWorld" type="Node3D"]
+script = ExtResource("1_ko4od")
+items_to_spawn = 2000
+
+[node name="Global" type="Node" parent="."]
+script = ExtResource("2_umbte")
 
 [node name="Player" parent="." instance=ExtResource("2_gy3sr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Ceiling" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 160, 0)
@@ -59,156 +53,76 @@ metadata/_edit_lock_ = true
 
 [node name="DirectionalLight3D1" type="DirectionalLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 80, 0)
-light_energy = 2.0
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Lights"]
 transform = Transform3D(0.258819, 0, -0.965926, 0.965926, 0, 0.258819, 0, -1, 0, 150, 80, 0)
-light_energy = 2.0
 
 [node name="DirectionalLight3D3" type="DirectionalLight3D" parent="Lights"]
 transform = Transform3D(-0.707107, -7.462e-08, 0.707107, -0.707107, -3.09086e-08, -0.707107, 7.462e-08, -1, -3.09086e-08, -150, 80, 0)
-light_energy = 2.0
 
 [node name="DirectionalLight3D4" type="DirectionalLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 80, -150)
-light_energy = 2.0
 
 [node name="DirectionalLight3D5" type="DirectionalLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -1.52588e-05, 80, 150)
-light_energy = 2.0
 
-[node name="Wall1" type="StaticBody3D" parent="."]
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Wall1" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 80, 320)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall1"]
 shape = SubResource("BoxShape3D_1lwx6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall1"]
 mesh = SubResource("BoxMesh_lf0gk")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Wall2" type="StaticBody3D" parent="."]
+[node name="Wall2" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 80, -320)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall2"]
 shape = SubResource("BoxShape3D_1lwx6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall2"]
 mesh = SubResource("BoxMesh_lf0gk")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Wall3" type="StaticBody3D" parent="."]
+[node name="Wall3" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 320, 80, -1.39876e-05)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall3"]
 shape = SubResource("BoxShape3D_1lwx6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall3"]
 mesh = SubResource("BoxMesh_lf0gk")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Wall4" type="StaticBody3D" parent="."]
+[node name="Wall4" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -320, 80, 1.39876e-05)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall4"]
 shape = SubResource("BoxShape3D_1lwx6")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall4"]
 mesh = SubResource("BoxMesh_lf0gk")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Test Items" type="Node3D" parent="."]
+[node name="Items" type="Node3D" parent="."]
 
-[node name="InventoryItem1" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -14)
-item_name = "\"Apple\""
-item_type = "Consumable"
-item_effect = "Health"
-effect_magnitude = 15
-item_texture = ExtResource("5_8hcw6")
-item_mesh = ExtResource("6_ixgyf")
+[node name="SpawnArea" type="Area3D" parent="."]
 
-[node name="InventoryItem2" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -14)
-item_name = "\"Apple\""
-item_type = "Consumable"
-item_effect = "Damage"
-effect_magnitude = 10
-item_texture = ExtResource("7_dv75v")
-item_mesh = ExtResource("8_x05cw")
-
-[node name="InventoryItem3" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -14)
-item_name = "\"Apple\""
-item_type = "Consumable"
-item_effect = "Stamina"
-item_texture = ExtResource("9_bn472")
-item_mesh = ExtResource("10_3xk6l")
-
-[node name="InventoryItem4" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -22)
-item_name = "Test Sphere"
-item_type = "Test Sphere"
-item_effect = "Test Sphere"
-item_texture = ExtResource("6_cnaw2")
-item_mesh = ExtResource("7_kt6p6")
-
-[node name="InventoryItem5" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -22)
-item_name = "Test Cube"
-item_type = "Test Cube"
-item_effect = "Test Cube"
-item_texture = ExtResource("7_uu1iw")
-item_mesh = ExtResource("8_4tg7h")
-
-[node name="InventoryItem6" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -22)
-item_name = "Test Prism"
-item_type = "Test Prism"
-item_effect = "Test Prism"
-item_texture = ExtResource("9_ud3vi")
-item_mesh = ExtResource("10_5457m")
-
-[node name="InventoryItem7" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -18)
-item_name = "Test Sphere"
-item_type = "Test Sphere"
-item_effect = "Test Sphere"
-item_texture = ExtResource("6_cnaw2")
-item_mesh = ExtResource("7_kt6p6")
-
-[node name="InventoryItem8" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -18)
-item_name = "Test Cube"
-item_type = "Test Cube"
-item_effect = "Test Cube"
-item_texture = ExtResource("7_uu1iw")
-item_mesh = ExtResource("8_4tg7h")
-
-[node name="InventoryItem9" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -18)
-item_name = "Test Prism"
-item_type = "Test Prism"
-item_effect = "Test Prism"
-item_texture = ExtResource("9_ud3vi")
-item_mesh = ExtResource("10_5457m")
-
-[node name="InventoryItem10" parent="Test Items" instance=ExtResource("5_lf0gk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8)
-item_name = "\"Bag\""
-item_type = "Consumable"
-item_effect = "Inventory+"
-effect_magnitude = 4
-item_texture = ExtResource("17_ko4od")
-item_mesh = ExtResource("18_y60ib")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_3xk6l")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true

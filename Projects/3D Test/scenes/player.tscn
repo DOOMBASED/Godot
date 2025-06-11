@@ -1,7 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://d6s5lddw7wv7"]
+[gd_scene load_steps=17 format=3 uid="uid://d6s5lddw7wv7"]
 
 [ext_resource type="Script" uid="uid://blkhpr5gcc0sh" path="res://scripts/player.gd" id="1_iwpo4"]
 [ext_resource type="FontFile" uid="uid://duujpyh00pie6" path="res://fonts/JetBrainsMono-Regular.ttf" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://blhvx4b8ecxwo" path="res://scripts/inventory.gd" id="3_dqkch"]
+[ext_resource type="PackedScene" uid="uid://biq8k4lj4jr4a" path="res://scenes/inventory_hotbar.tscn" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://dnmn5ppf7cgcm" path="res://scripts/hud.gd" id="3_qlg0r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwpo4"]
 albedo_color = Color(0, 1, 1, 1)
@@ -27,6 +30,13 @@ corner_radius_bottom_left = 7
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2els"]
 bg_color = Color(0, 0.582465, 5.77569e-07, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlg0r"]
+bg_color = Color(0, 0, 0.584314, 1)
 corner_radius_top_left = 7
 corner_radius_top_right = 7
 corner_radius_bottom_right = 7
@@ -90,6 +100,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_i3pqv")
+script = ExtResource("3_qlg0r")
 
 [node name="FPSLabel" type="Label" parent="HUD"]
 layout_mode = 1
@@ -128,26 +139,26 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
-offset_top = -31.0
+offset_top = -91.0
 offset_right = 261.0
-offset_bottom = -5.0
+offset_bottom = -65.0
 grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_qhqgy")
 value = 50.0
 show_percentage = false
 
-[node name="HealthLabel" type="Label" parent="HUD"]
+[node name="HealthLabel" type="Label" parent="HUD/HealthBar"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = -29.0
-offset_right = 119.0
-offset_bottom = -7.0
-grow_vertical = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -11.0
+offset_right = 111.0
+offset_bottom = 11.0
+grow_vertical = 2
 theme_override_constants/outline_size = 3
-text = "Health: 100"
+text = "Health:   100"
 
 [node name="StaminaBar" type="ProgressBar" parent="HUD"]
 layout_mode = 1
@@ -156,31 +167,58 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -261.0
-offset_top = -31.0
-offset_right = -5.0
-offset_bottom = -5.0
+offset_left = -1147.0
+offset_top = -61.0
+offset_right = -891.0
+offset_bottom = -35.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_g2els")
 value = 50.0
 show_percentage = false
 
-[node name="StaminaLabel" type="Label" parent="HUD"]
+[node name="StaminaLabel" type="Label" parent="HUD/StaminaBar"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -11.0
+offset_right = 121.0
+offset_bottom = 11.0
+grow_vertical = 2
+theme_override_constants/outline_size = 3
+text = "Stamina:  100"
+
+[node name="MagicBar" type="ProgressBar" parent="HUD"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -253.0
-offset_top = -29.0
-offset_right = -137.0
-offset_bottom = -7.0
+offset_left = -1147.0
+offset_top = -31.0
+offset_right = -891.0
+offset_bottom = -5.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_qlg0r")
+value = 50.0
+show_percentage = false
+
+[node name="MagicLabel" type="Label" parent="HUD/MagicBar"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -11.0
+offset_right = 121.0
+offset_bottom = 11.0
+grow_vertical = 2
 theme_override_constants/outline_size = 3
-text = "Stamina: 100"
+text = "Magic:    100"
 
 [node name="Crosshair" type="Control" parent="HUD"]
 layout_mode = 1
@@ -261,6 +299,7 @@ layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
+script = ExtResource("3_dqkch")
 
 [node name="TextureRect" type="TextureRect" parent="HUD/Inventory"]
 layout_mode = 1
@@ -301,3 +340,6 @@ grow_vertical = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 4
+
+[node name="InventoryHotbar" parent="HUD" instance=ExtResource("3_qhqgy")]
+layout_mode = 1
