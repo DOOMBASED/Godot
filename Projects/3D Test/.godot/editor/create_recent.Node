@@ -1,9 +1,10 @@
+CharacterBody3D
+CollisionShape3D
 VBoxContainer
 Node
 Node3D
 HBoxContainer
 CollisionShape2D
-CollisionShape3D
 Area3D
 Label
 MeshInstance3D
@@ -11,5 +12,3 @@ RigidBody3D
 ProgressBar
 Control
 Container
-CanvasLayer
-Node2D

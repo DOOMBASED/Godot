@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dh7k0pg5qexam" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_dxppu"]
 [ext_resource type="Script" uid="uid://eo5jpijsqo1k" path="res://scripts/world.gd" id="1_ko4od"]
-[ext_resource type="PackedScene" uid="uid://d6s5lddw7wv7" path="res://scenes/player.tscn" id="2_gy3sr"]
 [ext_resource type="Script" uid="uid://bv5xryj0wbe3m" path="res://scripts/global.gd" id="2_umbte"]
+[ext_resource type="PackedScene" uid="uid://cii4k83q305p4" path="res://scenes/player_test.tscn" id="2_ynswa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gy3sr"]
 size = Vector3(640, 2, 640)
@@ -28,12 +28,11 @@ size = Vector3(80, 1, 80)
 
 [node name="TestWorld" type="Node3D"]
 script = ExtResource("1_ko4od")
-items_to_spawn = 2000
 
 [node name="Global" type="Node" parent="."]
 script = ExtResource("2_umbte")
 
-[node name="Player" parent="." instance=ExtResource("2_gy3sr")]
+[node name="Player" parent="." instance=ExtResource("2_ynswa")]
 
 [node name="Ceiling" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 160, 0)

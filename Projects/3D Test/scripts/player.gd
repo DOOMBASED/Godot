@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export_group("Custom Values")
-@export var jump_speed: float = 4.0
+@export var jump_speed: float = 5.0
 @export var jump_drain: float = 4.0
 @export var walk_speed: float = 8.0
 @export var run_speed: float = 16.0
@@ -18,8 +18,9 @@ extends CharacterBody3D
 @export var idle: bool
 @export var walking: bool
 @export var running: bool
+@export var jumping: bool
 
-@onready var model = $Mesh
+@onready var model = %Skeleton
 @onready var hud = $HUD
 @onready var inventory = $HUD/Inventory
 @onready var camera_pivot1p = $CameraPivot1P
@@ -64,9 +65,7 @@ func _process(_delta: float) -> void:
 		position.y = position.y
 
 func _physics_process(delta: float) -> void:
-	if is_on_floor() == false:
-		velocity += get_gravity() * delta
-	check_positions()
+	check_positions(delta)
 	check_input()
 	push_pushables(delta)
 	check_raycast()
@@ -83,52 +82,6 @@ func _input(event):
 			rotate_y(deg_to_rad(-event.relative.x*mouse_sens))
 			camera_pivot3p.rotate_x(deg_to_rad(-event.relative.y*mouse_sens))
 			camera_pivot3p.rotation.x = clamp(camera_pivot3p.rotation.x, deg_to_rad(-60.0), deg_to_rad(60.0))
-
-func check_positions():
-	last_position = position
-	if camera == camera1p:
-		camera_pivot3p.rotation.x = clamp(camera_pivot1p.rotation.x, deg_to_rad(-60.0), deg_to_rad(60.0))
-	elif camera == camera3p:
-		camera_pivot1p.rotation.x = clamp(camera_pivot3p.rotation.x, deg_to_rad(-90.0), deg_to_rad(90.0))
-
-func check_input():
-	input_dir = Input.get_vector("left", "right", "up", "down")
-	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction && inventory.visible == false:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
-		walking = true
-		idle = false
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
-		walking = false
-		idle = true
-	if Input.is_action_pressed("run"):
-		if direction != Vector3.ZERO && last_position != position.round() && is_on_floor():
-			if stamina != 0 && stamina_cooldown == false:
-				running = true
-				walking = false
-				idle = false
-				speed = run_speed
-				last_position = position.round()
-			elif last_position == position.round() || stamina == 0:
-				Input.action_release("run")
-				running = false
-				walking = true
-				idle = false
-				speed = walk_speed
-				last_position = position.round()
-	if Input.is_action_just_released("run"):
-		speed = walk_speed
-		running = false
-		walking = true
-	if Input.is_action_just_pressed("autorun"):
-		Input.action_press("up")
-	if Input.is_action_just_pressed("jump") && inventory.visible == false && is_on_floor() :
-		if stamina_cooldown == false && stamina > 1:
-			velocity.y = jump_speed
-			stamina -= jump_drain
 	if Input.is_action_just_pressed("inventory"):
 		if looting == false:
 			if inventory.visible == false:
@@ -154,6 +107,81 @@ func check_input():
 			model.visible = false
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
+
+func check_positions(delta):
+	last_position = position
+	if is_on_floor() == false:
+		idle = false
+		walking = false
+		running = false
+		jumping = true
+		velocity += get_gravity() * delta
+	if is_on_floor() == true:
+		jumping = false
+	if camera == camera1p:
+		camera_pivot3p.rotation.x = clamp(camera_pivot1p.rotation.x, deg_to_rad(-60.0), deg_to_rad(60.0))
+	elif camera == camera3p:
+		camera_pivot1p.rotation.x = clamp(camera_pivot3p.rotation.x, deg_to_rad(-90.0), deg_to_rad(90.0))
+
+func check_input():
+	input_dir = Input.get_vector("left", "right", "up", "down")
+	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction && inventory.visible == false:
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
+		if is_on_floor():
+			walking = true
+		idle = false
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
+		walking = false
+		if !jumping:
+			idle = true
+	if Input.is_action_pressed("run"):
+		if direction != Vector3.ZERO && last_position != position.round() && is_on_floor():
+			if stamina != 0 && stamina_cooldown == false:
+				if is_on_floor():
+					running = true
+					jumping = false
+				walking = false
+				idle = false
+				speed = run_speed
+				last_position = position.round()
+			elif last_position == position.round() || stamina == 0 && is_on_floor():
+				Input.action_release("run")
+				running = false
+				if is_on_floor():
+					walking = true
+					jumping = false
+				idle = false
+				speed = walk_speed
+				last_position = position.round()
+	if Input.is_action_just_released("run") && is_on_floor():
+		speed = walk_speed
+		running = false
+		walking = true
+	if Input.is_action_just_pressed("autorun"):
+		Input.action_press("up")
+	if Input.is_action_just_pressed("jump") && inventory.visible == false && is_on_floor() :
+		idle = false
+		walking = false
+		if stamina_cooldown == false && stamina > 1:
+			if velocity.x == 0 and velocity.z == 0:
+				jumping = true
+				velocity.y = jump_speed
+				stamina -= jump_drain
+			elif velocity.x != 0 || velocity.z != 0:
+				jumping = true
+				running = false
+				velocity.y = jump_speed
+				stamina -= jump_drain
+	if velocity.y > jump_speed:
+			velocity.y = jump_speed
+	if velocity.x > run_speed:
+			velocity.x = run_speed
+	if velocity.z > run_speed:
+			velocity.z = run_speed
 	move_and_slide()
 
 func push_pushables(delta: float) -> void:
@@ -195,16 +223,18 @@ func check_stamina():
 	if stamina >= max_stamina:
 		stamina = max_stamina
 	if stamina <= max_stamina:
-		if running == false:
+		if get_tree().paused == false && running == false:
 			if stamina_cooldown == true:
 				hud.stamina_label.self_modulate = Color.RED
 				if stamina == 0:
-					await get_tree().create_timer(2.0).timeout
-				stamina += stamina_gain
+					await get_tree().create_timer(2.0, false).timeout
+					stamina = 0.1
+				if stamina > 0:
+					stamina += stamina_gain
 				if stamina > max_stamina / PI:
 					stamina_cooldown = false
 					hud.stamina_label.self_modulate = Color.WHITE
-			elif stamina_cooldown == false && get_tree().paused == false:
+			elif stamina_cooldown == false:
 				stamina += stamina_gain
 
 func heal_health(amount):

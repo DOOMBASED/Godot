@@ -6,11 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://biq8k4lj4jr4a" path="res://scenes/inventory_hotbar.tscn" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://dnmn5ppf7cgcm" path="res://scripts/hud.gd" id="3_qlg0r"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwpo4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qlg0r"]
 albedo_color = Color(0, 1, 1, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vd578"]
-material = SubResource("StandardMaterial3D_iwpo4")
+material = SubResource("StandardMaterial3D_qlg0r")
 radius = 0.33
 height = 3.0
 
@@ -42,27 +42,28 @@ corner_radius_top_right = 7
 corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
 
-[sub_resource type="Gradient" id="Gradient_iwpo4"]
+[sub_resource type="Gradient" id="Gradient_qlg0r"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(1, 1, 1, 0.784314)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fb3t6"]
-gradient = SubResource("Gradient_iwpo4")
+gradient = SubResource("Gradient_qlg0r")
 width = 2
 height = 15
 
-[sub_resource type="Gradient" id="Gradient_onrkg"]
+[sub_resource type="Gradient" id="Gradient_tuyoq"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 0.392157)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i3pqv"]
-gradient = SubResource("Gradient_onrkg")
+gradient = SubResource("Gradient_tuyoq")
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 process_mode = 3
 script = ExtResource("1_iwpo4")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Skeleton" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_vd578")
@@ -162,16 +163,13 @@ text = "Health:   100"
 
 [node name="StaminaBar" type="ProgressBar" parent="HUD"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1147.0
+offset_left = 5.0
 offset_top = -61.0
-offset_right = -891.0
+offset_right = 261.0
 offset_bottom = -35.0
-grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_g2els")
 value = 50.0
@@ -192,16 +190,13 @@ text = "Stamina:  100"
 
 [node name="MagicBar" type="ProgressBar" parent="HUD"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1147.0
+offset_left = 5.0
 offset_top = -31.0
-offset_right = -891.0
+offset_right = 261.0
 offset_bottom = -5.0
-grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_qlg0r")
 value = 50.0
@@ -319,8 +314,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -43.5
+offset_top = 8.0
 offset_right = 43.5
-offset_bottom = 22.0
+offset_bottom = 30.0
 grow_horizontal = 2
 text = "INVENTORY"
 
