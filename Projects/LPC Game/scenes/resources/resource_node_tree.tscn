@@ -17,7 +17,6 @@ loot = ExtResource("4_bn5uu")
 explosion_scene = ExtResource("5_cyxkb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
 texture = ExtResource("2_lebxu")
 region_enabled = true
 region_rect = Rect2(320, 32, 32, 64)

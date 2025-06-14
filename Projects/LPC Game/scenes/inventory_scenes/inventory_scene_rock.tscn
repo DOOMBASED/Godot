@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://ck02yfrvt8cqh"]
+
+[ext_resource type="Texture2D" uid="uid://bq35anxj85vjg" path="res://sprites/resources/rock.png" id="2_ahk4r"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7hijr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mu0qs"]
+size = Vector2(32, 32)
+
+[sub_resource type="Gradient" id="Gradient_atpat"]
+offsets = PackedFloat32Array(0.999, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0vxvn"]
+gradient = SubResource("Gradient_atpat")
+width = 26
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+z_index = -4094
+collision_layer = 0
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_7hijr")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mu0qs")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ahk4r")
+region_rect = Rect2(0, 0, 32, 32)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.392157)
+z_index = -4095
+position = Vector2(0, 5)
+texture = SubResource("GradientTexture2D_0vxvn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

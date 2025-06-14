@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5uxkwcnta2ew"]
+[gd_scene load_steps=10 format=3 uid="uid://c5uxkwcnta2ew"]
 
 [ext_resource type="Script" uid="uid://bdlhli6jcen0i" path="res://scripts/items/item_lootable.gd" id="1_u3il0"]
 [ext_resource type="Resource" uid="uid://csct8q1do2s" path="res://tres/items/resources/wood.tres" id="2_jit2y"]
 [ext_resource type="Texture2D" uid="uid://b5dwyacrbjtws" path="res://sprites/resources/wood.png" id="3_11a0o"]
 [ext_resource type="Resource" uid="uid://dvru87fowru31" path="res://tres/vars/stats/woodcutting.tres" id="3_umbrf"]
+[ext_resource type="PackedScene" uid="uid://dlvpnwvup02t5" path="res://scenes/inventory_items/inventory_item_wood.tscn" id="5_tsmrc"]
 
 [sub_resource type="Gradient" id="Gradient_11a0o"]
 offsets = PackedFloat32Array(0.999, 1)
@@ -18,14 +19,15 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jit2y"]
-size = Vector2(24, 15)
+size = Vector2(32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_11a0o"]
 radius = 64.0
 
-[node name="Lootable_Wood" type="Area2D" node_paths=PackedStringArray("loot_shape", "stats_shape", "shadow")]
+[node name="Lootable_Wood" type="Area2D" node_paths=PackedStringArray("loot_shape", "stats_shape", "shadow") groups=["Items", "Resource"]]
 z_index = -4094
 script = ExtResource("1_u3il0")
+inventory_item = ExtResource("5_tsmrc")
 resource_type = ExtResource("2_jit2y")
 stats_type = ExtResource("3_umbrf")
 loot_shape = NodePath("LootShape")
@@ -35,24 +37,20 @@ shadow = NodePath("Shadow")
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.392157)
 z_index = -4095
-texture_filter = 1
 position = Vector2(0, 5)
 texture = SubResource("GradientTexture2D_11a0o")
 
 [node name="LootShape" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_jit2y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -4096
-texture_filter = 1
 texture = ExtResource("3_11a0o")
 region_rect = Rect2(196, 105, 24, 22)
 
 [node name="Lootable_Stats" type="Area2D" parent="."]
 
 [node name="StatsShape" type="CollisionShape2D" parent="Lootable_Stats"]
-visible = false
 shape = SubResource("CircleShape2D_11a0o")
 
 [connection signal="body_entered" from="Lootable_Stats" to="." method="_on_lootable_stats_body_entered"]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bs7wb8b1agmbg"]
+
+[ext_resource type="Script" uid="uid://cre84pt75w18b" path="res://scripts/interface/inventory/inventory_item.gd" id="1_2gb50"]
+[ext_resource type="Texture2D" uid="uid://dykma5ans0kdh" path="res://sprites/items/potion_blue.png" id="2_2gb50"]
+[ext_resource type="PackedScene" uid="uid://cugiuj1vnw1jp" path="res://scenes/inventory_scenes/inventory_scene_magic.tscn" id="3_2u7l5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2l0x4"]
+radius = 32.0
+
+[node name="InventoryItem" type="Node2D" groups=["Items"]]
+script = ExtResource("1_2gb50")
+item_name = "Magic"
+item_type = "Consumable"
+item_effect = "Magic"
+effect_magnitude = 15
+item_texture = ExtResource("2_2gb50")
+item_scene = ExtResource("3_2u7l5")
+spawn_chance = 0.25
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_2l0x4")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

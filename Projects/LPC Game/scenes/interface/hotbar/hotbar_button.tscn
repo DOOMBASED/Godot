@@ -1,78 +1,74 @@
-[gd_scene load_steps=8 format=3 uid="uid://b63giumoaqmg2"]
+[gd_scene load_steps=5 format=3 uid="uid://b63giumoaqmg2"]
 
+[ext_resource type="FontFile" uid="uid://duujpyh00pie6" path="res://fonts/JetBrainsMono-Regular.ttf" id="2_0nabh"]
 [ext_resource type="Script" uid="uid://cv1njefyljpik" path="res://scripts/interface/hotbar/hotbar_button.gd" id="2_h14t1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xevv8"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2xlx1"]
-size = Vector2(32, 32)
-
-[sub_resource type="Gradient" id="Gradient_xevv8"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 0.392157)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_h14t1"]
-gradient = SubResource("Gradient_xevv8")
-width = 36
-height = 36
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_0nabh"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_g680k"]
-gradient = SubResource("Gradient_0nabh")
-width = 37
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oh147"]
 
 [node name="ItemButton" type="Button"]
-texture_filter = 1
-offset_left = -1.0
-offset_top = -38.0
-offset_right = 39.0
-offset_bottom = 2.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -48.0
+offset_right = 24.0
+grow_horizontal = 2
+grow_vertical = 0
 pivot_offset = Vector2(20, 36)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xevv8")
-icon = SubResource("PlaceholderTexture2D_2xlx1")
 flat = true
 script = ExtResource("2_h14t1")
 
-[node name="ButtonLabel" type="Label" parent="."]
+[node name="OuterBorder" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 3.0
-offset_top = -20.0
-offset_right = 13.0
-offset_bottom = -3.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="InnerBorder" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="ItemIcon" type="TextureRect" parent="InnerBorder"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.071
+anchor_top = -0.071
+anchor_right = -0.071
+anchor_bottom = -0.071
+offset_left = 7.982
+offset_top = 10.982
+offset_right = 39.982
+offset_bottom = 42.982
+texture = SubResource("CompressedTexture2D_oh147")
+
+[node name="ButtonLabel" type="Label" parent="InnerBorder"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -18.5
+offset_top = -2.0
+offset_right = 18.5
+offset_bottom = 15.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_0nabh")
 theme_override_font_sizes/font_size = 12
-text = "0"
-
-[node name="Sprite2D1" type="Sprite2D" parent="."]
-z_index = -1
-texture_filter = 1
-position = Vector2(20, 20)
-texture = SubResource("GradientTexture2D_h14t1")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D1"]
-position = Vector2(0, -18)
-texture = SubResource("GradientTexture1D_g680k")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D1"]
-position = Vector2(0, 18)
-texture = SubResource("GradientTexture1D_g680k")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Sprite2D1"]
-position = Vector2(18, 0)
-rotation = 1.5708
-texture = SubResource("GradientTexture1D_g680k")
-
-[node name="Sprite2D5" type="Sprite2D" parent="Sprite2D1"]
-position = Vector2(-18, 0)
-rotation = 1.5708
-texture = SubResource("GradientTexture1D_g680k")
+text = "ALT 0"

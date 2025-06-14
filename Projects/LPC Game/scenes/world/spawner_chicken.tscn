@@ -11,7 +11,6 @@ scenes = Array[PackedScene]([ExtResource("2_g0r0f")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 0, 0.588235)
-texture_filter = 1
 texture = ExtResource("3_16f8j")
 region_enabled = true
 region_rect = Rect2(32, 64, 32, 32)

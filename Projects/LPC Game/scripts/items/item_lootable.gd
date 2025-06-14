@@ -1,6 +1,7 @@
 class_name LootableItem
 extends Area2D
 
+@export var inventory_item: PackedScene
 @export var resource_type: ResourceNodeItem
 @export var stats_type: ResourceStats
 @export var loot_shape: CollisionShape2D
@@ -9,7 +10,6 @@ extends Area2D
 @export var loot_amount: int = 1
 @export var xp_amount: int = 2
 
-var inventory
 var stats
 var launch_velocity = Vector2.ZERO
 var launch_duration = 0.0
@@ -24,13 +24,13 @@ var launching = false:
 func _ready():
 	connect("body_entered", _on_body_entered)
 
-func _physics_process(delta):
+func _process(delta):
 	check_launch(delta)
 
 func _on_body_entered(body):
-	inventory = body.find_child("Inventory")
-	if inventory:
-		inventory.add_resources(resource_type, loot_amount)
+	if body.is_in_group("player"):
+		var instance = inventory_item.instantiate()
+		instance.pickup_item()
 		queue_free()
 
 func check_launch(delta):

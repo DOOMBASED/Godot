@@ -25,7 +25,6 @@ explosion_scene = ExtResource("5_83le5")
 shape = SubResource("CapsuleShape2D_r2dii")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
 texture = ExtResource("1_i31a0")
 region_enabled = true
 region_rect = Rect2(352, 32, 32, 32)

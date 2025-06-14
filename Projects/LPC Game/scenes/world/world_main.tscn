@@ -1,5 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://delo47ow5upag"]
+[gd_scene load_steps=11 format=3 uid="uid://delo47ow5upag"]
 
+[ext_resource type="Script" uid="uid://cctp1qa1wrvn4" path="res://scripts/world_main.gd" id="1_bvpb0"]
+[ext_resource type="PackedScene" uid="uid://7hsphppq6cdl" path="res://scenes/world/spawner_items.tscn" id="2_5t3wf"]
 [ext_resource type="PackedScene" uid="uid://c6vp68hxda0d2" path="res://scenes/world/spawner_forest.tscn" id="2_l3u84"]
 [ext_resource type="PackedScene" uid="uid://c73xloqro5cq2" path="res://scenes/characters/player.tscn" id="2_qv2nv"]
 [ext_resource type="PackedScene" uid="uid://bas8o5nh3vma7" path="res://scenes/interface/camera.tscn" id="3_uumr1"]
@@ -8,10 +10,102 @@
 [ext_resource type="PackedScene" uid="uid://bigpga3rq5ho1" path="res://scenes/characters/evil_chicken.tscn" id="5_c0qgv"]
 [ext_resource type="PackedScene" uid="uid://vnd77mfg51tg" path="res://scenes/world/test.tscn" id="5_l3u84"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bvpb0"]
+size = Vector2(250, 250)
+
 [node name="World" type="Node2D"]
+script = ExtResource("1_bvpb0")
 metadata/_edit_lock_ = true
 
+[node name="Player" parent="." instance=ExtResource("2_qv2nv")]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
 [node name="Test" parent="." instance=ExtResource("5_l3u84")]
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Spawner_Items01" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-24, -144)
+
+[node name="Spawner_Items02" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-72, -144)
+
+[node name="Spawner_Items03" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-120, -144)
+
+[node name="Spawner_Items04" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-168, -144)
+
+[node name="Spawner_Items05" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-216, -144)
+
+[node name="Spawner_Items06" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-24, -184)
+
+[node name="Spawner_Items07" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-72, -184)
+
+[node name="Spawner_Items08" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-120, -184)
+
+[node name="Spawner_Items09" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-168, -184)
+
+[node name="Spawner_Items10" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-216, -184)
+
+[node name="Spawner_Items11" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-24, -224)
+
+[node name="Spawner_Items12" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-72, -224)
+
+[node name="Spawner_Items13" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-120, -224)
+
+[node name="Spawner_Items14" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-168, -224)
+
+[node name="Spawner_Items15" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-216, -224)
+
+[node name="Spawner_Items16" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-24, -264)
+
+[node name="Spawner_Items17" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-72, -264)
+
+[node name="Spawner_Items18" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-120, -264)
+
+[node name="Spawner_Items19" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-168, -264)
+
+[node name="Spawner_Items20" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-216, -264)
+
+[node name="Spawner_Items21" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-24, -304)
+
+[node name="Spawner_Items22" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-72, -304)
+
+[node name="Spawner_Items23" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-120, -304)
+
+[node name="Spawner_Items24" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-168, -304)
+
+[node name="Spawner_Items25" parent="Items" instance=ExtResource("2_5t3wf")]
+position = Vector2(-216, -304)
+
+[node name="SpawnArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(-100, -200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnArea"]
+shape = SubResource("RectangleShape2D_bvpb0")
 
 [node name="Spawners" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
@@ -3689,7 +3783,6 @@ position = Vector2(-872, -4448)
 position = Vector2(-360, -4448)
 
 [node name="Spawner_Chicken8" parent="Chicken Spawners" instance=ExtResource("5_18cee")]
-visible = false
 position = Vector2(152, -4448)
 
 [node name="Spawner_Chicken9" parent="Chicken Spawners" instance=ExtResource("5_18cee")]
@@ -3833,7 +3926,3 @@ position = Vector2(-72, -48)
 [node name="Camera" parent="." instance=ExtResource("3_uumr1")]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
-
-[node name="Player" parent="." instance=ExtResource("2_qv2nv")]
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true

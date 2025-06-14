@@ -14,26 +14,22 @@ modulate = Color(1, 1, 1, 0.392157)
 position = Vector2(96, -96)
 
 [node name="Down" type="TouchScreenButton" parent="Buttons"]
-texture_filter = 1
 position = Vector2(-32, 21)
 texture_normal = ExtResource("1_kcldg")
 passby_press = true
 action = "down"
 
 [node name="Left" type="TouchScreenButton" parent="Buttons"]
-texture_filter = 1
 position = Vector2(-96, -32)
 texture_normal = ExtResource("2_3ye67")
 action = "left"
 
 [node name="Right" type="TouchScreenButton" parent="Buttons"]
-texture_filter = 1
 position = Vector2(16, -32)
 texture_normal = ExtResource("3_c8cyp")
 action = "right"
 
 [node name="Up" type="TouchScreenButton" parent="Buttons"]
-texture_filter = 1
 position = Vector2(-32, -96)
 texture_normal = ExtResource("4_bcirg")
 action = "up"

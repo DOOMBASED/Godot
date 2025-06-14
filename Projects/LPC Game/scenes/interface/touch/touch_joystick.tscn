@@ -39,6 +39,5 @@ texture_filter = 1
 texture = SubResource("GradientTexture2D_q4mca")
 
 [node name="Stick" type="Sprite2D" parent="Node2D"]
-texture_filter = 1
 texture = SubResource("GradientTexture2D_rneuc")
 script = ExtResource("1_q4mca")

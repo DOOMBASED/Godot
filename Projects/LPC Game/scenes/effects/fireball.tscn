@@ -31,11 +31,9 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 radius = 8.0
 
 [node name="Fireball" type="Area2D"]
-texture_filter = 1
 script = ExtResource("1_puvod")
 
 [node name="Particles" type="CPUParticles2D" parent="."]
-texture_filter = 1
 amount = 60
 texture = SubResource("GradientTexture2D_puvod")
 preprocess = 0.5

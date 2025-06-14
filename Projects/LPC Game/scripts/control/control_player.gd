@@ -21,14 +21,15 @@ extends CharacterBody2D
 @onready var animation_tree = $AnimationTree
 @onready var follow_camera = $"../Camera"
 @onready var interface = $Interface
-@onready var fps_label = $Interface/FPSLabel
+@onready var inventory = $Interface/HUD/InventoryUI
+@onready var fps_label = $Interface/HUD/FPSLabel/Label
 @onready var hand = $Hand
 @onready var projectile_origin = $ProjectileOrigin
-@onready var health_bar = $Interface/HealthBars/Health
+@onready var health_bar = $Interface/HUD/HealthBars/Health
 @onready var health_label = health_bar.get_child(0)
-@onready var stamina_bar = $Interface/HealthBars/Stamina
+@onready var stamina_bar = $Interface/HUD/HealthBars/Stamina
 @onready var stamina_label: = stamina_bar.get_child(0)
-@onready var magic_bar = $Interface/HealthBars/Magic
+@onready var magic_bar = $Interface/HUD/HealthBars/Magic
 @onready var magic_label = magic_bar.get_child(0)
 
 const FIREBALL = preload("res://scenes/effects/fireball.tscn")
@@ -44,10 +45,23 @@ var magic = max_magic
 var stamina_cooldown = false
 var magic_cooldown = false
 
+var looting = false
+
+var should_use = false
+
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Global.set_player(self)
 	interface.visible = true
 
 func _process(_delta):
+	if inventory.visible == true:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+		get_tree().paused = true
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_tree().paused = false
+
 	check_health()
 	check_stamina()
 	check_magic()
@@ -57,10 +71,12 @@ func _physics_process(_delta):
 	check_input()
 	animate_bars()
 	camera_follow()
-	move_and_slide()
+	if get_tree().paused == false:
+		move_and_slide()
 
 func check_input():
-	direction = Input.get_vector("left", "right", "up", "down").normalized()
+	if get_tree().paused == false:
+		direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if Input.is_action_pressed("run"):
 		if direction != Vector2.ZERO && last_position != position.round():
 			if stamina != 0 && stamina_cooldown == false:
@@ -81,6 +97,8 @@ func check_input():
 			if hand.equipped_item.display_name == "Fireball" && magic >= magic_drain:
 				if magic_cooldown == false:
 					shoot_fireball()
+	if Input.is_action_just_pressed("inventory"):
+		open_inventory()
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("show_fps"):
@@ -90,6 +108,18 @@ func check_input():
 			fps_label.visible = false
 	if fps_label.visible == true:
 		fps_label.text = str(Engine.get_frames_per_second())
+
+func open_inventory():
+		if looting == false:
+			if inventory.visible == false:
+				Global.inventory_updated.emit()
+				inventory.visible = true
+				get_tree().paused = true
+				animation_tree.active = false
+			elif inventory.visible == true:
+				inventory.visible = false
+				get_tree().paused = false
+				animation_tree.active = true
 
 func check_health():
 	health_bar.value = health
@@ -117,7 +147,7 @@ func check_stamina():
 	if stamina > max_stamina:
 		stamina = max_stamina
 	if stamina < max_stamina:
-		if running == false:
+		if get_tree().paused == false && running == false:
 			if stamina_cooldown == true:
 				stamina_label.self_modulate = Color.RED
 				if stamina == 0:
@@ -161,11 +191,6 @@ func shoot_fireball():
 		await get_tree().create_timer(1.0).timeout
 		magic_cooldown = false
 
-func damage_health(damage):
-	health -= damage
-	if health < 0:
-		health = 0
-
 func camera_follow():
 	last_direction = direction
 	if last_direction != direction:
@@ -174,6 +199,81 @@ func camera_follow():
 		position.x = round(position.x)
 		position.y = round(position.y)
 	follow_camera.position = position
+
+func heal_health(amount):
+	if health < max_health:
+		health += amount
+		if health > max_health:
+			health = max_health
+
+func damage_health(amount):
+	if health > 0:
+		health -= amount
+
+func heal_stamina(amount):
+	if stamina < max_stamina:
+		stamina += amount
+		if stamina > max_stamina:
+			stamina = max_stamina
+
+func damage_stamina(amount):
+	if stamina > 0:
+		stamina -= amount
+
+func heal_magic(amount):
+	if magic < max_magic:
+		magic += amount
+		if magic > max_magic:
+			magic = max_magic
+
+func damage_magic(amount):
+	if magic > 0:
+		magic -= amount
+
+func apply_item_effect(item):
+	should_use = false
+	match item["effect"]:
+		"Health":
+			if health >= max_health:
+				print("")
+				print("Already at max Health.")
+			else:
+				should_use = true
+				heal_health(item["magnitude"])
+				print("Healed " + str(item["magnitude"]) + " HP")
+		"Stamina":
+			if stamina >= max_stamina:
+				print("")
+				print("Already at max Stamina.")
+			else:
+				should_use = true
+				heal_stamina(item["magnitude"])
+				print("Healed " + str(item["magnitude"]) + " Stamina")
+		"Magic":
+			if magic >= max_magic:
+				print("")
+				print("Already at max Magic.")
+			else:
+				should_use = true
+				heal_magic(item["magnitude"])
+				print("Healed " + str(item["magnitude"]) + " MP")
+		"Inventory":
+			if Global.inventory.size() >= Global.inventory_max:
+				print("")
+				print("Already at max Inventory capacity.")
+			else:
+				should_use = true
+				Global.increase_inventory_size(item["magnitude"])
+				print("")
+				print("Inventory Slots +" + str(item["magnitude"]))
+		"Damage":
+			should_use = true
+			damage_health(item["magnitude"])
+			print("")
+			print("Damaged " + str(item["magnitude"]) + " HP")
+		_:
+			print("")
+			print("This item has no effect")
 
 func animation_parameters():
 	if velocity == Vector2.ZERO || last_position == position.round():

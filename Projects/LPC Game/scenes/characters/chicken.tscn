@@ -400,12 +400,10 @@ shape = SubResource("CircleShape2D_45guq")
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.392157)
 z_index = -4095
-texture_filter = 1
 position = Vector2(0, 10)
 texture = SubResource("GradientTexture2D_kqtwu")
 
 [node name="Body" type="Sprite2D" parent="."]
-texture_filter = 1
 texture = ExtResource("2_45guq")
 hframes = 3
 vframes = 4

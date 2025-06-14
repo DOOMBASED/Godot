@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://c73xloqro5cq2"]
+[gd_scene load_steps=65 format=3 uid="uid://c73xloqro5cq2"]
 
 [ext_resource type="Script" uid="uid://d4b23ee0xgp8b" path="res://scripts/control/control_player.gd" id="1_atpat"]
 [ext_resource type="Texture2D" uid="uid://bcxmq3kqn36be" path="res://sprites/characters/player/backslash.png" id="1_yewv4"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cn6y8e7mulwro" path="res://sprites/characters/player/walk.png" id="4_atpat"]
 [ext_resource type="Texture2D" uid="uid://mj5slfxqcwgj" path="res://sprites/characters/player/run.png" id="5_qgnko"]
 [ext_resource type="Script" uid="uid://db1170lxybr2p" path="res://scripts/control/control_hand.gd" id="6_kqtwu"]
-[ext_resource type="Script" uid="uid://df5vtfv1ohtq2" path="res://scripts/interface/inventory/inventory.gd" id="7_eojnx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgnko"]
 radius = 12.0
@@ -2932,6 +2931,7 @@ fill_to = Vector2(1, 0.5)
 radius = 7.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+process_mode = 3
 motion_mode = 1
 script = ExtResource("1_atpat")
 
@@ -2940,12 +2940,10 @@ position = Vector2(0, 16)
 shape = SubResource("CapsuleShape2D_qgnko")
 
 [node name="Interface" parent="." instance=ExtResource("2_7vyk4")]
+visible = false
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_jk2m4")
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource("7_eojnx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -2967,19 +2965,16 @@ parameters/Walk/blend_position = Vector2(0, 0)
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.392157)
 z_index = -4095
-texture_filter = 1
 position = Vector2(0, 28)
 texture = SubResource("GradientTexture2D_kqtwu")
 
 [node name="Body" type="Sprite2D" parent="."]
-texture_filter = 1
 texture = ExtResource("3_dyp2m")
 hframes = 2
 vframes = 4
 frame = 4
 
 [node name="Hand" type="Sprite2D" parent="."]
-texture_filter = 1
 position = Vector2(-18, 3)
 rotation = 0.872665
 region_rect = Rect2(32, 16, 32, 32)

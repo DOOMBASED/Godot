@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cghcjxamkwaqs"]
+
+[ext_resource type="Script" uid="uid://cre84pt75w18b" path="res://scripts/interface/inventory/inventory_item.gd" id="1_hvpnc"]
+[ext_resource type="Texture2D" uid="uid://cxtv1rit6bcrm" path="res://sprites/items/potion_yellow.png" id="2_hvpnc"]
+[ext_resource type="PackedScene" uid="uid://c1ejdcq3hs5sc" path="res://scenes/inventory_scenes/inventory_scene_bag.tscn" id="3_ddx45"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2l0x4"]
+radius = 32.0
+
+[node name="InventoryItem" type="Node2D" groups=["Items"]]
+script = ExtResource("1_hvpnc")
+item_name = "Slots+"
+item_type = "Consumable"
+item_effect = "Inventory"
+effect_magnitude = 1
+item_texture = ExtResource("2_hvpnc")
+item_scene = ExtResource("3_ddx45")
+spawn_chance = 0.25
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_2l0x4")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

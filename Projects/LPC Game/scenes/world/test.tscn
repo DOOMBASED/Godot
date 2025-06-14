@@ -5,12 +5,3 @@
 [node name="Test" instance=ExtResource("1_yokrj")]
 z_index = -4096
 position = Vector2(-2608, -5728)
-
-[node name="Water" parent="." index="0"]
-collision_enabled = false
-
-[node name="Grass" parent="." index="2"]
-collision_enabled = false
-
-[node name="Dirt" parent="." index="4"]
-collision_enabled = false

@@ -4,15 +4,16 @@ extends Button
 @export var item: ResourceItem:
 	set(item_to_slot):
 		item = item_to_slot
-		icon = item.display_texture
 
-@onready var button_label = $ButtonLabel
+@onready var button_label = $InnerBorder/ButtonLabel
+@onready var sprite = $InnerBorder/ItemIcon
 
 var hand
 var index
 
 func _ready():
-	button_label.text = name
+	button_label.text = "ALT " + name
+	sprite.texture = item.display_texture
 	connect("pressed", _on_pressed)
 
 func _process(_delta):
@@ -31,7 +32,7 @@ func hotkey_check():
 		if item is ItemEquipment:
 			if hand != null:
 				index = str(self.get_index() + 1)
-				button_label.text = index
+				button_label.text =  "ALT " + index
 				if hand != null && Input.is_action_just_pressed(index):
 					hand.equipped_item = item
 	if Input.is_action_just_pressed("unequip"):
