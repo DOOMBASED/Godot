@@ -1,41 +1,16 @@
 extends Node
 
 @export var inventory_max = 32
-@export var hotbar_size = 10
+@export var hotbar_size = 9
 @export var inventory = []
 @export var hotbar_inventory = []
-@export var spawnable_items = [
-	{"name": "Potion", 
-	"type": "Consumable", 
-	"effect": "Health", 
-	"magnitude": 15, 
-	"texture": preload("res://sprites/items/potion_red.png"), 
-	"scene": preload("res://scenes/inventory_scenes/inventory_scene_potion.tscn"), 
-	},
-	
-	{"name": "Energy", 
-	"type": "Consumable", 
-	"effect": "Stamina", 
-	"magnitude": 15, 
-	"texture": preload("res://sprites/items/potion_green.png"), 
-	"scene": preload("res://scenes/inventory_scenes/inventory_scene_stamina.tscn"), 
-	},
-	
-	{"name": "Magic", 
-	"type": "Consumable", 
-	"effect": "Magic", 
-	"magnitude": 15, 
-	"texture": preload("res://sprites/items/potion_blue.png"), 
-	"scene": preload("res://scenes/inventory_scenes/inventory_scene_magic.tscn"), 
-	},
-	
-	{"name": "Slots+", 
-	"type": "Consumable", 
-	"effect": "Inventory", 
-	"magnitude": 1, 
-	"texture": preload("res://sprites/items/potion_yellow.png"), 
-	"scene": preload("res://scenes/inventory_scenes/inventory_scene_bag.tscn"), 
-	},
+@export var spawnable_items: Array[Resource] = [
+	preload("res://tres/items/consumable/energy.tres"),
+	preload("res://tres/items/consumable/magic.tres"),
+	preload("res://tres/items/consumable/potion.tres"),
+	preload("res://tres/items/consumable/slot+.tres"),
+	preload("res://tres/items/resources/rock.tres"),
+	preload("res://tres/items/resources/wood.tres"),
 ]
 
 @onready var inventory_slot_scene = preload("res://scenes/interface/inventory/inventory_slot.tscn")

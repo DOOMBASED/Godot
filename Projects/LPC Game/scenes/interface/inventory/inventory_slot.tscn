@@ -77,6 +77,28 @@ offset_bottom = 14.0
 theme_override_font_sizes/font_size = 12
 text = "000"
 
+[node name="KeyLabel" type="Label" parent="InnerBorder"]
+visible = false
+layout_mode = 0
+offset_left = 26.0
+offset_top = -2.0
+offset_right = 41.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "00"
+horizontal_alignment = 2
+
+[node name="ItemQuantitySmall" type="Label" parent="InnerBorder"]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_top = 30.0
+offset_right = 19.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 10
+text = "000"
+
 [node name="ItemButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15

@@ -7,6 +7,8 @@ extends Control
 @onready var item_effect = $DetailsPanel/ItemEffect
 @onready var icon = $InnerBorder/ItemIcon
 @onready var quantity_label = $InnerBorder/ItemQuantity
+@onready var quantity_small = $InnerBorder/ItemQuantitySmall
+@onready var key_label = $InnerBorder/KeyLabel
 @onready var details_panel = $DetailsPanel
 @onready var usage_panel = $UsagePanel
 @onready var outer_border = $OuterBorder
@@ -30,6 +32,7 @@ func set_empty():
 	item_button.mouse_filter = MOUSE_FILTER_PASS
 	icon.texture = null
 	quantity_label.text = ""
+	quantity_small.text = ""
 
 func set_item(new_item):
 	outer_border.modulate = Color.BLACK
@@ -38,6 +41,7 @@ func set_item(new_item):
 	scene = item["scene"]
 	icon.texture = new_item["texture"]
 	quantity_label.text = str(item["quantity"])
+	quantity_small.text = str(item["quantity"])
 	item_name.text = str(item["name"])
 	item_type.text = str(item["type"])
 	if item["effect"] != "":

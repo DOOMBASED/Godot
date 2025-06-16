@@ -28,6 +28,10 @@ func _update_hotbar_ui():
 			slot.set_item(Global.hotbar_inventory[i])
 		else:
 			slot.set_empty()
+		slot.key_label.visible = true
+		slot.quantity_small.visible = true
+		slot.quantity_label.visible = false
+		slot.key_label.text = str(i + 1)
 		slot.update_assignment()
 
 func clear_hotbar_container():

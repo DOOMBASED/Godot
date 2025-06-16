@@ -20,7 +20,7 @@ var explosion_instance
 func _ready():
 	if evil == true:
 		damage_collision = $DamageCollision
-	if evil == false:
+	elif evil == false:
 		direction_timer = $DirectionTimer
 		idle_timer = $IdleTimer
 

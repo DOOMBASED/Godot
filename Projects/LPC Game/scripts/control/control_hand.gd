@@ -4,7 +4,7 @@ extends Sprite2D
 @export var equipped_item: ItemEquipment:
 	set(next_equipped):
 		equipped_item = next_equipped
-		if next_equipped != null && next_equipped.is_displayed != true:
+		if next_equipped != null && next_equipped.is_displayed == true:
 			texture = equipped_item.display_texture
 		else:
 			texture = null

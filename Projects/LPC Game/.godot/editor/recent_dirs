@@ -1,9 +1,13 @@
+res://scripts/interface/inventory
+res://tres/items/consumable
+res://scripts
+res://fonts
+C:/Users/DOOM/Downloads
+C:/Program Files/rcedit
+res://tres/textures
 res://scenes/world
 res://scripts/nodes
-res://scripts/interface/inventory
 res://scenes/lootables
-res://scripts
-res://scenes/items
 res://scripts/interface/hotbar
 res://scenes/interface/hotbar
 res://scenes/interface/inventory
@@ -11,7 +15,6 @@ res://sprites/tiles
 res://tres/types/spells
 res://sprites
 res://
-C:/Users/DOOM/Downloads
 res://tres/items/spells
 res://addons
 res://scenes/effects

@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bvkqi5u3dmy2n" path="res://tres/items/resources/rock.tres" id="2_152fn"]
 [ext_resource type="Texture2D" uid="uid://bq35anxj85vjg" path="res://sprites/resources/rock.png" id="3_152fn"]
 [ext_resource type="Resource" uid="uid://q66geeblakk2" path="res://tres/vars/stats/mining.tres" id="3_psp0f"]
-[ext_resource type="PackedScene" uid="uid://kqbf7vvtc417" path="res://scenes/inventory_items/inventory_item_rock.tscn" id="6_tkkh1"]
+[ext_resource type="PackedScene" uid="uid://kqbf7vvtc417" path="res://scenes/items_inventory/item_inventory_rock.tscn" id="6_tkkh1"]
 
 [sub_resource type="Gradient" id="Gradient_psp0f"]
 offsets = PackedFloat32Array(0.999, 1)

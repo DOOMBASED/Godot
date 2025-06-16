@@ -5,7 +5,7 @@ extends ItemEquipment
 @export var min_amount: int = 1
 @export var max_amount: int = 1
 
-var is_displayed = false
+var is_displayed = true
 
 func interact(body):
 	for type in valid_node_types:

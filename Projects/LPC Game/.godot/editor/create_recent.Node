@@ -1,14 +1,14 @@
+RigidBody2D
+Node2D
+Node
 Sprite2D
 Control
 ColorRect
-Node2D
 CollisionShape2D
 Area2D
 TextureRect
 VBoxContainer
 HBoxContainer
-RigidBody2D
 CanvasLayer
 Label
 CPUParticles2D
-MarginContainer

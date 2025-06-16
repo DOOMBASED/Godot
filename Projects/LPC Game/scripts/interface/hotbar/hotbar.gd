@@ -10,3 +10,8 @@ func _ready():
 		hand = player.find_child("Hand")
 		for button in self.get_children():
 			button.hand = hand
+
+func _input(_event: InputEvent) -> void:
+	if Input.get_vector("1","2","3","unequip"):
+		for button in self.get_children():
+			button.find_child("OuterBorder").modulate = Color.BLACK

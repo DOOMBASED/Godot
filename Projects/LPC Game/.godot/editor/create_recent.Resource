@@ -1,2 +1,3 @@
+ResourceConsumableItem
 SpellType
 EquipmentSpell

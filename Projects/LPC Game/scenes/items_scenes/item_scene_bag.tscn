@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1ejdcq3hs5sc"]
+
+[ext_resource type="Script" uid="uid://31mcki2sfc4e" path="res://scripts/interface/inventory/item_scene.gd" id="1_01ho4"]
+[ext_resource type="Texture2D" uid="uid://cxtv1rit6bcrm" path="res://sprites/items/potion_yellow.png" id="2_isjrw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7hijr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d2y7s"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="Gradient" id="Gradient_d2y7s"]
+offsets = PackedFloat32Array(0.999, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8b5wg"]
+gradient = SubResource("Gradient_d2y7s")
+width = 26
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="ItemScene" type="RigidBody2D"]
+z_index = -4094
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_7hijr")
+script = ExtResource("1_01ho4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_d2y7s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_isjrw")
+region_rect = Rect2(0, 0, 50, 91)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.392157)
+z_index = -4095
+position = Vector2(0, 10)
+texture = SubResource("GradientTexture2D_8b5wg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

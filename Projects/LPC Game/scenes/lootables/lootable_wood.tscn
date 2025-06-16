@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://csct8q1do2s" path="res://tres/items/resources/wood.tres" id="2_jit2y"]
 [ext_resource type="Texture2D" uid="uid://b5dwyacrbjtws" path="res://sprites/resources/wood.png" id="3_11a0o"]
 [ext_resource type="Resource" uid="uid://dvru87fowru31" path="res://tres/vars/stats/woodcutting.tres" id="3_umbrf"]
-[ext_resource type="PackedScene" uid="uid://dlvpnwvup02t5" path="res://scenes/inventory_items/inventory_item_wood.tscn" id="5_tsmrc"]
+[ext_resource type="PackedScene" uid="uid://dlvpnwvup02t5" path="res://scenes/items_inventory/item_inventory_wood.tscn" id="5_tsmrc"]
 
 [sub_resource type="Gradient" id="Gradient_11a0o"]
 offsets = PackedFloat32Array(0.999, 1)

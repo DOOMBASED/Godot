@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="ResourceNodeItem" load_steps=3 format=3 uid="uid://bvkqi5u3dmy2n"]
+[gd_resource type="Resource" script_class="ResourceNodeItem" load_steps=4 format=3 uid="uid://bvkqi5u3dmy2n"]
 
+[ext_resource type="PackedScene" uid="uid://ck02yfrvt8cqh" path="res://scenes/items_scenes/item_scene_rock.tscn" id="1_edqci"]
 [ext_resource type="Script" uid="uid://dsvio5j2d68ia" path="res://scripts/types/resource_node_item.gd" id="1_j2n7g"]
 [ext_resource type="Texture2D" uid="uid://bq35anxj85vjg" path="res://sprites/resources/rock.png" id="1_wytvk"]
 
 [resource]
 script = ExtResource("1_j2n7g")
-display_name = "Rock"
-display_texture = ExtResource("1_wytvk")
+name = "Rock"
+type = "Resource"
+effect = "Rock"
+magnitude = 1
+texture = ExtResource("1_wytvk")
+scene = ExtResource("1_edqci")
+spawn_chance = 0.25
 metadata/_custom_type_script = "uid://dsvio5j2d68ia"

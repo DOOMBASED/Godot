@@ -61,7 +61,6 @@ value = 100.0
 texture_under = SubResource("GradientTexture2D_yj408")
 texture_progress = SubResource("GradientTexture2D_fb0ou")
 texture_progress_offset = Vector2(2, 2)
-metadata/_edit_group_ = true
 
 [node name="Value" type="Label" parent="Health"]
 layout_mode = 1
@@ -101,7 +100,6 @@ value = 100.0
 texture_under = SubResource("GradientTexture2D_yj408")
 texture_progress = SubResource("GradientTexture2D_765iq")
 texture_progress_offset = Vector2(2, 2)
-metadata/_edit_group_ = true
 
 [node name="Value" type="Label" parent="Stamina"]
 layout_mode = 1
@@ -141,7 +139,6 @@ value = 100.0
 texture_under = SubResource("GradientTexture2D_yj408")
 texture_progress = SubResource("GradientTexture2D_kud8g")
 texture_progress_offset = Vector2(2, 2)
-metadata/_edit_group_ = true
 
 [node name="Value" type="Label" parent="Magic"]
 layout_mode = 1

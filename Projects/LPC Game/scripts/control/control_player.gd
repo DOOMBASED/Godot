@@ -61,7 +61,6 @@ func _process(_delta):
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_tree().paused = false
-
 	check_health()
 	check_stamina()
 	check_magic()
@@ -110,16 +109,16 @@ func check_input():
 		fps_label.text = str(Engine.get_frames_per_second())
 
 func open_inventory():
-		if looting == false:
-			if inventory.visible == false:
-				Global.inventory_updated.emit()
-				inventory.visible = true
-				get_tree().paused = true
-				animation_tree.active = false
-			elif inventory.visible == true:
-				inventory.visible = false
-				get_tree().paused = false
-				animation_tree.active = true
+	if looting == false:
+		if inventory.visible == false:
+			Global.inventory_updated.emit()
+			inventory.visible = true
+			get_tree().paused = true
+			animation_tree.active = false
+		elif inventory.visible == true:
+			inventory.visible = false
+			get_tree().paused = false
+			animation_tree.active = true
 
 func check_health():
 	health_bar.value = health
