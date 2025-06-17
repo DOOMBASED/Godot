@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqdvfnj0cn6e7"]
+
+[ext_resource type="Script" uid="uid://cre84pt75w18b" path="res://scripts/interface/inventory/item_inventory.gd" id="1_ma3j4"]
+[ext_resource type="PackedScene" uid="uid://bu6r215u52mfo" path="res://scenes/items_scenes/item_scene_test_quest_item.tscn" id="3_wcypp"]
+
+[node name="InventoryItem" type="Node2D" groups=["Items", "QuestItem"]]
+script = ExtResource("1_ma3j4")
+item_id = "quest_item_test"
+item_name = "Quest Test"
+item_type = "Quest Item"
+item_effect = "Quest Item"
+item_scene = ExtResource("3_wcypp")
+spawn_chance = 0.0

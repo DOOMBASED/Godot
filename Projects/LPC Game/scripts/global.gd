@@ -1,6 +1,6 @@
 extends Node
 
-@export var inventory_max = 32
+@export var inventory_max = 16
 @export var starting_size = 8
 @export var hotbar_size = 3
 @export var inventory = []

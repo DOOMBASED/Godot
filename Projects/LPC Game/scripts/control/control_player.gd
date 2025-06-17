@@ -20,6 +20,7 @@ extends CharacterBody2D
 @export var running: bool
 @export var swinging: bool
 
+@onready var ray_cast_2d = $RayCast2D
 @onready var animation_tree = $AnimationTree
 @onready var follow_camera = $"../Camera"
 @onready var interface = $Interface
@@ -47,22 +48,16 @@ var magic = max_magic
 var stamina_cooldown = false
 var magic_cooldown = false
 
+var can_move = true
 var looting = false
-
 var should_use = false
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Global.set_player(self)
-	interface.visible = true
 
 func _process(_delta):
-	if inventory.visible == true:
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-		get_tree().paused = true
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		get_tree().paused = false
+	check_inventory_ui()
 	check_health()
 	check_stamina()
 	check_magic()
@@ -70,6 +65,7 @@ func _process(_delta):
 func _physics_process(_delta):
 	animation_parameters()
 	check_input()
+	check_interact()
 	animate_bars()
 	camera_follow()
 	if get_tree().paused == false:
@@ -78,6 +74,7 @@ func _physics_process(_delta):
 func check_input():
 	if get_tree().paused == false:
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
+		ray_cast_2d.target_position = animation_tree["parameters/Idle/blend_position"] * 50
 	if Input.is_action_pressed("run"):
 		if direction != Vector2.ZERO && last_position != position.round():
 			if stamina != 0 && stamina_cooldown == false:
@@ -100,6 +97,8 @@ func check_input():
 					shoot_fireball()
 	if Input.is_action_just_pressed("inventory"):
 		open_inventory()
+	if Input.is_action_just_pressed("toggle_mouse"):
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("show_fps"):
@@ -121,6 +120,28 @@ func open_inventory():
 			inventory.visible = false
 			get_tree().paused = false
 			animation_tree.active = true
+
+func check_inventory_ui():
+	if inventory.visible == true:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+		get_tree().paused = true
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_tree().paused = false
+
+func check_interact():
+	if can_move:
+		if Input.is_action_just_pressed("interact"):
+			var target = ray_cast_2d.get_collider()
+			if target != null:
+				if target.is_in_group("NPC"):
+					print("DOOM: Hello, my name is DOOM!")
+					target.start_dialogue()
+				elif target.is_in_group("QuestItem"):
+					print("DOOM: What kind of item are you?")
+					var item = target.get_parent()
+					target.start_interact()
+					item.pickup_item()
 
 func check_health():
 	health_bar.value = health

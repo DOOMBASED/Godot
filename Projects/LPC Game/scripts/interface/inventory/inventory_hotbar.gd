@@ -1,6 +1,5 @@
 extends Control
 
-@onready var player = $"../../.."
 @onready var hotbar_container = $HBoxContainer
 
 var dragged_slot = null
@@ -76,8 +75,8 @@ func use_hotbar_item(slot_index):
 	if slot_index < Global.hotbar_inventory.size():
 		var item = Global.hotbar_inventory[slot_index]
 		if item != null:
-			player.apply_item_effect(item)
-			var use = player.should_use
+			Global.player_node.apply_item_effect(item)
+			var use = Global.player_node.should_use
 			if use:
 				item["quantity"] -= 1
 				if item["quantity"] <= 0:

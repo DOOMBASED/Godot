@@ -7,7 +7,6 @@ extends CharacterBody2D
 @export var explosion_scene: PackedScene
 
 @onready var animation_tree = $AnimationTree
-@onready var player = get_tree().get_first_node_in_group("player")
 @onready var spawn_point = get_parent()
 
 var direction = Vector2(0.0, 1.0)
@@ -27,14 +26,14 @@ func _ready():
 func _physics_process(_delta):
 	animation_parameters()
 	if evil == true:
-		speed = player.speed
+		speed = Global.player_node.speed
 		if direction:
 			velocity = direction * speed
 		else:
 			velocity = Vector2.ZERO
-		if player.velocity != Vector2.ZERO:
+		if Global.player_node.velocity != Vector2.ZERO:
 			move_and_slide()
-			direction = (-player.position - position).normalized()
+			direction = (-Global.player_node.position - position).normalized()
 	if evil == false:
 		movement()
 
@@ -71,7 +70,7 @@ func _on_idle_timer_timeout():
 	idle_timer.start(randf_range(3.0,7.0))
 
 func _on_damage_collision_body_entered(body):
-	if evil == true && body == player:
+	if evil == true && body == Global.player_node:
 		body.damage_health(10)
 		
 func damage_health(damage):

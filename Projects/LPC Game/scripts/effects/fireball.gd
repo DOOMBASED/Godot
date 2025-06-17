@@ -4,17 +4,15 @@ extends Area2D
 @export var speed: int = 300
 @export var projectile_range: int = 300
 
-@onready var player = get_tree().get_first_node_in_group("player")
-
 var direction
 var distance = 0
 var tween
 
 func _ready():
-	direction = player.fireball_direction
-	rotation = player.projectile_origin.rotation
+	direction = Global.player_node.fireball_direction
+	rotation = Global.player_node.projectile_origin.rotation
 	if direction == Vector2.ZERO:
-		player.magic += player.magic_drain
+		Global.player_node.magic += Global.player_node.magic_drain
 		queue_free()
 
 func _physics_process(delta):

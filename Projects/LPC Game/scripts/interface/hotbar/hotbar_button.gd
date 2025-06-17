@@ -9,7 +9,6 @@ extends Button
 @onready var sprite = $InnerBorder/ItemIcon
 @onready var outer_border = $OuterBorder
 
-var hand
 var index
 
 func _ready():
@@ -18,7 +17,7 @@ func _ready():
 	sprite.texture = item.display_texture
 
 func _process(_delta):
-	if item == hand.equipped_item:
+	if item == Global.player_node.hand.equipped_item:
 		outer_border.modulate = Color.GREEN
 	else:
 		outer_border.modulate = Color.BLACK
@@ -26,17 +25,17 @@ func _process(_delta):
 
 func _on_pressed():
 	if item is ItemEquipment:
-		if hand!= null:
+		if Global.player_node.hand!= null:
 			index = str(self.get_index() + 1)
-			hand.equipped_item = item
+			Global.player_node.hand.equipped_item = item
 
 func hotkey_check():
 	if Input.is_action_pressed(name):
 		if item is ItemEquipment:
-			if hand != null:
+			if Global.player_node.hand != null:
 				index = str(self.get_index() + 1)
 				button_label.text =  "ALT " + index
-				if hand != null && Input.is_action_just_pressed(index):
-					hand.equipped_item = item
+				if Global.player_node.hand != null && Input.is_action_just_pressed(index):
+					Global.player_node.hand.equipped_item = item
 	if Input.is_action_just_pressed("unequip"):
-		hand.equipped_item = null
+		Global.player_node.hand.equipped_item = null

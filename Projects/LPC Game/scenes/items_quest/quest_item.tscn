@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c04oy2a4rq74f"]
+
+[ext_resource type="Script" uid="uid://cre84pt75w18b" path="res://scripts/interface/inventory/item_inventory.gd" id="1_0w1ss"]
+[ext_resource type="Script" uid="uid://cs5hkykuofupl" path="res://scripts/items/item_quest.gd" id="1_67ewl"]
+[ext_resource type="Texture2D" uid="uid://cd4r0kunoo3sd" path="res://sprites/items/test_quest_item.png" id="2_0w1ss"]
+[ext_resource type="PackedScene" uid="uid://bu6r215u52mfo" path="res://scenes/items_scenes/item_scene_test_quest_item.tscn" id="3_d5bfd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkiyj"]
+radius = 32.0
+
+[node name="InventoryItem" type="Node2D" groups=["Items", "QuestItem"]]
+script = ExtResource("1_0w1ss")
+item_id = "quest_item_test"
+item_name = "Quest Test"
+item_type = "Quest Item"
+item_effect = "Quest Item"
+item_texture = ExtResource("2_0w1ss")
+item_scene = ExtResource("3_d5bfd")
+spawn_chance = 0.0
+
+[node name="QuestItem" type="Area2D" parent="." groups=["Items", "QuestItem"]]
+z_index = -4094
+script = ExtResource("1_67ewl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="QuestItem"]
+shape = SubResource("CircleShape2D_bkiyj")

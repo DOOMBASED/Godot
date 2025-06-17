@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://bu6r215u52mfo"]
+
+[ext_resource type="Script" uid="uid://31mcki2sfc4e" path="res://scripts/interface/inventory/item_scene.gd" id="1_ckb7e"]
+[ext_resource type="Texture2D" uid="uid://cd4r0kunoo3sd" path="res://sprites/items/test_quest_item.png" id="2_ckb7e"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7hijr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2l0x4"]
+radius = 32.0
+
+[sub_resource type="Gradient" id="Gradient_atpat"]
+offsets = PackedFloat32Array(0.999, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0vxvn"]
+gradient = SubResource("Gradient_atpat")
+width = 26
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="ItemScene" type="RigidBody2D"]
+z_index = -4094
+collision_layer = 0
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_7hijr")
+script = ExtResource("1_ckb7e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2l0x4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ckb7e")
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.392157)
+z_index = -4095
+position = Vector2(0, 5)
+texture = SubResource("GradientTexture2D_0vxvn")

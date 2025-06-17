@@ -1,7 +1,5 @@
 extends RigidBody2D
 
-@onready var player = Global.player_node
-
 var direction = Vector2.ZERO
 var speed = 480
 
@@ -15,6 +13,6 @@ func _process(delta: float) -> void:
 		move_to_player(delta)
 
 func move_to_player(delta):
-	inventory_item.position = inventory_item.position.move_toward(player.position, delta * speed)
-	if position.round() == player.position.round():
+	inventory_item.position = inventory_item.position.move_toward(Global.player_node.position, delta * speed)
+	if position.round() == Global.player_node.position.round():
 		queue_free()

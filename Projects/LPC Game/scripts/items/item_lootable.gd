@@ -28,7 +28,7 @@ func _process(delta):
 	check_launch(delta)
 
 func _on_body_entered(body):
-	if body.is_in_group("player"):
+	if body == Global.player_node:
 		var instance = inventory_item.instantiate()
 		instance.pickup_item()
 		queue_free()
@@ -47,7 +47,7 @@ func launch(velocity, duration):
 	launching = true
 
 func _on_lootable_stats_body_entered(body):
-	if body.is_in_group("player") && launching == true:
+	if body == Global.player_node && launching == true:
 		stats = body.find_child("Stats")
 		if stats:
 			stats.add_stats(stats_type, xp_amount)

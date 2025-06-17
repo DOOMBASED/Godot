@@ -14,8 +14,6 @@ extends Control
 @onready var outer_border = $OuterBorder
 @onready var scene
 
-@onready var player = Global.player_node
-
 var item = null
 var slot_index = -1
 var assigned = false
@@ -45,7 +43,10 @@ func set_item(new_item):
 	item_name.text = str(item["name"])
 	item_type.text = str(item["type"])
 	if item["effect"] != "":
-		item_effect.text = str(item["effect"]) + " " + "+" + str(item["magnitude"])
+		if item["effect"] != "Quest Item":
+			item_effect.text = str(item["effect"]) + " " + "+" + str(item["magnitude"])
+		else:
+			item_effect.text = "Quest Item"
 	else:
 		item_effect.text = ""
 	update_assignment()
@@ -88,35 +89,46 @@ func _on_usage_panel_mouse_exited() -> void:
 	usage_panel.visible = false
 
 func _on_use_button_pressed() -> void:
-		item_button.visible = true
-		usage_panel.visible = false
 		if item != null && item["effect"] != "":
-			if player:
-				player.apply_item_effect(item)
-				var use = player.should_use
-				if use:
-					Global.remove_item(item["type"], item["effect"])
-					Global.remove_hotbar_item(item["type"], item["effect"])
-				elif !use:
-					print("Item not used.")
+			if item["effect"] != "Quest Item" && item["type"] != "Resource":
+				item_button.visible = true
+				usage_panel.visible = false
+				if Global.player_node:
+					Global.player_node.apply_item_effect(item)
+					var use = Global.player_node.should_use
+					if use:
+						Global.remove_item(item["type"], item["effect"])
+						Global.remove_hotbar_item(item["type"], item["effect"])
+					elif !use:
+						print("Item not used.")
+			else:
+				print("Cannot use this item!")
+				print("")
 
 func _on_hotbar_button_pressed() -> void:
 	if item != null:
-		if assigned:
-			Global.unassign_hotbar_item(item["type"], item["effect"])
-			assigned = false
+		if item["effect"] != "Quest Item" && item["type"] != "Resource":
+			if assigned:
+				Global.unassign_hotbar_item(item["type"], item["effect"])
+				assigned = false
+			else:
+				Global.add_item(item, true)
+				assigned = true
+			update_assignment()
 		else:
-			Global.add_item(item, true)
-			assigned = true
-		update_assignment()
+			print("Cannot assign this item!")
+			print("")
 
 func _on_drop_button_pressed() -> void:
-	if item != null:
-		var drop_position = player.position + Vector2(0.0, 64.0)
-		var drop_offset = player.last_direction
+	if item != null && item["effect"] != "Quest Item":
+		var drop_position = Global.player_node.position + Vector2(0.0, 64.0)
+		var drop_offset = Global.player_node.last_direction
 		Global.drop_item(item, drop_position + drop_offset)
 		Global.remove_item(item["type"], item["effect"])
 		Global.remove_hotbar_item(item["type"], item["effect"])
 		item_button.visible = true
 		details_panel.visible = false
 		usage_panel.visible = false
+	else:
+		print("Cannot drop Quest Items!")
+		print("")

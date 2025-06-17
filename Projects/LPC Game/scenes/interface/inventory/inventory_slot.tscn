@@ -23,10 +23,6 @@ height = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bxqf6"]
 bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbig2"]
 
