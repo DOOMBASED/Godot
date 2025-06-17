@@ -1,16 +1,15 @@
-[gd_resource type="Resource" script_class="ResourceConsumableItem" load_steps=4 format=3 uid="uid://6mrahaqjedao"]
+[gd_resource type="Resource" script_class="ResourceConsumableItem" load_steps=3 format=3 uid="uid://6mrahaqjedao"]
 
-[ext_resource type="PackedScene" uid="uid://cugiuj1vnw1jp" path="res://scenes/items_scenes/item_scene_magic.tscn" id="1_x2vmk"]
 [ext_resource type="Script" uid="uid://dshdnqxjhm8yk" path="res://scripts/types/resource_consumable_item.gd" id="2_ntr0u"]
 [ext_resource type="Texture2D" uid="uid://dykma5ans0kdh" path="res://sprites/items/potion_blue.png" id="3_ntr0u"]
 
 [resource]
 script = ExtResource("2_ntr0u")
+id = "magic_01"
 name = "Magic"
 type = "Consumable"
+texture = ExtResource("3_ntr0u")
 effect = "Magic"
 magnitude = 15
-texture = ExtResource("3_ntr0u")
-scene = ExtResource("1_x2vmk")
 spawn_chance = 0.75
 metadata/_custom_type_script = "uid://dshdnqxjhm8yk"

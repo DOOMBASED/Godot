@@ -1,17 +1,20 @@
-[gd_resource type="Resource" script_class="EquipmentSpell" load_steps=6 format=3 uid="uid://dmgy8o6exholc"]
+[gd_resource type="Resource" script_class="EquipmentSpell" load_steps=5 format=3 uid="uid://dmgy8o6exholc"]
 
 [ext_resource type="Script" uid="uid://dqp5a7tlceorg" path="res://scripts/items/item_equipment_spell.gd" id="1_8y4fw"]
 [ext_resource type="Texture2D" uid="uid://bhhfqfjr2eyst" path="res://tres/textures/fireball_texture.tres" id="1_81ous"]
 [ext_resource type="Script" uid="uid://b66moptanofaq" path="res://scripts/types/spell_type.gd" id="2_081kf"]
-[ext_resource type="PackedScene" uid="uid://wac4r7e3slv6" path="res://scenes/effects/fireball.tscn" id="2_p2pi0"]
 [ext_resource type="Resource" uid="uid://cpf0xae2o3tcg" path="res://tres/types/spells/fire.tres" id="3_081kf"]
 
 [resource]
 script = ExtResource("1_8y4fw")
 valid_spell_types = Array[ExtResource("2_081kf")]([ExtResource("3_081kf")])
-particle = ExtResource("2_p2pi0")
 min_damage = 1
 max_damage = 1
-display_name = "Fireball"
-display_texture = ExtResource("1_81ous")
+id = "fireball_01"
+name = "Fireball"
+type = "Spell"
+texture = ExtResource("1_81ous")
+effect = "Damage"
+magnitude = 1
+spawn_chance = 0.0
 metadata/_custom_type_script = "uid://dqp5a7tlceorg"

@@ -5,7 +5,7 @@ extends Sprite2D
 	set(next_equipped):
 		equipped_item = next_equipped
 		if next_equipped != null && next_equipped.is_displayed == true:
-			texture = equipped_item.display_texture
+			texture = equipped_item.texture
 		else:
 			texture = null
 

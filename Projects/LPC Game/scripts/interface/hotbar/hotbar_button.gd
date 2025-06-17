@@ -14,7 +14,7 @@ var index
 func _ready():
 	connect("pressed", _on_pressed)
 	button_label.text = "ALT " + name
-	sprite.texture = item.display_texture
+	sprite.texture = item.texture
 
 func _process(_delta):
 	if item == Global.player_node.hand.equipped_item:

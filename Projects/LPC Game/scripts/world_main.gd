@@ -10,9 +10,9 @@ func _ready() -> void:
 	spawn_random_items(items_to_spawn)
 
 func spawn_item(data, pos):
-	var item_scene = preload("res://scenes/interface/inventory/inventory_item.tscn")
+	var item_scene = preload("res://scenes/items/inventory_item.tscn")
 	var item_instance = item_scene.instantiate()
-	item_instance.init_items(data["type"], data["name"], data["effect"], data["magnitude"], data["texture"], data["scene"])
+	item_instance.init_items(data["id"], data["type"], data["name"], data["effect"], data["magnitude"], data["texture"], data["scene"])
 	item_instance.position = pos
 	items.add_child(item_instance)
 

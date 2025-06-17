@@ -8,6 +8,6 @@ extends ItemEquipment
 var is_displayed = true
 
 func interact(body):
-	for type in valid_node_types:
-		if body.node_type.has(type):
+	for i in valid_node_types:
+		if body.node_type.has(i):
 			body.harvest(randf_range(min_amount,max_amount))

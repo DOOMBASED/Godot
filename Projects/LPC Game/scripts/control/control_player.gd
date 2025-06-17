@@ -91,14 +91,12 @@ func check_input():
 	else:
 		velocity = Vector2.ZERO
 	if Input.is_action_just_pressed("use"):
-		if hand.equipped_item != null:
-			if hand.equipped_item.display_name == "Fireball" && magic >= magic_drain:
+		if hand.equipped_item != null && get_tree().paused == false:
+			if hand.equipped_item.name == "Fireball" && magic >= magic_drain:
 				if magic_cooldown == false:
 					shoot_fireball()
 	if Input.is_action_just_pressed("inventory"):
 		open_inventory()
-	if Input.is_action_just_pressed("toggle_mouse"):
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("show_fps"):
@@ -324,7 +322,7 @@ func animation_parameters():
 		animation_tree["parameters/conditions/swing"] = false
 	if Input.is_action_just_pressed("use"):
 		if hand.equipped_item != null:
-			if hand.equipped_item.display_name != "Fireball" || magic > magic_drain && magic_cooldown == false:
+			if hand.equipped_item.name != "Fireball" || magic > magic_drain && magic_cooldown == false:
 				animation_tree["parameters/conditions/swing"] = true
 			animation_tree["parameters/conditions/idle"] = false
 			animation_tree["parameters/conditions/is_moving"] = false

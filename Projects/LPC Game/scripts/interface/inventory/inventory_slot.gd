@@ -12,7 +12,6 @@ extends Control
 @onready var details_panel = $DetailsPanel
 @onready var usage_panel = $UsagePanel
 @onready var outer_border = $OuterBorder
-@onready var scene
 
 var item = null
 var slot_index = -1
@@ -36,17 +35,18 @@ func set_item(new_item):
 	outer_border.modulate = Color.BLACK
 	item_button.mouse_filter = MOUSE_FILTER_STOP
 	item = new_item
-	scene = item["scene"]
 	icon.texture = new_item["texture"]
 	quantity_label.text = str(item["quantity"])
 	quantity_small.text = str(item["quantity"])
 	item_name.text = str(item["name"])
 	item_type.text = str(item["type"])
+	if item["magnitude"] == 0:
+		item["effect"] = ""
 	if item["effect"] != "":
 		if item["effect"] != "Quest Item":
 			item_effect.text = str(item["effect"]) + " " + "+" + str(item["magnitude"])
 		else:
-			item_effect.text = "Quest Item"
+			item_effect.text = ""
 	else:
 		item_effect.text = ""
 	update_assignment()

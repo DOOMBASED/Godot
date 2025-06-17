@@ -6,22 +6,27 @@ extends Node2D
 @export var item_effect:String = ""
 @export var effect_magnitude: int
 @export var item_texture: Texture
-@export var item_scene: PackedScene
 @export var spawn_chance: float = 1.0
 
-var scene_path: String = "res://scenes/interface/inventory/inventory_item.tscn"
+@onready var sprite: Sprite2D = $Sprite2D
 
+var scene_path: String = "res://scenes/items/inventory_item.tscn"
+
+var direction = Vector2.ZERO
+var speed = 480
 var in_range = false
 
 func _ready() -> void:
-	var instance = item_scene.instantiate()
-	add_child(instance)
 	if get_parent().is_in_group("Resource"):
 		item_texture = get_parent().resource_type.display_texture
+	else:
+		sprite.texture = item_texture
 
-func _input(_event: InputEvent) -> void:
+func _process(delta: float) -> void:
 	if in_range == true && Input.is_action_pressed("interact"):
-		pickup_item()
+		move_to_player(delta)
+		if position.round() == Global.player_node.position.round():
+			pickup_item()
 
 func pickup_item():
 	var item = {
@@ -30,7 +35,6 @@ func pickup_item():
 		"type" : item_type,
 		"name" : item_name,
 		"texture" : item_texture,
-		"scene" : item_scene,
 		"effect" : item_effect,
 		"magnitude" : effect_magnitude,
 		"scene_path" : scene_path,
@@ -41,6 +45,10 @@ func pickup_item():
 		if Global.player_node.update_inventory_on_pickup == true:
 			Global.inventory_updated.emit()
 
+
+func move_to_player(delta):
+	position = position.move_toward(Global.player_node.position, delta * speed)
+
 func set_item_data(data):
 	item_id = data["id"]
 	item_type = data["type"]
@@ -48,7 +56,7 @@ func set_item_data(data):
 	item_effect = data["effect"]
 	effect_magnitude = data["magnitude"]
 	item_texture = data["texture"]
-	item_scene = data["scene"]
+	scene_path = data["scene_path"]
 
 func init_items(id, type, i_name, effect, magnitude, texture, scene):
 	item_id = id
@@ -57,7 +65,7 @@ func init_items(id, type, i_name, effect, magnitude, texture, scene):
 	item_effect = effect
 	effect_magnitude = magnitude
 	item_texture = texture
-	item_scene = scene
+	scene_path = scene
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.player_node:

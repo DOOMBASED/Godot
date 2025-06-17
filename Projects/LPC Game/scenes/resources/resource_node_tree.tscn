@@ -16,11 +16,11 @@ node_type = Array[ExtResource("2_076fa")]([ExtResource("3_dimnm")])
 loot = ExtResource("4_bn5uu")
 explosion_scene = ExtResource("5_cyxkb")
 
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 16)
+polygon = PackedVector2Array(16, -8, 4, -48, -4, -48, -16, -8, -16, 0, 0, 16, 16, 0)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_lebxu")
 region_enabled = true
 region_rect = Rect2(320, 32, 32, 64)
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0, 16)
-polygon = PackedVector2Array(16, -8, 4, -48, -4, -48, -16, -8, -16, 0, 0, 16, 16, 0)

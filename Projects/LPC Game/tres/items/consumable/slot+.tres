@@ -1,16 +1,15 @@
-[gd_resource type="Resource" script_class="ResourceConsumableItem" load_steps=4 format=3 uid="uid://bej37nn76a27e"]
+[gd_resource type="Resource" script_class="ResourceConsumableItem" load_steps=3 format=3 uid="uid://bej37nn76a27e"]
 
-[ext_resource type="PackedScene" uid="uid://c1ejdcq3hs5sc" path="res://scenes/items_scenes/item_scene_bag.tscn" id="1_68xka"]
 [ext_resource type="Script" uid="uid://dshdnqxjhm8yk" path="res://scripts/types/resource_consumable_item.gd" id="2_kjcq8"]
 [ext_resource type="Texture2D" uid="uid://cxtv1rit6bcrm" path="res://sprites/items/potion_yellow.png" id="3_kjcq8"]
 
 [resource]
 script = ExtResource("2_kjcq8")
+id = "slot_01"
 name = "Slots+"
 type = "Consumable"
+texture = ExtResource("3_kjcq8")
 effect = "Inventory"
 magnitude = 1
-texture = ExtResource("3_kjcq8")
-scene = ExtResource("1_68xka")
 spawn_chance = 0.75
 metadata/_custom_type_script = "uid://dshdnqxjhm8yk"

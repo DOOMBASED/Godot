@@ -15,21 +15,21 @@ position = Vector2(-112, -112)
 metadata/_edit_group_ = true
 
 [node name="1" type="TouchScreenButton" parent="Buttons"]
-position = Vector2(-96, -32)
+position = Vector2(-104, -40)
 texture_normal = ExtResource("1_kvu4x")
 action = "1"
 
 [node name="2" type="TouchScreenButton" parent="Buttons"]
-position = Vector2(32, -32)
+position = Vector2(24, -40)
 texture_normal = ExtResource("2_irias")
 action = "2"
 
 [node name="Use" type="TouchScreenButton" parent="Buttons"]
-position = Vector2(-32, 32)
+position = Vector2(-40, 24)
 texture_normal = ExtResource("3_tpgfw")
 action = "use"
 
 [node name="Run" type="TouchScreenButton" parent="Buttons"]
-position = Vector2(-32, -96)
+position = Vector2(-40, -104)
 texture_normal = ExtResource("4_fmsfc")
 action = "run"
