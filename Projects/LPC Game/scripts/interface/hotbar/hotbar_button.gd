@@ -13,12 +13,22 @@ var hand
 var index
 
 func _ready():
-	outer_border.modulate = Color.BLACK
+	connect("pressed", _on_pressed)
 	button_label.text = "ALT " + name
 	sprite.texture = item.display_texture
 
 func _process(_delta):
+	if item == hand.equipped_item:
+		outer_border.modulate = Color.GREEN
+	else:
+		outer_border.modulate = Color.BLACK
 	hotkey_check()
+
+func _on_pressed():
+	if item is ItemEquipment:
+		if hand!= null:
+			index = str(self.get_index() + 1)
+			hand.equipped_item = item
 
 func hotkey_check():
 	if Input.is_action_pressed(name):
@@ -28,8 +38,5 @@ func hotkey_check():
 				button_label.text =  "ALT " + index
 				if hand != null && Input.is_action_just_pressed(index):
 					hand.equipped_item = item
-					outer_border.modulate = Color.GREEN
 	if Input.is_action_just_pressed("unequip"):
 		hand.equipped_item = null
-		outer_border.modulate = Color.BLACK
-		

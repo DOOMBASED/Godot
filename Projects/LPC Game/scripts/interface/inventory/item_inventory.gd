@@ -39,6 +39,8 @@ func pickup_item():
 	if Global.player_node:
 		Global.add_item(item, false)
 		self.queue_free()
+		if player.update_inventory_on_pickup == true:
+			Global.inventory_updated.emit()
 
 func set_item_data(data):
 	item_type = data["type"]

@@ -1,6 +1,5 @@
 extends Control
 
-@onready var player = $"../.."
 @onready var inventory_grid = $TextureRect/GridContainer
 
 var dragged_slot = null

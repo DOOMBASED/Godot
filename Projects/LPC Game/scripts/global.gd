@@ -1,7 +1,8 @@
 extends Node
 
 @export var inventory_max = 32
-@export var hotbar_size = 9
+@export var starting_size = 8
+@export var hotbar_size = 3
 @export var inventory = []
 @export var hotbar_inventory = []
 @export var spawnable_items: Array[Resource] = [
@@ -20,7 +21,7 @@ var player_node = null
 signal inventory_updated
  
 func _ready() -> void:
-	inventory.resize(16)
+	inventory.resize(starting_size)
 	hotbar_inventory.resize(hotbar_size)
 
 func set_player(player):
@@ -35,8 +36,11 @@ func increase_inventory_size(extra_slots):
 func add_item(item, to_hotbar = false):
 	var added_to_hotbar = false
 	if to_hotbar:
-		added_to_hotbar = add_hotbar_item(item)
-		inventory_updated.emit()
+		for i in range(hotbar_inventory.size()):
+			added_to_hotbar = add_hotbar_item(item)
+			inventory_updated.emit()
+			return true
+		return false
 	if !added_to_hotbar:
 		for i in range(inventory.size()):
 			if inventory[i] != null && inventory[i]["type"] == item["type"] && inventory[i]["effect"] == item["effect"]:
@@ -109,6 +113,7 @@ func drop_item(item_data, drop_position):
 	drop_position = adjust_drop_position(drop_position)
 	item_instance.position = drop_position
 	get_tree().current_scene.add_child(item_instance)
+	item_instance.global_transform.origin = drop_position
 
 func adjust_drop_position(position):
 	var radius = 64

@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+@export var update_inventory_on_pickup = false
+
 @export_group("Custom Values")
 @export var walk_speed: float = 100.0
 @export var run_speed: float = 250.0
@@ -101,11 +103,11 @@ func check_input():
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("show_fps"):
-		if fps_label.visible == false:
-			fps_label.visible = true
+		if fps_label.get_parent().visible == false:
+			fps_label.get_parent().visible = true
 		else:
-			fps_label.visible = false
-	if fps_label.visible == true:
+			fps_label.get_parent().visible = false
+	if fps_label.get_parent().visible == true:
 		fps_label.text = str(Engine.get_frames_per_second())
 
 func open_inventory():

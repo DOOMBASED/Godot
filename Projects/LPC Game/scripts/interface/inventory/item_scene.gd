@@ -3,7 +3,7 @@ extends RigidBody2D
 @onready var player = Global.player_node
 
 var direction = Vector2.ZERO
-var speed = 240
+var speed = 480
 
 var inventory_item
 
