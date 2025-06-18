@@ -1,9 +1,22 @@
-[gd_resource type="Resource" script_class="EquipmentTool" load_steps=5 format=3 uid="uid://c084aqlfanatk"]
+[gd_resource type="Resource" script_class="EquipmentTool" load_steps=6 format=3 uid="uid://c084aqlfanatk"]
 
-[ext_resource type="Texture2D" uid="uid://bgbkcgw3moxcx" path="res://sprites/weapons/axe.png" id="1_14ofr"]
+[ext_resource type="Texture2D" uid="uid://bgbkcgw3moxcx" path="res://sprites/weapons/weapon_axe_01.png" id="1_14ofr"]
 [ext_resource type="Script" uid="uid://dfm0cwy7w8k4o" path="res://scripts/items/item_equipment_tool.gd" id="2_vbk27"]
-[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="3_14ofr"]
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/type_resource_node.gd" id="3_14ofr"]
 [ext_resource type="Resource" uid="uid://suqkg17n4bll" path="res://tres/types/resource_type/woodcutting.tres" id="4_lro70"]
+
+[sub_resource type="Resource" id="Resource_14ofr"]
+script = ExtResource("2_vbk27")
+valid_node_types = Array[ExtResource("3_14ofr")]([])
+min_amount = 1
+max_amount = 1
+id = ""
+name = ""
+type = ""
+effect = ""
+magnitude = 0
+spawn_chance = 0.0
+metadata/_custom_type_script = "uid://dfm0cwy7w8k4o"
 
 [resource]
 script = ExtResource("2_vbk27")
@@ -13,6 +26,9 @@ max_amount = 1
 id = "axe_01"
 name = "Axe"
 type = "Equipment"
+equippable = SubResource("Resource_14ofr")
 texture = ExtResource("1_14ofr")
+effect = ""
+magnitude = 0
 spawn_chance = 0.0
 metadata/_custom_type_script = "uid://dfm0cwy7w8k4o"

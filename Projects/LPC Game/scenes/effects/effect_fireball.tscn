@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://wac4r7e3slv6"]
+
+[ext_resource type="Script" uid="uid://75d7l5yf7tp7" path="res://scripts/effects/effect_fireball.gd" id="1_puvod"]
+
+[sub_resource type="Gradient" id="Gradient_puvod"]
+offsets = PackedFloat32Array(0, 0.25, 0.5, 0.75, 0.99)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.129412, 0, 1, 1, 0.258824, 0, 1, 1, 0.388235, 0, 1, 1, 0.541176, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_puvod"]
+gradient = SubResource("Gradient_puvod")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.75, 0.75)
+
+[sub_resource type="Curve" id="Curve_nwftn"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 100), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_oc5oi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_42j2n"]
+offsets = PackedFloat32Array(0, 0.33)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nwftn"]
+radius = 8.0
+
+[node name="Fireball" type="Area2D"]
+script = ExtResource("1_puvod")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+amount = 60
+texture = SubResource("GradientTexture2D_puvod")
+preprocess = 0.5
+randomness = 1.0
+lifetime_randomness = 0.25
+local_coords = true
+draw_order = 1
+emission_shape = 1
+emission_sphere_radius = 3.3
+direction = Vector2(0, 1)
+spread = 10.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_max = 720.0
+damping_curve = SubResource("Curve_nwftn")
+scale_amount_curve = SubResource("Curve_oc5oi")
+color_ramp = SubResource("Gradient_42j2n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_nwftn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

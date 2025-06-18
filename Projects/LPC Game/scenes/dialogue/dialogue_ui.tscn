@@ -8,10 +8,6 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
 [node name="DialogueUI" type="Control"]
 layout_mode = 3
@@ -48,12 +44,12 @@ theme_override_constants/separation = 4
 
 [node name="DialogueSpeaker" type="Label" parent="CanvasLayer/Panel/DialogueBox"]
 layout_mode = 2
-text = "NPC NAME"
+text = "NPC Name"
 
 [node name="DialogueText" type="Label" parent="CanvasLayer/Panel/DialogueBox"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "DIALOGUE TEXT..."
+text = "Dialogue Text..."
 horizontal_alignment = 1
 vertical_alignment = 1
 

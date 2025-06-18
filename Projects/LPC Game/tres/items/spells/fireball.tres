@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dqp5a7tlceorg" path="res://scripts/items/item_equipment_spell.gd" id="1_8y4fw"]
 [ext_resource type="Texture2D" uid="uid://bhhfqfjr2eyst" path="res://tres/textures/fireball_texture.tres" id="1_81ous"]
-[ext_resource type="Script" uid="uid://b66moptanofaq" path="res://scripts/types/spell_type.gd" id="2_081kf"]
+[ext_resource type="Script" uid="uid://b66moptanofaq" path="res://scripts/types/type_spell.gd" id="2_081kf"]
 [ext_resource type="Resource" uid="uid://cpf0xae2o3tcg" path="res://tres/types/spells/fire.tres" id="3_081kf"]
 
 [resource]
@@ -14,7 +14,7 @@ id = "fireball_01"
 name = "Fireball"
 type = "Spell"
 texture = ExtResource("1_81ous")
-effect = "Damage"
+effect = "Burn"
 magnitude = 1
 spawn_chance = 0.0
 metadata/_custom_type_script = "uid://dqp5a7tlceorg"

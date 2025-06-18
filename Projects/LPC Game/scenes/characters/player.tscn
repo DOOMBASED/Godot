@@ -12,6 +12,21 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgnko"]
 radius = 12.0
 
+[sub_resource type="Gradient" id="Gradient_eojnx"]
+offsets = PackedFloat32Array(0.999, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kqtwu"]
+gradient = SubResource("Gradient_eojnx")
+width = 26
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eojnx"]
+radius = 7.0
+
 [sub_resource type="Animation" id="Animation_76oj4"]
 length = 0.001
 tracks/0/type = "value"
@@ -2915,54 +2930,18 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace2D_6eyoc")
 states/Walk/position = Vector2(816, 132.853)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_eojnx"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_qgnko"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_7vyk4"), "Idle", "Swing", SubResource("AnimationNodeStateMachineTransition_2l4js"), "Swing", "Idle", SubResource("AnimationNodeStateMachineTransition_jk2m4"), "Swing", "Walk", SubResource("AnimationNodeStateMachineTransition_xhtjm"), "Walk", "Swing", SubResource("AnimationNodeStateMachineTransition_k4v7y"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_dm10o"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_o6auj"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_j8g38"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_tswxa"), "Run", "Swing", SubResource("AnimationNodeStateMachineTransition_xrqxk"), "Swing", "Run", SubResource("AnimationNodeStateMachineTransition_g66nw")]
 
-[sub_resource type="Gradient" id="Gradient_eojnx"]
-offsets = PackedFloat32Array(0.999, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_kqtwu"]
-gradient = SubResource("Gradient_eojnx")
-width = 26
-height = 12
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_eojnx"]
-radius = 7.0
-
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 process_mode = 3
 motion_mode = 1
 script = ExtResource("1_atpat")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 2
+collide_with_areas = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)
 shape = SubResource("CapsuleShape2D_qgnko")
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
-collide_with_areas = true
-
-[node name="Interface" parent="." instance=ExtResource("2_7vyk4")]
-
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("2_jk2m4")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_dyp2m")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_xrqxk")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/idle = false
-parameters/conditions/is_moving = false
-parameters/conditions/is_running = false
-parameters/conditions/swing = false
-parameters/Idle/blend_position = Vector2(0, 1)
-parameters/Run/blend_position = Vector2(0, 0)
-parameters/Swing/blend_position = Vector2(0.997743, -0.014966)
-parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.392157)
@@ -2982,15 +2961,36 @@ rotation = 0.872665
 region_rect = Rect2(32, 16, 32, 32)
 script = ExtResource("6_kqtwu")
 
-[node name="ProjectileOrigin" type="Marker2D" parent="."]
-visible = false
-position = Vector2(0, 40)
-
 [node name="Weapon" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
 scale = Vector2(1e-05, 1e-05)
 shape = SubResource("CircleShape2D_eojnx")
 disabled = true
+
+[node name="ProjectileOrigin" type="Marker2D" parent="."]
+position = Vector2(0, 40)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dyp2m")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_xrqxk")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/is_moving = false
+parameters/conditions/is_running = false
+parameters/conditions/swing = false
+parameters/Idle/blend_position = Vector2(0, 1)
+parameters/Run/blend_position = Vector2(0, 0)
+parameters/Swing/blend_position = Vector2(0.997743, -0.014966)
+parameters/Walk/blend_position = Vector2(0, 0)
+
+[node name="Interface" parent="." instance=ExtResource("2_7vyk4")]
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_jk2m4")
 
 [connection signal="body_entered" from="Weapon" to="Hand" method="_on_weapon_body_entered"]

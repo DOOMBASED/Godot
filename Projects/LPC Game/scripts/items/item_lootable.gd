@@ -26,9 +26,9 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if body == Global.player_node:
-		var item = preload("res://scenes/items/inventory_item.tscn")
+		var item = preload("res://scenes/items/item_base.tscn")
 		var instance = item.instantiate()
-		instance.init_items(resource_type["id"], resource_type["type"], resource_type["name"], resource_type["effect"], resource_type["magnitude"], resource_type["texture"], resource_type["scene"])
+		instance.init_items(resource_type["id"], resource_type["type"], resource_type["equippable"], resource_type["name"], resource_type["effect"], resource_type["magnitude"], resource_type["texture"], resource_type["scene"])
 		instance.pickup_item()
 		queue_free()
 

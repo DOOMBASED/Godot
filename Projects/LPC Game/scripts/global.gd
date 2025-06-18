@@ -2,7 +2,7 @@ extends Node
 
 @export var inventory_max = 16
 @export var starting_size = 8
-@export var hotbar_size = 3
+@export var hotbar_size = 5
 @export var inventory = []
 @export var hotbar_inventory = []
 @export var spawnable_items: Array[Resource] = [
@@ -14,9 +14,10 @@ extends Node
 	preload("res://tres/items/resources/wood.tres"),
 ]
 
-@onready var inventory_slot_scene = preload("res://scenes/interface/inventory/inventory_slot.tscn")
+@onready var inventory_slot_scene = preload("res://scenes/interface/hotbar/hotbar_item_button.tscn")
 
 var player_node = null
+var inventory_full = false
 
 signal inventory_updated
  
@@ -43,11 +44,17 @@ func add_item(item, to_hotbar = false):
 		return false
 	if !added_to_hotbar:
 		for i in range(inventory.size()):
-			if inventory[i] != null && inventory[i]["type"] == item["type"] && inventory[i]["effect"] == item["effect"]:
-				inventory[i]["quantity"] += item["quantity"]
-				return true
-			elif inventory[i] == null:
+			if inventory[i] == null:
 				inventory[i] = item
+				if inventory.count(null) == 0:
+					inventory_full = true
+					return false
+				else:
+					return true
+			elif inventory[i] != null && inventory[i]["name"] == item["name"] && inventory[i]["type"] == item["type"] && inventory[i]["effect"] == item["effect"]:
+				inventory[i]["quantity"] += item["quantity"]
+				if inventory.count(null) == 0:
+					inventory_full = true
 				return true
 		return false
 
@@ -64,6 +71,7 @@ func remove_item(item_type, item_effect):
 			inventory[i]["quantity"] -= 1
 			if inventory[i]["quantity"] <= 0:
 				inventory[i] = null
+				inventory_full = false
 			inventory_updated.emit()
 			return true
 	return false

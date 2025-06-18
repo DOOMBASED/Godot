@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="EquipmentTool" load_steps=5 format=3 uid="uid://c3201g4202iby"]
 
-[ext_resource type="Texture2D" uid="uid://th0f4gjro4ae" path="res://sprites/weapons/pickaxe.png" id="1_fn50g"]
+[ext_resource type="Texture2D" uid="uid://th0f4gjro4ae" path="res://sprites/weapons/weapon_pickaxe_01.png" id="1_fn50g"]
 [ext_resource type="Script" uid="uid://dfm0cwy7w8k4o" path="res://scripts/items/item_equipment_tool.gd" id="2_kh426"]
-[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="3_xtl3g"]
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/type_resource_node.gd" id="3_xtl3g"]
 [ext_resource type="Resource" uid="uid://bqvvi31l0fqhc" path="res://tres/types/resource_type/mining.tres" id="4_kvbxv"]
 
 [resource]

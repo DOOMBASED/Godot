@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ResourceNodeType" load_steps=2 format=3 uid="uid://suqkg17n4bll"]
 
-[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/resource_node_type.gd" id="1_7b7mw"]
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/type_resource_node.gd" id="1_7b7mw"]
 
 [resource]
 resource_name = "Woodcutting"

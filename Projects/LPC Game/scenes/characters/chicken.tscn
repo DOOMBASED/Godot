@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cidwrgtiic1ge" path="res://scripts/control/control_chicken.gd" id="1_45guq"]
 [ext_resource type="Texture2D" uid="uid://djam06tt8ry8a" path="res://sprites/characters/chicken/chicken.png" id="2_45guq"]
-[ext_resource type="PackedScene" uid="uid://4qlkd0jqw82x" path="res://scenes/effects/resource_node_explosion.tscn" id="2_yh4hm"]
+[ext_resource type="PackedScene" uid="uid://4qlkd0jqw82x" path="res://scenes/effects/effect_smoke_explosion.tscn" id="2_yh4hm"]
 
 [sub_resource type="Animation" id="Animation_76oj4"]
 length = 0.1

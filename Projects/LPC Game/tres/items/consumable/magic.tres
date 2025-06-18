@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ResourceConsumableItem" load_steps=3 format=3 uid="uid://6mrahaqjedao"]
 
-[ext_resource type="Script" uid="uid://dshdnqxjhm8yk" path="res://scripts/types/resource_consumable_item.gd" id="2_ntr0u"]
+[ext_resource type="Script" uid="uid://dshdnqxjhm8yk" path="res://scripts/types/type_item_consumable.gd" id="2_ntr0u"]
 [ext_resource type="Texture2D" uid="uid://dykma5ans0kdh" path="res://sprites/items/potion_blue.png" id="3_ntr0u"]
 
 [resource]

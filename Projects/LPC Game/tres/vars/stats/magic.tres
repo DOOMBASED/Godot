@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ResourceStats" load_steps=3 format=3 uid="uid://dwueax7rjb2jo"]
 
 [ext_resource type="Texture2D" uid="uid://bhhfqfjr2eyst" path="res://tres/textures/fireball_texture.tres" id="1_i7a5v"]
-[ext_resource type="Script" uid="uid://dav8twovgf84p" path="res://scripts/types/resource_stats.gd" id="2_gcwbw"]
+[ext_resource type="Script" uid="uid://dav8twovgf84p" path="res://scripts/types/type_stats.gd" id="2_gcwbw"]
 
 [resource]
 script = ExtResource("2_gcwbw")

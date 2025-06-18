@@ -2,17 +2,17 @@ extends Node2D
 
 @export var items_to_spawn: int = 0
 
-@onready var items = $Items
-@onready var item_spawn_area = $SpawnArea
-@onready var spawn_collision : CollisionShape2D = $SpawnArea/CollisionShape2D
+@onready var items = $SpawnedItems
+@onready var item_spawn_area = $SpawnedItemsArea
+@onready var spawn_collision : CollisionShape2D = $SpawnedItemsArea/CollisionShape2D
 
 func _ready() -> void:
 	spawn_random_items(items_to_spawn)
 
 func spawn_item(data, pos):
-	var item_scene = preload("res://scenes/items/inventory_item.tscn")
+	var item_scene = preload("res://scenes/items/item_base.tscn")
 	var item_instance = item_scene.instantiate()
-	item_instance.init_items(data["id"], data["type"], data["name"], data["effect"], data["magnitude"], data["texture"], data["scene"])
+	item_instance.init_items(data["id"], data["type"], data["equippable"], data["name"], data["effect"], data["magnitude"], data["texture"], data["scene"])
 	item_instance.position = pos
 	items.add_child(item_instance)
 

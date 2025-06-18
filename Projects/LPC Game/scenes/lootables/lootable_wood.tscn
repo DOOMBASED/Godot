@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdlhli6jcen0i" path="res://scripts/items/item_lootable.gd" id="1_u3il0"]
 [ext_resource type="Resource" uid="uid://csct8q1do2s" path="res://tres/items/resources/wood.tres" id="2_jit2y"]
-[ext_resource type="Texture2D" uid="uid://b5dwyacrbjtws" path="res://sprites/resources/wood.png" id="3_11a0o"]
+[ext_resource type="Texture2D" uid="uid://b5dwyacrbjtws" path="res://sprites/resources/resource_wood.png" id="3_11a0o"]
 [ext_resource type="Resource" uid="uid://dvru87fowru31" path="res://tres/vars/stats/woodcutting.tres" id="3_umbrf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jit2y"]

@@ -1,8 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-@export var update_inventory_on_pickup = false
-
 @export_group("Custom Values")
 @export var walk_speed: float = 100.0
 @export var run_speed: float = 250.0
@@ -20,22 +18,26 @@ extends CharacterBody2D
 @export var running: bool
 @export var swinging: bool
 
-@onready var ray_cast_2d = $RayCast2D
+@onready var ray_cast = $RayCast2D
 @onready var animation_tree = $AnimationTree
 @onready var follow_camera = $"../Camera"
 @onready var interface = $Interface
 @onready var inventory = $Interface/HUD/InventoryUI
+@onready var quest_tracker = $Interface/HUD/QuestTracker
+@onready var quest_title = $Interface/HUD/QuestTracker/ColorRect/Details/Title
+@onready var quest_objectives = $Interface/HUD/QuestTracker/ColorRect/Details/Objectives
+@onready var interact_label = $Interface/HUD/Interact
 @onready var fps_label = $Interface/HUD/FPSLabel/Label
 @onready var hand = $Hand
 @onready var projectile_origin = $ProjectileOrigin
-@onready var health_bar = $Interface/HUD/HealthBars/Health
+@onready var health_bar = $Interface/HUD/StatsUI/HealthBars/Health
 @onready var health_label = health_bar.get_child(0)
-@onready var stamina_bar = $Interface/HUD/HealthBars/Stamina
+@onready var stamina_bar = $Interface/HUD/StatsUI/HealthBars/Stamina
 @onready var stamina_label: = stamina_bar.get_child(0)
-@onready var magic_bar = $Interface/HUD/HealthBars/Magic
+@onready var magic_bar = $Interface/HUD/StatsUI/HealthBars/Magic
 @onready var magic_label = magic_bar.get_child(0)
 
-const FIREBALL = preload("res://scenes/effects/fireball.tscn")
+const FIREBALL = preload("res://scenes/effects/effect_fireball.tscn")
 
 var direction = Vector2(0.0, 1.0)
 var last_direction
@@ -51,6 +53,8 @@ var magic_cooldown = false
 var can_move = true
 var looting = false
 var should_use = false
+var recent_pickup = false
+var time_since_pickup: int = 0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -68,13 +72,11 @@ func _physics_process(_delta):
 	check_interact()
 	animate_bars()
 	camera_follow()
-	if get_tree().paused == false:
-		move_and_slide()
 
 func check_input():
 	if get_tree().paused == false:
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
-		ray_cast_2d.target_position = animation_tree["parameters/Idle/blend_position"] * 50
+		ray_cast.target_position = animation_tree["parameters/Idle/blend_position"] * 48
 	if Input.is_action_pressed("run"):
 		if direction != Vector2.ZERO && last_position != position.round():
 			if stamina != 0 && stamina_cooldown == false:
@@ -90,6 +92,8 @@ func check_input():
 		velocity = direction.round() * speed
 	else:
 		velocity = Vector2.ZERO
+	if get_tree().paused == false:
+		move_and_slide()
 	if Input.is_action_just_pressed("use"):
 		if hand.equipped_item != null && get_tree().paused == false:
 			if hand.equipped_item.name == "Fireball" && magic >= magic_drain:
@@ -128,18 +132,27 @@ func check_inventory_ui():
 		get_tree().paused = false
 
 func check_interact():
+	if ray_cast.is_colliding():
+		interact_label.visible = true
+	else:
+		interact_label.visible = false
+	if recent_pickup == true:
+		time_since_pickup += 1
+		if time_since_pickup == 50:
+			Global.inventory_updated.emit()
+		if time_since_pickup > 100:
+			time_since_pickup = 0
+			recent_pickup = false
 	if can_move:
 		if Input.is_action_just_pressed("interact"):
-			var target = ray_cast_2d.get_collider()
+			var target = ray_cast.get_collider()
 			if target != null:
 				if target.is_in_group("NPC"):
 					print("DOOM: Hello, my name is DOOM!")
 					target.start_dialogue()
 				elif target.is_in_group("QuestItem"):
 					print("DOOM: What kind of item are you?")
-					var item = target.get_parent()
 					target.start_interact()
-					item.pickup_item()
 
 func check_health():
 	health_bar.value = health
@@ -284,6 +297,7 @@ func apply_item_effect(item):
 			else:
 				should_use = true
 				Global.increase_inventory_size(item["magnitude"])
+				Global.inventory_full = false
 				print("")
 				print("Inventory Slots +" + str(item["magnitude"]))
 		"Damage":

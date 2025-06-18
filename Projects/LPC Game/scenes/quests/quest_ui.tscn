@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://db2budkistvit"]
+[gd_scene load_steps=4 format=3 uid="uid://db2budkistvit"]
+
+[ext_resource type="Script" uid="uid://bx5j0hpk8vw8m" path="res://scripts/quests/quest_ui.gd" id="1_dfri7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygx5g"]
 bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfri7"]
+bg_color = Color(0, 0, 0, 0.784314)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 
 [node name="QuestUI" type="Control"]
 layout_mode = 3
@@ -10,8 +19,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dfri7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
 anchors_preset = 15
@@ -20,3 +31,88 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ygx5g")
+
+[node name="Backgrounds" type="HBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -1
+
+[node name="Background1" type="Panel" parent="CanvasLayer/Panel/Backgrounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dfri7")
+
+[node name="Background2" type="Panel" parent="CanvasLayer/Panel/Backgrounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dfri7")
+
+[node name="Contents" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Headings" type="HBoxContainer" parent="CanvasLayer/Panel/Contents"]
+layout_mode = 2
+
+[node name="List" type="Label" parent="CanvasLayer/Panel/Contents/Headings"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Available Quests"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Details" type="Label" parent="CanvasLayer/Panel/Contents/Headings"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Details" type="HBoxContainer" parent="CanvasLayer/Panel/Contents"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="QuestList" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuestDetails" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuestTitle" type="Label" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+layout_mode = 2
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestDescription" type="Label" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+layout_mode = 2
+text = "Description"
+
+[node name="QuestObjectives" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+layout_mode = 2
+
+[node name="QuestRewards" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 34.0
+grow_horizontal = 0
+text = "EXIT"
