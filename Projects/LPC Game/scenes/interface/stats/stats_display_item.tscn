@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf4ajfqxih7al"]
+[gd_scene load_steps=3 format=3 uid="uid://bf4ajfqxih7al"]
 
 [ext_resource type="Script" uid="uid://d38omklvqlo3a" path="res://scripts/interface/stats/stats_display_item.gd" id="1_50wop"]
 [ext_resource type="Texture2D" uid="uid://mnp0r44d6y4k" path="res://sprites/stats/mining.png" id="2_50wop"]
-[ext_resource type="FontFile" uid="uid://duujpyh00pie6" path="res://fonts/JetBrainsMono-Regular.ttf" id="2_trgfm"]
 
 [node name="StatsItemDisplay" type="HBoxContainer" node_paths=PackedStringArray("display_texture", "display_label")]
 offset_right = 94.0
@@ -13,9 +12,6 @@ display_label = NodePath("XPLabel")
 
 [node name="LevelLabel" type="Label" parent="."]
 layout_mode = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("2_trgfm")
-theme_override_font_sizes/font_size = 14
 text = "LEVEL 1"
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -25,7 +21,4 @@ expand_mode = 3
 
 [node name="XPLabel" type="Label" parent="."]
 layout_mode = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("2_trgfm")
-theme_override_font_sizes/font_size = 14
 text = "XP 0"

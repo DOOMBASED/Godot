@@ -34,10 +34,6 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/YATI/plugin.cfg")
 
-[gui]
-
-theme/custom_font="uid://duujpyh00pie6"
-
 [input]
 
 down={

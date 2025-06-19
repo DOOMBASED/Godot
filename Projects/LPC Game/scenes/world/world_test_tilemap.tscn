@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://vnd77mfg51tg"]
+
+[ext_resource type="PackedScene" uid="uid://bal00hrhbl865" path="res://scenes/tilemaps/Test.tmx" id="1_yokrj"]
+
+[node name="TestTilemap" instance=ExtResource("1_yokrj")]
+z_index = -4096
+position = Vector2(-2608, -5728)

@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtwcamsjdfbdc"]
+
+[ext_resource type="Script" uid="uid://nook8u33qqnp" path="res://scripts/nodes/node_resource.gd" id="1_r2dii"]
+[ext_resource type="Script" uid="uid://cfhq8mgh8gaow" path="res://scripts/types/type_resource_node.gd" id="2_fqumm"]
+[ext_resource type="Resource" uid="uid://bqvvi31l0fqhc" path="res://tres/types/resource_type/mining.tres" id="3_e5sra"]
+[ext_resource type="PackedScene" uid="uid://bd0d1nhnq6gbn" path="res://scenes/items_lootable/resource_rock_01.tscn" id="4_37ttc"]
+[ext_resource type="PackedScene" uid="uid://4qlkd0jqw82x" path="res://scenes/effects/effect_smoke_explosion.tscn" id="5_83le5"]
+[ext_resource type="Texture2D" uid="uid://drxm8yx70lj7l" path="res://sprites/resources/resource_node_rock.png" id="6_83le5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r2dii"]
+radius = 16.0
+height = 36.0
+
+[node name="ResourceNode_Rock" type="RigidBody2D" groups=["resource_node"]]
+z_index = -4094
+freeze = true
+script = ExtResource("1_r2dii")
+display_name = "Rock"
+spawn_chance = 0.33
+node_type = Array[ExtResource("2_fqumm")]([ExtResource("3_e5sra")])
+loot = ExtResource("4_37ttc")
+explosion_scene = ExtResource("5_83le5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_r2dii")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("6_83le5")
+region_rect = Rect2(352, 32, 32, 32)

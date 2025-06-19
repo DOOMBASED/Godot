@@ -1,10 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://devqdtb6y1mty"]
+[gd_scene load_steps=10 format=3 uid="uid://devqdtb6y1mty"]
 
-[ext_resource type="FontFile" uid="uid://duujpyh00pie6" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_bxqf6"]
 [ext_resource type="Script" uid="uid://bu1bk4p5odu7s" path="res://scripts/interface/hotbar/hotbar_item_button.gd" id="2_hddt5"]
-
-[sub_resource type="Theme" id="Theme_bfyh4"]
-default_font = ExtResource("1_bxqf6")
 
 [sub_resource type="Gradient" id="Gradient_p7cng"]
 offsets = PackedFloat32Array(0)
@@ -34,7 +30,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 48.0
 offset_bottom = 48.0
-theme = SubResource("Theme_bfyh4")
 script = ExtResource("2_hddt5")
 
 [node name="OuterBorder" type="ColorRect" parent="."]

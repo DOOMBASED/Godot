@@ -10,7 +10,7 @@ var tween
 
 func _ready():
 	direction = Global.player_node.fireball_direction
-	rotation = Global.player_node.projectile_origin.rotation
+	rotation = Global.player_node.fireball_direction.angle()
 	if direction == Vector2.ZERO:
 		Global.player_node.magic += Global.player_node.magic_drain
 		queue_free()

@@ -1,24 +1,31 @@
-[gd_scene load_steps=14 format=3 uid="uid://bti5t12gu0op0"]
+[gd_scene load_steps=20 format=3 uid="uid://bti5t12gu0op0"]
 
 [ext_resource type="Script" uid="uid://cctp1qa1wrvn4" path="res://scripts/world_main.gd" id="1_bvpb0"]
+[ext_resource type="Resource" uid="uid://d0dqns2qcwas0" path="res://tres/items/consumable/energy.tres" id="2_jkr0i"]
 [ext_resource type="PackedScene" uid="uid://c6vp68hxda0d2" path="res://scenes/world/spawner_forest.tscn" id="2_l3u84"]
 [ext_resource type="PackedScene" uid="uid://c73xloqro5cq2" path="res://scenes/characters/player.tscn" id="2_qv2nv"]
-[ext_resource type="PackedScene" uid="uid://bas8o5nh3vma7" path="res://scenes/interface/camera.tscn" id="3_uumr1"]
+[ext_resource type="Resource" uid="uid://6mrahaqjedao" path="res://tres/items/consumable/magic.tres" id="3_brk2l"]
+[ext_resource type="PackedScene" uid="uid://bas8o5nh3vma7" path="res://scenes/world/world_camera.tscn" id="3_uumr1"]
+[ext_resource type="Resource" uid="uid://bnan7arfxnn7j" path="res://tres/items/consumable/potion.tres" id="4_dhbhc"]
 [ext_resource type="PackedScene" uid="uid://bc1igfxgadhbm" path="res://scenes/world/spawner_chicken.tscn" id="5_18cee"]
-[ext_resource type="PackedScene" uid="uid://bigpga3rq5ho1" path="res://scenes/characters/chicken_evil.tscn" id="5_c0qgv"]
-[ext_resource type="PackedScene" uid="uid://vnd77mfg51tg" path="res://scenes/world/world_tilemap.tscn" id="5_l3u84"]
-[ext_resource type="PackedScene" uid="uid://djj8gwsjvdc3l" path="res://scenes/lootables/spell_fireball_01.tscn" id="7_usspu"]
-[ext_resource type="PackedScene" uid="uid://oujbq62lwknj" path="res://scenes/characters/npc_base.tscn" id="10_opodw"]
-[ext_resource type="PackedScene" uid="uid://cqjjwy6bl86e3" path="res://scenes/lootables/equipment_axe_01.tscn" id="10_s25ru"]
+[ext_resource type="PackedScene" uid="uid://bigpga3rq5ho1" path="res://scenes/characters/npc_chicken_evil.tscn" id="5_c0qgv"]
+[ext_resource type="Resource" uid="uid://bej37nn76a27e" path="res://tres/items/consumable/slot+.tres" id="5_gx83n"]
+[ext_resource type="PackedScene" uid="uid://vnd77mfg51tg" path="res://scenes/world/world_test_tilemap.tscn" id="5_l3u84"]
+[ext_resource type="Resource" uid="uid://bvkqi5u3dmy2n" path="res://tres/items/resources/rock.tres" id="6_u78vl"]
+[ext_resource type="Resource" uid="uid://csct8q1do2s" path="res://tres/items/resources/wood.tres" id="7_4hbbq"]
+[ext_resource type="PackedScene" uid="uid://djj8gwsjvdc3l" path="res://scenes/items_lootable/spell_fireball_01.tscn" id="7_usspu"]
+[ext_resource type="PackedScene" uid="uid://oujbq62lwknj" path="res://scenes/characters/npc_human_base.tscn" id="10_opodw"]
+[ext_resource type="PackedScene" uid="uid://cqjjwy6bl86e3" path="res://scenes/items_lootable/equipment_axe_01.tscn" id="10_s25ru"]
 [ext_resource type="PackedScene" uid="uid://c04oy2a4rq74f" path="res://scenes/items/item_quest.tscn" id="11_s25ru"]
-[ext_resource type="PackedScene" uid="uid://bnqum2c1ib6m6" path="res://scenes/lootables/equipment_pickaxe_01.tscn" id="11_usspu"]
+[ext_resource type="PackedScene" uid="uid://bnqum2c1ib6m6" path="res://scenes/items_lootable/equipment_pickaxe_01.tscn" id="11_usspu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvpb0"]
 size = Vector2(500, 500)
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" groups=["WorldCell"]]
 script = ExtResource("1_bvpb0")
 items_to_spawn = 100
+spawnable_items = Array[Resource]([ExtResource("2_jkr0i"), ExtResource("3_brk2l"), ExtResource("4_dhbhc"), ExtResource("5_gx83n"), ExtResource("6_u78vl"), ExtResource("7_4hbbq")])
 
 [node name="TestTilemap" parent="." instance=ExtResource("5_l3u84")]
 

@@ -34,6 +34,7 @@ radius = 8.0
 script = ExtResource("1_puvod")
 
 [node name="Particles" type="CPUParticles2D" parent="."]
+rotation = 1.5708
 amount = 60
 texture = SubResource("GradientTexture2D_puvod")
 preprocess = 0.5

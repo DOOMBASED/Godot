@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://bf4ajfqxih7al" path="res://scenes/interface/stats/stats_display_item.tscn" id="2_stnqn"]
 
 [node name="StatsDisplay" type="MarginContainer"]
+offset_right = 1.0
+offset_bottom = 1.0
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
 script = ExtResource("1_2x060")

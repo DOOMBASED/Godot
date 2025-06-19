@@ -1,6 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bostl8gv0xqak"]
-
-[ext_resource type="FontFile" uid="uid://duujpyh00pie6" path="res://fonts/JetBrainsMono-Regular.ttf" id="1_yj408"]
+[gd_scene load_steps=9 format=3 uid="uid://bostl8gv0xqak"]
 
 [sub_resource type="Gradient" id="Gradient_ebaj5"]
 offsets = PackedFloat32Array(0)
@@ -72,9 +70,6 @@ offset_top = -10.5
 offset_right = 114.0
 offset_bottom = 9.5
 grow_vertical = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("1_yj408")
-theme_override_font_sizes/font_size = 14
 text = "100"
 horizontal_alignment = 2
 
@@ -88,9 +83,6 @@ offset_top = -10.5
 offset_right = 72.0
 offset_bottom = 9.5
 grow_vertical = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("1_yj408")
-theme_override_font_sizes/font_size = 14
 text = "HEALTH:"
 
 [node name="Stamina" type="TextureProgressBar" parent="."]
@@ -111,9 +103,6 @@ offset_top = -10.5
 offset_right = 114.0
 offset_bottom = 9.5
 grow_vertical = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("1_yj408")
-theme_override_font_sizes/font_size = 14
 text = "100"
 horizontal_alignment = 2
 
@@ -127,9 +116,6 @@ offset_top = -10.5
 offset_right = 81.0
 offset_bottom = 9.5
 grow_vertical = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("1_yj408")
-theme_override_font_sizes/font_size = 14
 text = "STAMINA:"
 
 [node name="Magic" type="TextureProgressBar" parent="."]
@@ -150,9 +136,6 @@ offset_top = -10.5
 offset_right = 114.0
 offset_bottom = 9.5
 grow_vertical = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("1_yj408")
-theme_override_font_sizes/font_size = 14
 text = "100"
 horizontal_alignment = 2
 
@@ -166,7 +149,4 @@ offset_top = -10.5
 offset_right = 65.0
 offset_bottom = 9.5
 grow_vertical = 2
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("1_yj408")
-theme_override_font_sizes/font_size = 14
 text = "MAGIC:"

@@ -76,15 +76,15 @@ func use_hotbar_item(slot_index):
 		var item = Global.hotbar_inventory[slot_index]
 		if item != null:
 			Global.player_node.apply_item_effect(item)
-			if item["type"] == "Equipment":
-				if Global.player_node.hand!= null:
-					Global.player_node.hand.equipped_item = item["equippable"]
 			var use = Global.player_node.should_use
 			if use:
 				item["quantity"] -= 1
 				if item["quantity"] <= 0:
 					Global.hotbar_inventory[slot_index] = null
-					Global.remove_item(item["type"], item["effect"])
+					Global.remove_item(item["id"])
 				Global.inventory_updated.emit()
 			elif !use:
 				print("Item not used")
+			if item["type"] == "Equipment" || item["type"] == "Spell":
+				if Global.player_node.hand!= null:
+					Global.player_node.hand.equipped_item = item["equippable"]

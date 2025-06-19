@@ -1,18 +1,10 @@
 extends Node
 
 @export var inventory_max = 16
-@export var starting_size = 8
-@export var hotbar_size = 5
+@export var inventory_size = 8
+@export var hotbar_size = 8
 @export var inventory = []
 @export var hotbar_inventory = []
-@export var spawnable_items: Array[Resource] = [
-	preload("res://tres/items/consumable/energy.tres"),
-	preload("res://tres/items/consumable/magic.tres"),
-	preload("res://tres/items/consumable/potion.tres"),
-	preload("res://tres/items/consumable/slot+.tres"),
-	preload("res://tres/items/resources/rock.tres"),
-	preload("res://tres/items/resources/wood.tres"),
-]
 
 @onready var inventory_slot_scene = preload("res://scenes/interface/hotbar/hotbar_item_button.tscn")
 
@@ -22,7 +14,7 @@ var inventory_full = false
 signal inventory_updated
  
 func _ready() -> void:
-	inventory.resize(starting_size)
+	inventory.resize(inventory_size)
 	hotbar_inventory.resize(hotbar_size)
 
 func set_player(player):
@@ -51,7 +43,7 @@ func add_item(item, to_hotbar = false):
 					return false
 				else:
 					return true
-			elif inventory[i] != null && inventory[i]["name"] == item["name"] && inventory[i]["type"] == item["type"] && inventory[i]["effect"] == item["effect"]:
+			elif inventory[i] != null && inventory[i]["id"] == item["id"]:
 				inventory[i]["quantity"] += item["quantity"]
 				if inventory.count(null) == 0:
 					inventory_full = true
@@ -65,9 +57,9 @@ func add_hotbar_item(item):
 			return true
 	return false
 
-func remove_item(item_type, item_effect):
+func remove_item(item_id):
 	for i in range(inventory.size()):
-		if inventory[i] != null && inventory[i]["type"] == item_type && inventory[i]["effect"] == item_effect:
+		if inventory[i] != null && inventory[i]["id"] == item_id:
 			inventory[i]["quantity"] -= 1
 			if inventory[i]["quantity"] <= 0:
 				inventory[i] = null
@@ -76,18 +68,18 @@ func remove_item(item_type, item_effect):
 			return true
 	return false
 
-func remove_hotbar_item(item_type, item_effect):
+func remove_hotbar_item(item_id):
 	for i in range(hotbar_inventory.size()):
-		if hotbar_inventory[i] != null && hotbar_inventory[i]["type"] == item_type && hotbar_inventory[i]["effect"] == item_effect:
+		if hotbar_inventory[i] != null && hotbar_inventory[i]["id"] == item_id:
 			if hotbar_inventory[i]["quantity"] <= 0:
 				hotbar_inventory[i] = null
 			inventory_updated.emit()
 			return true
 	return false
 
-func unassign_hotbar_item(item_type, item_effect):
+func unassign_hotbar_item(item_id):
 	for i in range(hotbar_inventory.size()):
-		if hotbar_inventory[i] != null && hotbar_inventory[i]["type"] == item_type && hotbar_inventory[i]["effect"] == item_effect:
+		if hotbar_inventory[i] != null && hotbar_inventory[i]["id"] == item_id:
 			hotbar_inventory[i] = null
 			inventory_updated.emit()
 			return true

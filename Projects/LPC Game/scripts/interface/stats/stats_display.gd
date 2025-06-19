@@ -2,7 +2,7 @@ extends MarginContainer
 
 @export var stats_display_template : PackedScene
 
-@onready var player = get_tree().get_first_node_in_group("player")
+@onready var player = get_tree().get_first_node_in_group("Player")
 @onready var display_grid = $DisplayGrid
 
 var stats_displays : Array[StatsItemDisplay]

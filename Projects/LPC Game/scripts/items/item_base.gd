@@ -3,10 +3,10 @@ extends Node2D
 @export var item_id:String = ""
 @export var item_name:String = ""
 @export var item_type:String = ""
-@export var equippable: Resource
 @export var item_effect:String = ""
 @export var effect_magnitude: int
 @export var item_texture: Texture
+@export var equippable: Resource
 @export var spawn_chance: float = 1.0
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -18,10 +18,7 @@ var speed = 480
 var in_range = false
 
 func _ready() -> void:
-	if get_parent().is_in_group("Resource"):
-		item_texture = get_parent().resource_type.display_texture
-	else:
-		sprite.texture = item_texture
+	sprite.texture = item_texture
 
 func _process(delta: float) -> void:
 	if in_range == true && Input.is_action_pressed("interact"):
@@ -31,10 +28,11 @@ func _process(delta: float) -> void:
 				pickup_item()
 		else:
 			for i in range(Global.inventory.size()):
-				if Global.inventory[i] != null && Global.inventory[i]["name"] == item_name && Global.inventory[i]["type"] == item_type && Global.inventory[i]["effect"] == item_effect:
-					move_to_player(delta)
-					if position.round() == Global.player_node.position.round():
-						pickup_item()
+				if Global.inventory[i] != null:
+					if Global.inventory[i]["id"] == item_id:
+						move_to_player(delta)
+						if position.round() == Global.player_node.position.round():
+							pickup_item()
 
 func pickup_item():
 	Global.player_node.time_since_pickup = 0

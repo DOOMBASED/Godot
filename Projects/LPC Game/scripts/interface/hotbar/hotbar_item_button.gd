@@ -97,8 +97,8 @@ func _on_use_button_pressed() -> void:
 					Global.player_node.apply_item_effect(item)
 					var use = Global.player_node.should_use
 					if use:
-						Global.remove_item(item["type"], item["effect"])
-						Global.remove_hotbar_item(item["type"], item["effect"])
+						Global.remove_item(item["id"])
+						Global.remove_hotbar_item(item["id"])
 					elif !use:
 						print("Item not used.")
 			else:
@@ -109,7 +109,7 @@ func _on_hotbar_button_pressed() -> void:
 	if item != null:
 		if item["effect"] != "Quest Item" && item["type"] != "Resource":
 			if assigned:
-				Global.unassign_hotbar_item(item["type"], item["effect"])
+				Global.unassign_hotbar_item(item["id"])
 				assigned = false
 			else:
 				Global.add_item(item, true)
@@ -124,8 +124,8 @@ func _on_drop_button_pressed() -> void:
 		var drop_position = Global.player_node.position + Vector2(0.0, 64.0)
 		var drop_offset = Global.player_node.last_direction
 		Global.drop_item(item, drop_position + drop_offset)
-		Global.remove_item(item["type"], item["effect"])
-		Global.remove_hotbar_item(item["type"], item["effect"])
+		Global.remove_item(item["id"])
+		Global.remove_hotbar_item(item["id"])
 		item_button.visible = true
 		details_panel.visible = false
 		usage_panel.visible = false
