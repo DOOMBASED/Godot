@@ -1,8 +1,9 @@
+res://scripts/quests
+res://scripts/dialogue
+res://scenes/interface/dialogue
 C:/Users/DOOM/Downloads
 res://sprites
 C:/Users/DOOM/Documents/Godot/Projects/LPC Game/json/dialogue
-res://scripts/quests
-res://scripts/dialogue
 res://tres/textures
 res://scripts/items
 res://scripts/control
@@ -16,4 +17,3 @@ res://scripts/nodes
 res://scripts/interface/hotbar
 res://scenes/interface/hotbar
 res://sprites/tiles
-res://tres/types/spells

@@ -1,16 +1,11 @@
-[gd_scene load_steps=61 format=3 uid="uid://oujbq62lwknj"]
+[gd_scene load_steps=60 format=3 uid="uid://oujbq62lwknj"]
 
 [ext_resource type="Script" uid="uid://ddf0y677qr2il" path="res://scripts/control/control_npc.gd" id="1_i26dy"]
-[ext_resource type="Script" uid="uid://c8uteg1jgl8ww" path="res://scripts/dialogue/dialogue.gd" id="2_3mp78"]
 [ext_resource type="Texture2D" uid="uid://dlx51id2yohq0" path="res://sprites/characters/player/idle.png" id="4_004hg"]
 [ext_resource type="Texture2D" uid="uid://mj5slfxqcwgj" path="res://sprites/characters/player/run.png" id="5_iojj0"]
 [ext_resource type="Texture2D" uid="uid://bcxmq3kqn36be" path="res://sprites/characters/player/backslash.png" id="6_iuw7w"]
 [ext_resource type="Texture2D" uid="uid://cn6y8e7mulwro" path="res://sprites/characters/player/walk.png" id="7_3ispy"]
-
-[sub_resource type="Resource" id="Resource_x558f"]
-script = ExtResource("2_3mp78")
-dialogues = {}
-metadata/_custom_type_script = "uid://c8uteg1jgl8ww"
+[ext_resource type="PackedScene" uid="uid://uiogyqn1v4ia" path="res://scenes/interface/dialogue/dialogue_manager.tscn" id="7_l6tph"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgnko"]
 radius = 15.0
@@ -1172,18 +1167,23 @@ z_index = -1
 collision_layer = 3
 motion_mode = 1
 script = ExtResource("1_i26dy")
-npc_id = "test_npc_01"
-npc_name = "Test NPC"
-dialogue_resource = SubResource("Resource_x558f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_qgnko")
 
+[node name="Body" type="Sprite2D" parent="."]
+modulate = Color(1, 0.392157, 0.333333, 1)
+texture = ExtResource("4_004hg")
+hframes = 2
+vframes = 4
+frame = 4
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_dyp2m")
 }
+autoplay = "idle_down"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_xrqxk")
@@ -1197,9 +1197,4 @@ parameters/Run/blend_position = Vector2(0, 0)
 parameters/Swing/blend_position = Vector2(0.997743, -0.014966)
 parameters/Walk/blend_position = Vector2(0, 0)
 
-[node name="Body" type="Sprite2D" parent="."]
-modulate = Color(1, 0.392157, 0.333333, 1)
-texture = ExtResource("4_004hg")
-hframes = 2
-vframes = 4
-frame = 4
+[node name="DialogueManager" parent="." instance=ExtResource("7_l6tph")]

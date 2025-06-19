@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+@export var player_name: String = "null"
+
 @export_group("Custom Values")
 @export var walk_speed: float = 100.0
 @export var run_speed: float = 250.0
@@ -18,24 +20,24 @@ extends CharacterBody2D
 @export var running: bool
 @export var swinging: bool
 
-@onready var ray_cast = $RayCast2D
-@onready var animation_tree = $AnimationTree
-@onready var follow_camera = $"../Camera"
-@onready var interface = $UserInterface
-@onready var inventory = $UserInterface/HUD/InventoryUI
-@onready var quest_tracker = $UserInterface/HUD/QuestTracker
-@onready var quest_title = $UserInterface/HUD/QuestTracker/ColorRect/Details/Title
-@onready var quest_objectives = $UserInterface/HUD/QuestTracker/ColorRect/Details/Objectives
-@onready var interact_label = $UserInterface/HUD/Interact
-@onready var fps_label = $UserInterface/HUD/FPSLabel/Label
-@onready var hand = $Hand
-@onready var projectile_origin = $ProjectileOrigin
-@onready var health_bar = $UserInterface/HUD/StatsUI/HealthBars/Health
-@onready var health_label = health_bar.get_child(0)
-@onready var stamina_bar = $UserInterface/HUD/StatsUI/HealthBars/Stamina
-@onready var stamina_label: = stamina_bar.get_child(0)
-@onready var magic_bar = $UserInterface/HUD/StatsUI/HealthBars/Magic
-@onready var magic_label = magic_bar.get_child(0)
+@onready var ray_cast: RayCast2D = $RayCast2D
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var follow_camera: RemoteTransform2D = $"../Camera"
+@onready var interface: CanvasLayer = $UserInterface
+@onready var inventory: Control = $UserInterface/HUD/InventoryUI
+@onready var quest_tracker: Control = $UserInterface/HUD/QuestTracker
+@onready var quest_title: Label = $UserInterface/HUD/QuestTracker/ColorRect/Details/Title
+@onready var quest_objectives: VBoxContainer = $UserInterface/HUD/QuestTracker/ColorRect/Details/Objectives
+@onready var interact_label: Control = $UserInterface/HUD/Interact
+@onready var fps_label: Control = $UserInterface/HUD/FPSLabel/Label
+@onready var hand: Hand = $Hand
+@onready var projectile_origin: Marker2D = $ProjectileOrigin
+@onready var health_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Health
+@onready var health_label: Label = health_bar.get_child(0)
+@onready var stamina_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Stamina
+@onready var stamina_label: Label = stamina_bar.get_child(0)
+@onready var magic_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Magic
+@onready var magic_label: Label = magic_bar.get_child(0)
 
 const FIREBALL = preload("res://scenes/effects/effect_fireball.tscn")
 
@@ -54,24 +56,26 @@ var can_move = true
 var looting = false
 var should_use = false
 var recent_pickup = false
+var in_interact_area = false
 var time_since_pickup: int = 0
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Global.set_player(self)
+	Global.player_name = player_name
 
 func _process(_delta):
-	check_inventory_ui()
+	check_ui()
 	check_health()
 	check_stamina()
 	check_magic()
 
 func _physics_process(_delta):
 	animation_parameters()
-	check_input()
-	check_interact()
 	animate_bars()
-	camera_follow()
+	if can_move:
+		check_input()
+		check_interact()
+		camera_follow()
 
 func check_input():
 	if get_tree().paused == false:
@@ -95,10 +99,11 @@ func check_input():
 	if get_tree().paused == false:
 		move_and_slide()
 	if Input.is_action_just_pressed("use"):
-		if hand.equipped_item != null && get_tree().paused == false:
-			if hand.equipped_item.name == "Fireball" && magic >= magic_drain:
-				if magic_cooldown == false:
-					shoot_fireball()
+		if interface.visible == true:
+			if hand.equipped_item != null && get_tree().paused == false:
+				if hand.equipped_item["type"] == "Spell" && magic >= magic_drain:
+					if magic_cooldown == false:
+						shoot_fireball()
 	if Input.is_action_just_pressed("inventory"):
 		open_inventory()
 	if Input.is_action_just_pressed("quit"):
@@ -115,16 +120,18 @@ func open_inventory():
 	if looting == false:
 		if inventory.visible == false:
 			Global.inventory_updated.emit()
+			animation_tree.active = false
 			inventory.visible = true
 			get_tree().paused = true
-			animation_tree.active = false
 		elif inventory.visible == true:
+			animation_tree.active = true
 			inventory.visible = false
 			get_tree().paused = false
-			animation_tree.active = true
 
-func check_inventory_ui():
-	if inventory.visible == true:
+func check_ui():
+	if interface.visible == false:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	elif inventory.visible == true:
 		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 		get_tree().paused = true
 	else:
@@ -132,10 +139,6 @@ func check_inventory_ui():
 		get_tree().paused = false
 
 func check_interact():
-	if ray_cast.is_colliding():
-		interact_label.visible = true
-	else:
-		interact_label.visible = false
 	if recent_pickup == true:
 		time_since_pickup += 1
 		if time_since_pickup == 50:
@@ -148,11 +151,14 @@ func check_interact():
 			var target = ray_cast.get_collider()
 			if target != null:
 				if target.is_in_group("NPC"):
-					print("DOOM: Hello, my name is DOOM!")
+					can_move = false
 					target.start_dialogue()
 				elif target.is_in_group("QuestItem"):
-					print("DOOM: What kind of item are you?")
 					target.start_interact()
+	if ray_cast.is_colliding() || in_interact_area == true:
+		interact_label.visible = true
+	else:
+		interact_label.visible = false
 
 func check_health():
 	health_bar.value = health
@@ -196,7 +202,7 @@ func check_magic():
 	magic_label.text = str(magic as int).pad_zeros(3)
 	if magic < 0:
 		magic = 0
-	if magic < max_magic:
+	if get_tree().paused == false && magic < max_magic:
 		if magic < 0.48:
 			magic_label.self_modulate = Color.RED
 			await get_tree().create_timer(1.5).timeout
@@ -336,11 +342,12 @@ func animation_parameters():
 		animation_tree["parameters/conditions/swing"] = false
 	if Input.is_action_just_pressed("use"):
 		if hand.equipped_item != null:
-			if hand.equipped_item.name != "Fireball" || magic > magic_drain && magic_cooldown == false:
-				animation_tree["parameters/conditions/swing"] = true
-			animation_tree["parameters/conditions/idle"] = false
-			animation_tree["parameters/conditions/is_moving"] = false
-			animation_tree["parameters/conditions/is_running"] = false
+			if interface.visible == true:
+				if hand.equipped_item.name != "Fireball" || magic > magic_drain && magic_cooldown == false:
+					animation_tree["parameters/conditions/swing"] = true
+				animation_tree["parameters/conditions/idle"] = false
+				animation_tree["parameters/conditions/is_moving"] = false
+				animation_tree["parameters/conditions/is_running"] = false
 	else:
 		animation_tree["parameters/conditions/swing"] = false
 	if direction != Vector2.ZERO:

@@ -1,14 +1,14 @@
+Node2D
+Panel
 ColorRect
 Label
 Control
 VBoxContainer
 MarginContainer
 HBoxContainer
-Panel
 Sprite2D
 CanvasLayer
 Button
 CollisionShape2D
 Area2D
 RayCast2D
-RigidBody2D

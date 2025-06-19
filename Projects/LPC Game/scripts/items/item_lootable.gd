@@ -9,10 +9,10 @@ extends Area2D
 @export var xp_amount: int = 2
 
 var stats
-var launch_velocity = Vector2.ZERO
-var launch_duration = 0.0
-var launch_elapsed = 0.0
-var launching = false:
+var launch_velocity: Vector2 = Vector2.ZERO
+var launch_duration: float = 0.0
+var launch_elapsed: float = 0.0
+var launching: bool = false:
 	set(is_launching):
 		launching = is_launching
 		loot_shape.disabled = launching

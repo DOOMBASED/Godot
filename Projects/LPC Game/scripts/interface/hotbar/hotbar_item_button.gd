@@ -1,21 +1,21 @@
 extends Control
 
-@onready var item_button = $ItemButton
-@onready var hotbar_button = $UsagePanel/HotbarButton
-@onready var item_name = $DetailsPanel/ItemName
-@onready var item_type = $DetailsPanel/ItemType
-@onready var item_effect = $DetailsPanel/ItemEffect
-@onready var icon = $InnerBorder/ItemIcon
-@onready var quantity_label = $InnerBorder/ItemQuantity
-@onready var quantity_small = $InnerBorder/ItemQuantitySmall
-@onready var key_label = $InnerBorder/KeyLabel
-@onready var details_panel = $DetailsPanel
-@onready var usage_panel = $UsagePanel
-@onready var outer_border = $OuterBorder
+@onready var item_button: Button = $ItemButton
+@onready var hotbar_button: Button = $UsagePanel/HotbarButton
+@onready var item_name: Label = $DetailsPanel/ItemName
+@onready var item_type: Label = $DetailsPanel/ItemType
+@onready var item_effect: Label = $DetailsPanel/ItemEffect
+@onready var icon: Sprite2D = $InnerBorder/ItemIcon
+@onready var quantity_label: Label = $InnerBorder/ItemQuantity
+@onready var key_label_box: Panel = $InnerBorder/KeyLabelBox
+@onready var key_label: Label = $InnerBorder/KeyLabelBox/KeyLabel
+@onready var details_panel: ColorRect = $DetailsPanel
+@onready var usage_panel: ColorRect = $UsagePanel
+@onready var outer_border: ColorRect = $OuterBorder
 
 var item = null
-var slot_index = -1
-var assigned = false
+var slot_index: int = -1
+var assigned: bool = false
 
 signal drag_start(slot)
 signal drag_stop()
@@ -29,7 +29,6 @@ func set_empty():
 	item_button.mouse_filter = MOUSE_FILTER_PASS
 	icon.texture = null
 	quantity_label.text = ""
-	quantity_small.text = ""
 
 func set_item(new_item):
 	outer_border.modulate = Color.BLACK
@@ -37,7 +36,6 @@ func set_item(new_item):
 	item = new_item
 	icon.texture = new_item["texture"]
 	quantity_label.text = str(item["quantity"])
-	quantity_small.text = str(item["quantity"])
 	item_name.text = str(item["name"])
 	item_type.text = str(item["type"])
 	if item["magnitude"] == 0:

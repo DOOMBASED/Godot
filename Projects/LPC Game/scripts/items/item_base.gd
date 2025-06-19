@@ -1,9 +1,9 @@
 extends Node2D
 
-@export var item_id:String = ""
-@export var item_name:String = ""
-@export var item_type:String = ""
-@export var item_effect:String = ""
+@export var item_id: String = ""
+@export var item_name: String = ""
+@export var item_type: String = ""
+@export var item_effect: String = ""
 @export var effect_magnitude: int
 @export var item_texture: Texture
 @export var equippable: Resource
@@ -21,18 +21,21 @@ func _ready() -> void:
 	sprite.texture = item_texture
 
 func _process(delta: float) -> void:
-	if in_range == true && Input.is_action_pressed("interact"):
-		if Global.inventory_full == false:
-			move_to_player(delta)
-			if position.round() == Global.player_node.position.round():
-				pickup_item()
-		else:
-			for i in range(Global.inventory.size()):
-				if Global.inventory[i] != null:
-					if Global.inventory[i]["id"] == item_id:
-						move_to_player(delta)
-						if position.round() == Global.player_node.position.round():
-							pickup_item()
+	if in_range == true && item_type && Global.player_node.ray_cast.is_colliding() == false:
+		if item_type == "Quest Item" && Input.is_action_just_pressed("interact"):
+			find_child("QuestItem").start_interact()
+		elif item_type != "Quest Item" && Input.is_action_pressed("interact"):
+			if Global.inventory_full == false:
+				move_to_player(delta)
+				if position.round() == Global.player_node.position.round():
+					pickup_item()
+			else:
+				for i in range(Global.inventory.size()):
+					if Global.inventory[i] != null:
+						if Global.inventory[i]["id"] == item_id:
+							move_to_player(delta)
+							if position.round() == Global.player_node.position.round():
+								pickup_item()
 
 func pickup_item():
 	Global.player_node.time_since_pickup = 0
@@ -79,7 +82,11 @@ func init_items(id, type, equip, i_name, effect, magnitude, texture, scene):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.player_node:
 		in_range = true
+		if item_type == "Quest Item":
+			Global.player_node.in_interact_area = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body == Global.player_node:
 		in_range = false
+		if item_type == "Quest Item":
+			Global.player_node.in_interact_area = false

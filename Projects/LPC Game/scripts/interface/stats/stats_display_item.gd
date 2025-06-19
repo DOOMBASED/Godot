@@ -1,8 +1,8 @@
 class_name StatsItemDisplay
 extends HBoxContainer
 
-@export var display_texture : TextureRect
-@export var display_label : Label
+@export var display_texture: TextureRect
+@export var display_label: Label
 
 var stats_type:
 	set(new_type):

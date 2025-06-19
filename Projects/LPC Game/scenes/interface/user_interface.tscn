@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://oy7nlwlixxf"]
 
-[ext_resource type="FontFile" uid="uid://oxelnataqj4p" path="res://fonts/VCR_OSD_MONO_1.001.ttf" id="1_jknq0"]
+[ext_resource type="FontFile" uid="uid://oxelnataqj4p" path="res://fonts/font.ttf" id="1_jknq0"]
 [ext_resource type="PackedScene" uid="uid://biq8k4lj4jr4a" path="res://scenes/interface/hotbar/hotbar.tscn" id="2_x21bf"]
 [ext_resource type="PackedScene" uid="uid://dnuuwh2ewiitr" path="res://scenes/interface/stats/stats_display.tscn" id="3_d4ryj"]
 [ext_resource type="PackedScene" uid="uid://bostl8gv0xqak" path="res://scenes/interface/stats/stats_health_bars.tscn" id="4_l0s56"]
@@ -43,7 +43,7 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SkillsDisplay" parent="HUD/StatsUI" instance=ExtResource("3_d4ryj")]
+[node name="StatsDisplay" parent="HUD/StatsUI" instance=ExtResource("3_d4ryj")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -87,6 +87,7 @@ theme_override_constants/separation = 0
 
 [node name="Title" type="Label" parent="HUD/QuestTracker/ColorRect/Details"]
 layout_mode = 2
+theme_override_constants/outline_size = 4
 text = "Title"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -123,10 +124,11 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -45.5
-offset_top = 2.0
+offset_top = 5.0
 offset_right = 45.5
-offset_bottom = 25.0
+offset_bottom = 20.0
 grow_horizontal = 2
+theme_override_constants/outline_size = 4
 text = "INVENTORY"
 
 [node name="GridContainer" type="GridContainer" parent="HUD/InventoryUI/TextureRect"]
@@ -157,7 +159,7 @@ anchor_bottom = 1.0
 offset_left = -40.0
 offset_top = -122.0
 offset_right = 40.0
-offset_bottom = -100.0
+offset_bottom = -104.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -177,12 +179,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -38.5
-offset_top = -11.0
-offset_right = 38.5
-offset_bottom = 11.0
+offset_left = -37.5
+offset_top = -8.5
+offset_right = 37.5
+offset_bottom = 6.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 4
 text = "INTERACT"
 
 [node name="FPSLabel" type="Control" parent="HUD"]
@@ -192,7 +195,7 @@ anchors_preset = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 58.0
-offset_bottom = 30.0
+offset_bottom = 27.0
 
 [node name="ColorRect" type="ColorRect" parent="HUD/FPSLabel"]
 layout_mode = 1
@@ -205,13 +208,17 @@ color = Color(0, 0, 0, 0.588235)
 
 [node name="Label" type="Label" parent="HUD/FPSLabel"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -19.5
-offset_right = 19.5
-offset_bottom = 22.0
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -7.5
+offset_right = 23.5
+offset_bottom = 7.5
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 text = "120.0"

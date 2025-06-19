@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://b63giumoaqmg2"]
+[gd_scene load_steps=5 format=3 uid="uid://b63giumoaqmg2"]
 
 [ext_resource type="Script" uid="uid://cv1njefyljpik" path="res://scripts/interface/hotbar/hotbar_equip_button.gd" id="1_nk8n7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xevv8"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oh147"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn87d"]
+bg_color = Color(0, 0, 0, 0.588235)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
 
 [node name="ItemButton" type="Button"]
 anchors_preset = 7
@@ -60,28 +68,42 @@ offset_right = 39.982
 offset_bottom = 42.982
 texture = SubResource("CompressedTexture2D_oh147")
 
-[node name="ButtonLabel" type="Label" parent="InnerBorder"]
+[node name="ButtonLabelBox" type="Panel" parent="InnerBorder"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -18.5
-offset_top = -2.0
-offset_right = 18.5
-offset_bottom = 15.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 12.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dn87d")
+
+[node name="ButtonLabel" type="Label" parent="InnerBorder/ButtonLabelBox"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_right = 16.0
+offset_bottom = 17.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "ALT 0"
 
 [node name="KeyLabel" type="Label" parent="InnerBorder"]
 visible = false
-layout_mode = 0
-offset_left = 26.0
-offset_top = -3.0
-offset_right = 41.0
-offset_bottom = 14.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -14.0
+offset_bottom = 17.0
+grow_horizontal = 0
 theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "00"
 horizontal_alignment = 2

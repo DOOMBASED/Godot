@@ -4,9 +4,9 @@ extends Area2D
 @export var speed: int = 300
 @export var projectile_range: int = 300
 
-var direction
-var distance = 0
-var tween
+var direction: Vector2
+var distance: int = 0
+var tween: Tween
 
 func _ready():
 	direction = Global.player_node.fireball_direction

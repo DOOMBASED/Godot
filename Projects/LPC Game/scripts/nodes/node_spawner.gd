@@ -3,8 +3,8 @@ extends Node2D
 @export var scenes: Array[PackedScene]
 @export var chance: float = 0.25
 
-@onready var world = get_tree().get_first_node_in_group("WorldCell")
-@onready var sprite = $Sprite2D
+@onready var world: Node2D = get_tree().get_first_node_in_group("WorldCell")
+@onready var sprite: Sprite2D = $Sprite2D
 
 var scenes_to_spawn
 var item

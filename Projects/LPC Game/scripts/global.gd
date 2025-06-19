@@ -1,15 +1,16 @@
 extends Node
 
-@export var inventory_max = 16
-@export var inventory_size = 8
-@export var hotbar_size = 8
-@export var inventory = []
-@export var hotbar_inventory = []
+@export var inventory_max: int = 16
+@export var inventory_size: int = 8
+@export var hotbar_size: int = 8
+@export var inventory: Array = []
+@export var hotbar_inventory: Array = []
 
 @onready var inventory_slot_scene = preload("res://scenes/interface/hotbar/hotbar_item_button.tscn")
 
 var player_node = null
-var inventory_full = false
+var player_name: String = ""
+var inventory_full: bool = false
 
 signal inventory_updated
  

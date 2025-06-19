@@ -4,16 +4,20 @@ extends CharacterBody2D
 @export var npc_name: String
 @export var dialogue_resource: Dialogue
 
+@onready var dialogue_manager: Node2D = $DialogueManager
+
 var current_state = "start"
 var current_branch_index = 0
 
 func _ready():
 	dialogue_resource.load_from_json("res://json/dialogue/dialogue_data.json")
+	dialogue_manager.npc = self
 
 func start_dialogue():
 	var npc_dialogues = dialogue_resource.get_npc_dialogue(npc_id)
 	if npc_dialogues.is_empty():
 		return
+	dialogue_manager.show_dialogue(self)
 
 func get_current_dialogue():
 	var npc_dialogues = dialogue_resource.get_npc_dialogue(npc_id)

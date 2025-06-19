@@ -12,6 +12,7 @@ display_label = NodePath("XPLabel")
 
 [node name="LevelLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_constants/outline_size = 4
 text = "LEVEL 1"
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -21,4 +22,5 @@ expand_mode = 3
 
 [node name="XPLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_constants/outline_size = 4
 text = "XP 0"

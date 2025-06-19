@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
-@export var health = 10
+@export var health: int = 10
 @export var speed: float = 111.0
 @export var spawn_chance: float = 0.5
-@export var evil = false
+@export var evil: bool = false
+@export var can_move: bool = true
 @export var explosion_scene: PackedScene
 
-@onready var animation_tree = $AnimationTree
-@onready var spawn_point = get_parent()
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var spawn_point: Node2D = get_parent()
 
 var direction = Vector2(0.0, 1.0)
 var damage_collision
@@ -25,17 +26,18 @@ func _ready():
 
 func _physics_process(_delta):
 	animation_parameters()
-	if evil == true:
-		speed = Global.player_node.speed
-		if direction:
-			velocity = direction * speed
-		else:
-			velocity = Vector2.ZERO
-		if Global.player_node.velocity != Vector2.ZERO:
-			move_and_slide()
-			direction = (-Global.player_node.position - position).normalized()
-	if evil == false:
-		movement()
+	if can_move:
+		if evil == true:
+			speed = Global.player_node.speed
+			if direction:
+				velocity = direction * speed
+			else:
+				velocity = Vector2.ZERO
+			if Global.player_node.velocity != Vector2.ZERO:
+				move_and_slide()
+				direction = (-Global.player_node.position - position).normalized()
+		if evil == false:
+			movement()
 
 func animation_parameters():
 	if velocity == Vector2.ZERO:

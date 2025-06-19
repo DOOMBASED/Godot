@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://devqdtb6y1mty"]
+[gd_scene load_steps=11 format=3 uid="uid://devqdtb6y1mty"]
 
 [ext_resource type="Script" uid="uid://bu1bk4p5odu7s" path="res://scripts/interface/hotbar/hotbar_item_button.gd" id="2_hddt5"]
 
@@ -10,6 +10,14 @@ colors = PackedColorArray(0, 1, 0, 1)
 gradient = SubResource("Gradient_p7cng")
 width = 32
 height = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2am1"]
+bg_color = Color(0, 0, 0, 0.588235)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxqf6"]
 
@@ -60,35 +68,34 @@ position = Vector2(21, 21)
 texture = SubResource("GradientTexture2D_rhcms")
 
 [node name="ItemQuantity" type="Label" parent="InnerBorder"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = -3.0
-offset_right = 23.0
-offset_bottom = 14.0
+layout_mode = 1
+offset_left = 3.0
+offset_right = 24.0
+offset_bottom = 17.0
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "000"
 
-[node name="KeyLabel" type="Label" parent="InnerBorder"]
+[node name="KeyLabelBox" type="Panel" parent="InnerBorder"]
 visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -11.0
+offset_bottom = 12.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i2am1")
+
+[node name="KeyLabel" type="Label" parent="InnerBorder/KeyLabelBox"]
 layout_mode = 0
-offset_left = 26.0
-offset_top = -2.0
-offset_right = 41.0
-offset_bottom = 15.0
+offset_left = 2.0
+offset_right = 9.0
+offset_bottom = 17.0
 theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
-text = "00"
-horizontal_alignment = 2
-
-[node name="ItemQuantitySmall" type="Label" parent="InnerBorder"]
-visible = false
-layout_mode = 0
-offset_left = 1.0
-offset_top = 30.0
-offset_right = 19.0
-offset_bottom = 44.0
-theme_override_font_sizes/font_size = 10
-text = "000"
+text = "0"
 
 [node name="ItemButton" type="Button" parent="."]
 layout_mode = 1
@@ -196,6 +203,7 @@ offset_left = -44.0
 offset_right = 44.0
 offset_bottom = 17.0
 grow_horizontal = 2
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "NAME"
 
@@ -212,6 +220,7 @@ offset_right = 44.0
 offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "TYPE"
 
@@ -227,6 +236,7 @@ offset_top = -17.0
 offset_right = 44.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "EFFECT"
 

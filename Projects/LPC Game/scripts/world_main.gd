@@ -3,9 +3,9 @@ extends Node2D
 @export var items_to_spawn: int = 0
 @export var spawnable_items: Array[Resource] = []
 
-@onready var items = $SpawnedItems
-@onready var item_spawn_area = $SpawnedItemsArea
-@onready var item_spawn_collision = $SpawnedItemsArea/CollisionShape2D
+@onready var items: Node2D = $SpawnedItems
+@onready var item_spawn_area: Area2D = $SpawnedItemsArea
+@onready var item_spawn_collision: CollisionShape2D = $SpawnedItemsArea/CollisionShape2D
 
 func _ready() -> void:
 	spawn_random_items(items_to_spawn)

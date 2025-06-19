@@ -6,37 +6,37 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Hello, adventurer! What do you need?",
+						"text": "Hello, #PN#! What do you need?",
 						"options": {
-							"Ask About Town": "in_progress",
-							"Receive Quests": "give_quests",
-							"Say Goodbye": "exit"
+							"Tell me about this town.": "in_progress",
+							"Do you have any quests?": "give_quests",
+							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "in_progress",
-						"text": "This town is known for its beautiful gardens and not so friendly NPC's.",
+						"text": "This town is known for its beautiful gardens and not so friendly creatures.",
 						"options": {
-							"Say Goodbye": "end",
-							"Go Back": "start"
+							"<-": "start",
+							"Goodbye": "end"
 						}
 					},
 					{
 						"state": "give_quests",
 						"text": "Sure! If I have anything, you can find it in your Quest Log.",
 						"options": {
-							"Say Goodbye": "exit",
-							"Go Back": "start"
+							"<-": "start",
+							"Say Goodbye": "exit"
 						}
 					},
 					{
 						"state": "end",
-						"text": "Goodbye, adventurer!",
+						"text": "Goodbye, #PN#!",
 						"options": {}
 					},
 					{
 						"state": "exit",
-						"text": "Come back soon adventurer!",
+						"text": "Come back soon #PN#!",
 						"options": {}
 					}
 				]
@@ -46,32 +46,32 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Hey adventurer! Back so soon?",
+						"text": "Hey #PN#! Back so soon?",
 						"options": {
-							"Continue Asking About Town": "in_progress",
-							"Receive Quests": "give_quests",
-							"Say Goodbye": "exit"
+							"Anthing else you can tell me?": "in_progress",
+							"Do you have any quests?": "give_quests",
+							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "in_progress",
-						"text": "I heard that Carl over there makes a mean cat-eye soup.",
+						"text": "I heard that guy next to me makes a mean cat-eye soup.",
 						"options": {
-							"Say Goodbye": "end",
-							"Go Back": "start"
+							"<-": "start",
+							"Goodbye": "end"
 						}
 					},
 					{
 						"state": "give_quests",
 						"text": "Sure! If I have anything, you can find it in your Quest Log.",
 						"options": {
-							"Say Goodbye": "exit",
-							"Go Back": "start"
+							"<-": "start",
+							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "end",
-						"text": "Goodbye, adventurer!",
+						"text": "Goodbye, #PN#!",
 						"options": {}
 					},
 					{
@@ -86,17 +86,17 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Hey adventurer! Thanks again for helping me.",
+						"text": "Hey #PN#! Thanks again for helping me.",
 						"options": {
-							"Receive Quests": "give_quests",
-							"Say Goodbye": "exit"
+							"Do you have any quests?": "give_quests",
+							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "give_quests",
 						"text": "Sure! If I have anything, you can find it in your Quest Log.",
 						"options": {
-							"Go Back": "start"
+							"<-": "start"
 						}
 					}
 				]
@@ -110,32 +110,32 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Greetings, traveler! How can I assist you?",
+						"text": "Greetings, #PN#! How can I assist you?",
 						"options": {
-							"Ask About Forest": "in_progress",
-							"Receive Quests": "give_quests",
-							"Say Goodbye": "exit"
+							"Tell me about this forest.": "in_progress",
+							"Do you have any quests?": "give_quests",
+							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "in_progress",
 						"text": "The forest is home to many mystical creatures.",
 						"options": {
-							"Say Goodbye": "end",
-							"Go Back": "start"
+							"<-": "start",
+							"Goodbye": "end"
 						}
 					},
 					{
 						"state": "give_quests",
 						"text": "Okay. I've updated your quest log with things I need done.",
 						"options": {
-							"Say Goodbye": "exit",
-							"Go Back": "start"
+							"<-": "start",
+							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "end",
-						"text": "Farewell, traveler!",
+						"text": "Farewell, #PN#!",
 						"options": {}
 					},
 					{
@@ -150,17 +150,17 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "I wonder why Bobby is always smelling me...",
+						"text": "I wonder why that guy is always smelling me...",
 						"options": {
-							"Receive Quests": "give_quests",
-							"Say Goodbye": "exit"
+							"Do you have any quests?": "give_quests",
+							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "give_quests",
 						"text": "Okay. I've updated your quest log with things I need done.",
 						"options": {
-							"Go Back": "start"
+							"<-": "start"
 						}
 					},
 				]

@@ -10,7 +10,7 @@ extends RigidBody2D
 @export var loot: PackedScene
 @export var explosion_scene: PackedScene
 
-@onready var spawn_point = get_parent()
+@onready var spawn_point: Node2D = get_parent()
 
 var explosion_instance
 var tween

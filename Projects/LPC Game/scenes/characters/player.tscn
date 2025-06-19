@@ -2924,6 +2924,7 @@ motion_mode = 1
 script = ExtResource("1_atpat")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
 collision_mask = 2
 collide_with_areas = true
 

@@ -1,6 +1,6 @@
 extends Control
 
-@onready var inventory_grid = $TextureRect/GridContainer
+@onready var inventory_grid: GridContainer = $TextureRect/GridContainer
 
 var dragged_slot = null
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bti5t12gu0op0"]
+[gd_scene load_steps=23 format=3 uid="uid://bti5t12gu0op0"]
 
 [ext_resource type="Script" uid="uid://cctp1qa1wrvn4" path="res://scripts/world_main.gd" id="1_bvpb0"]
 [ext_resource type="Resource" uid="uid://d0dqns2qcwas0" path="res://tres/items/consumable/energy.tres" id="2_jkr0i"]
@@ -18,6 +18,17 @@
 [ext_resource type="PackedScene" uid="uid://cqjjwy6bl86e3" path="res://scenes/items_lootable/equipment_axe_01.tscn" id="10_s25ru"]
 [ext_resource type="PackedScene" uid="uid://c04oy2a4rq74f" path="res://scenes/items/item_quest.tscn" id="11_s25ru"]
 [ext_resource type="PackedScene" uid="uid://bnqum2c1ib6m6" path="res://scenes/items_lootable/equipment_pickaxe_01.tscn" id="11_usspu"]
+[ext_resource type="Script" uid="uid://c8uteg1jgl8ww" path="res://scripts/dialogue/dialogue.gd" id="19_brk2l"]
+
+[sub_resource type="Resource" id="Resource_dhbhc"]
+script = ExtResource("19_brk2l")
+dialogues = {}
+metadata/_custom_type_script = "uid://c8uteg1jgl8ww"
+
+[sub_resource type="Resource" id="Resource_gx83n"]
+script = ExtResource("19_brk2l")
+dialogues = {}
+metadata/_custom_type_script = "uid://c8uteg1jgl8ww"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvpb0"]
 size = Vector2(500, 500)
@@ -30,31 +41,39 @@ spawnable_items = Array[Resource]([ExtResource("2_jkr0i"), ExtResource("3_brk2l"
 [node name="TestTilemap" parent="." instance=ExtResource("5_l3u84")]
 
 [node name="Player" parent="." instance=ExtResource("2_qv2nv")]
+player_name = "DOOM"
 
-[node name="NPC" parent="." instance=ExtResource("10_opodw")]
-position = Vector2(-240, -104)
+[node name="PlacedNPCs" type="Node2D" parent="."]
 
-[node name="QuestItemTest" parent="." instance=ExtResource("11_s25ru")]
+[node name="TestNPC01" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
+position = Vector2(20, -104)
+npc_id = "test_npc_01"
+npc_name = "Test NPC 1"
+dialogue_resource = SubResource("Resource_dhbhc")
+
+[node name="TestNPC02" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
+position = Vector2(96, -104)
+npc_id = "test_npc_02"
+npc_name = "Test NPC 2"
+dialogue_resource = SubResource("Resource_gx83n")
+
+[node name="EvilChicken" parent="PlacedNPCs" instance=ExtResource("5_c0qgv")]
+position = Vector2(0, 64)
+can_move = false
+
+[node name="PlacedItems" type="Node2D" parent="."]
+
+[node name="QuestItemTest" parent="PlacedItems" instance=ExtResource("11_s25ru")]
 position = Vector2(96, 0)
 
-[node name="Axe01" parent="." instance=ExtResource("10_s25ru")]
+[node name="Axe01" parent="PlacedItems" instance=ExtResource("10_s25ru")]
 position = Vector2(-160, -96)
 
-[node name="Fireball01" parent="." instance=ExtResource("7_usspu")]
+[node name="Fireball01" parent="PlacedItems" instance=ExtResource("7_usspu")]
 position = Vector2(-96, -96)
 
-[node name="Pickaxe01" parent="." instance=ExtResource("11_usspu")]
+[node name="Pickaxe01" parent="PlacedItems" instance=ExtResource("11_usspu")]
 position = Vector2(-32, -96)
-
-[node name="SpawnedItems" type="Node2D" parent="."]
-
-[node name="SpawnedItemsArea" type="Area2D" parent="."]
-visible = false
-position = Vector2(-125, -450)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnedItemsArea"]
-shape = SubResource("RectangleShape2D_bvpb0")
 
 [node name="Spawners - Resources" type="Node2D" parent="."]
 
@@ -3857,7 +3876,14 @@ position = Vector2(80, -1960)
 [node name="Spawner_Chicken40" parent="Spawners - Chickens" instance=ExtResource("5_18cee")]
 position = Vector2(592, -2024)
 
-[node name="EvilChicken" parent="Spawners - Chickens" instance=ExtResource("5_c0qgv")]
-position = Vector2(-72, -48)
+[node name="SpawnedItems" type="Node2D" parent="."]
+
+[node name="SpawnedItemsArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(-125, -450)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnedItemsArea"]
+shape = SubResource("RectangleShape2D_bvpb0")
 
 [node name="Camera" parent="." instance=ExtResource("3_uumr1")]

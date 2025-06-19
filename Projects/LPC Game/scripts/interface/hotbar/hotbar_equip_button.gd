@@ -5,9 +5,9 @@ extends Button
 	set(item_to_slot):
 		item = item_to_slot
 
-@onready var button_label = $InnerBorder/ButtonLabel
-@onready var sprite = $InnerBorder/ItemIcon
-@onready var outer_border = $OuterBorder
+@onready var button_label: Label = $InnerBorder/ButtonLabelBox/ButtonLabel
+@onready var sprite: TextureRect = $InnerBorder/ItemIcon
+@onready var outer_border: ColorRect = $OuterBorder
 
 var index
 
