@@ -4,20 +4,23 @@ extends Resource
 @export var quest_id: String
 @export var unlock_id: String
 @export var quest_name: String
+@export var quest_description: String
 @export var state: String = "not_started"
 @export var objectives: Array[Objectives] = []
 @export var rewards: Array[Rewards] = []
 
-func complete_objectives(objective_id: String, quantity: int = 1):
+func complete_objective(objective_id: String, quantity: int = 1):
 	for objective in objectives:
 		if objective.id == objective_id:
 			if objective.target_type == "collection":
 				objective.collected_quantity += quantity
 				if objective.collected_quantity >= objective.required_quantity:
 					objective.is_completed = true
-			elif objective.target_type == "talk_to":
+			else:
 				objective.is_completed = true
 			break
+	if is_completed():
+		state = "completed"
 
 func is_completed() -> bool:
 	for objective in objectives:

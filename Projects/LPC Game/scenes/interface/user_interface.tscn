@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://oy7nlwlixxf"]
+[gd_scene load_steps=9 format=3 uid="uid://oy7nlwlixxf"]
 
 [ext_resource type="FontFile" uid="uid://oxelnataqj4p" path="res://fonts/font.ttf" id="1_jknq0"]
 [ext_resource type="PackedScene" uid="uid://biq8k4lj4jr4a" path="res://scenes/interface/hotbar/hotbar.tscn" id="2_x21bf"]
@@ -10,13 +10,6 @@
 
 [sub_resource type="Theme" id="Theme_p1uyo"]
 default_font = ExtResource("1_jknq0")
-
-[sub_resource type="Gradient" id="Gradient_tuyoq"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 0.392157)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7i0gs"]
-gradient = SubResource("Gradient_tuyoq")
 
 [node name="UserInterface" type="CanvasLayer"]
 
@@ -69,11 +62,11 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ColorRect" type="ColorRect" parent="HUD/QuestTracker"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 220.0
-offset_bottom = 120.0
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 243.0
+offset_bottom = 170.0
 color = Color(0, 0, 0, 0.784314)
 
 [node name="Details" type="VBoxContainer" parent="HUD/QuestTracker/ColorRect"]
@@ -106,7 +99,7 @@ anchor_bottom = 0.5
 grow_vertical = 2
 script = ExtResource("5_3pwn6")
 
-[node name="TextureRect" type="TextureRect" parent="HUD/InventoryUI"]
+[node name="ColorRect" type="ColorRect" parent="HUD/InventoryUI"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -116,9 +109,9 @@ offset_top = -125.0
 offset_right = 243.0
 offset_bottom = 125.0
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_7i0gs")
+color = Color(0, 0, 0, 0.784314)
 
-[node name="Label" type="Label" parent="HUD/InventoryUI/TextureRect"]
+[node name="Label" type="Label" parent="HUD/InventoryUI/ColorRect"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -131,7 +124,7 @@ grow_horizontal = 2
 theme_override_constants/outline_size = 4
 text = "INVENTORY"
 
-[node name="GridContainer" type="GridContainer" parent="HUD/InventoryUI/TextureRect"]
+[node name="GridContainer" type="GridContainer" parent="HUD/InventoryUI/ColorRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

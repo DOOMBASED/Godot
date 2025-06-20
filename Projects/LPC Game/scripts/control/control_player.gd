@@ -82,10 +82,6 @@ func _physics_process(_delta):
 		check_interact()
 		camera_follow()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("quests"):
-		quest_manager.toggle_quest_log()
-
 func check_input():
 	if get_tree().paused == false:
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
@@ -115,6 +111,7 @@ func check_input():
 						shoot_fireball()
 	if Input.is_action_just_pressed("inventory"):
 		open_inventory()
+		quest_manager.quest_log_toggle()
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("show_fps"):
@@ -164,9 +161,9 @@ func check_interact():
 					target.start_dialogue()
 					check_quest_objectives(target.npc_id, "talk_to")
 				elif target.is_in_group("QuestItem"):
-					if check_quest_items(target.get_parent().item_id):
+					if check_quest_items(target.item_id):
 						check_quest_objectives(target.item_id, "collection", target.item_quantity)
-						target.queue_free()
+						target.get_parent().queue_free()
 					else:
 						print("Item not needed for any active quest.")
 						print("")
@@ -178,7 +175,7 @@ func check_interact():
 func check_quest_items(item_id: String) -> bool:
 	if selected_quest != null:
 		for objective in selected_quest.objectives:
-			if objective.terget_id == item_id && objective.target_type == "collection" && !objective.is__completed:
+			if objective.target_id == item_id && objective.target_type == "collection" && not objective.is_completed:
 				return true
 	return false
 
@@ -187,10 +184,10 @@ func check_quest_objectives(target_id: String, target_type: String, quantity: in
 		return
 	var objective_updated = false
 	for objective in selected_quest.objectives:
-		if objective.terget_id == target_id && objective.target_type == target_type && !objective.is__completed:
+		if objective.target_id == target_id && objective.target_type == target_type && not objective.is_completed:
 			print("Finished objective for quest: ", selected_quest.quest_name)
 			print("")
-			selected_quest.complete_objectives(objective.id, quantity)
+			selected_quest.complete_objective(objective.id, quantity)
 			objective_updated = true
 			break
 	if objective_updated:
@@ -200,31 +197,14 @@ func check_quest_objectives(target_id: String, target_type: String, quantity: in
 
 func check_quest_completion(quest: Quest):
 	for reward in quest.rewards:
-		if reward.reward_type == "coins":
+		if reward.reward_type == "quest_coins_reward":
 			quest_coins_reward += reward.reward_amount
-			print(quest_coins_reward)
-			print("")
-			print("Need to implement giving coins as an item.")
+			print("Received " + str(quest_coins_reward) + " coins.")
+			print("(Need to implement giving coins as an item.)")
 			print("")
 	check_quest_tracker(quest)
-	quest_manager.update_quest(quest.quest_id, "completed")
+	quest_manager.quest_update(quest.quest_id, "completed")
 
-func _on_quest_updated(quest_id: String):
-	var quest = quest_manager.get_quest(quest_id)
-	if quest == selected_quest:
-		check_quest_tracker(quest)
-
-func _on_objective_updated(quest_id: String, _objective_id: String):
-	if selected_quest && selected_quest.quest_id == quest_id:
-		check_quest_tracker(selected_quest)
-
-func check_health():
-	health_bar.value = health
-	health_label.text = str(health as int).pad_zeros(3)
-	if health == 0:
-		print("DEAD")
-		print("")
-		process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
 func check_quest_tracker(quest: Quest):
 	if quest:
@@ -242,6 +222,26 @@ func check_quest_tracker(quest: Quest):
 			quest_objectives.add_child(label)
 	else:
 		quest_tracker.visible = false
+
+
+func _on_quest_updated(quest_id: String):
+	var quest = quest_manager.quest_get(quest_id)
+	if quest == selected_quest:
+		check_quest_tracker(quest)
+	selected_quest = null
+
+func _on_objective_updated(quest_id: String, _objective_id: String):
+	if selected_quest && selected_quest.quest_id == quest_id:
+		check_quest_tracker(selected_quest)
+	selected_quest = null
+
+func check_health():
+	health_bar.value = health
+	health_label.text = str(health as int).pad_zeros(3)
+	if health == 0:
+		print("DEAD")
+		print("")
+		process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
 func animate_bars():
 	var stamina_tween = stamina

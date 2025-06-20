@@ -15,8 +15,8 @@ func show_dialogue(speaker, text, options):
 	text = text.replace("#PN#", Global.player_name)
 	dialogue_speaker.text = speaker
 	dialogue_text.text = text
-	for option in dialogue_options.get_children():
-		dialogue_options.remove_child(option)
+	for child in dialogue_options.get_children():
+		dialogue_options.remove_child(child)
 	for option in options.keys():
 		var button = Button.new()
 		button.text = option
@@ -30,7 +30,7 @@ func hide_dialogue():
 	Global.player_node.interface.visible = true
 
 func _on_option_selected(option):
-	get_parent().handle_dialogue(option)
+	get_parent().handle_dialogue_choice(option)
 
 func _on_close_button_pressed() -> void:
 	hide_dialogue()

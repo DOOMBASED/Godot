@@ -7,14 +7,10 @@
 default_font = ExtResource("2_lh6db")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygx5g"]
-bg_color = Color(0, 0, 0, 0.784314)
+bg_color = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfri7"]
 bg_color = Color(0, 0, 0, 0.784314)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 
 [node name="QuestUI" type="Control"]
 layout_mode = 3
@@ -33,6 +29,10 @@ visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 248.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -176.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_mhufo")
@@ -110,17 +110,3 @@ layout_mode = 2
 
 [node name="QuestRewards" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
 layout_mode = 2
-
-[node name="CloseButton" type="Button" parent="CanvasLayer/Panel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -51.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = 34.0
-grow_horizontal = 0
-text = "EXIT"
-
-[connection signal="pressed" from="CanvasLayer/Panel/CloseButton" to="." method="_on_close_button_pressed"]
