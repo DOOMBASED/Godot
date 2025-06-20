@@ -46,15 +46,17 @@ player_name = "DOOM"
 [node name="PlacedNPCs" type="Node2D" parent="."]
 
 [node name="TestNPC01" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
+modulate = Color(1, 0.196078, 0.196078, 1)
 position = Vector2(20, -104)
 npc_id = "test_npc_01"
-npc_name = "Test NPC 1"
+npc_name = "Red Guy"
 dialogue_resource = SubResource("Resource_dhbhc")
 
 [node name="TestNPC02" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
+modulate = Color(0.196078, 0.196078, 1, 1)
 position = Vector2(96, -104)
 npc_id = "test_npc_02"
-npc_name = "Test NPC 2"
+npc_name = "Blue Guy"
 dialogue_resource = SubResource("Resource_gx83n")
 
 [node name="EvilChicken" parent="PlacedNPCs" instance=ExtResource("5_c0qgv")]

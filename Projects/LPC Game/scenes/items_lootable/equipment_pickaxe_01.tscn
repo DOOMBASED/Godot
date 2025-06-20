@@ -8,9 +8,8 @@
 item_id = "pickaxe_01"
 item_name = "Pickaxe"
 item_type = "Equipment"
-equippable = ExtResource("2_ro85l")
-item_effect = "Mine"
 item_texture = ExtResource("3_wrjib")
+equippable = ExtResource("2_ro85l")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_wrjib")

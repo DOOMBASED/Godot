@@ -29,6 +29,7 @@ script = ExtResource("1_dfri7")
 layer = 2
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -121,3 +122,5 @@ offset_right = -4.0
 offset_bottom = 34.0
 grow_horizontal = 0
 text = "EXIT"
+
+[connection signal="pressed" from="CanvasLayer/Panel/CloseButton" to="." method="_on_close_button_pressed"]

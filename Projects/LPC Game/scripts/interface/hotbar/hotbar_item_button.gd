@@ -99,9 +99,13 @@ func _on_use_button_pressed() -> void:
 						Global.remove_hotbar_item(item["id"])
 					elif !use:
 						print("Item not used.")
+						print("")
 			else:
 				print("Cannot use this item!")
 				print("")
+		else:
+			print("This item has no effect")
+			print("")
 
 func _on_hotbar_button_pressed() -> void:
 	if item != null:

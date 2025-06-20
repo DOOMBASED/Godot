@@ -22,9 +22,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if in_range == true && item_type && Global.player_node.ray_cast.is_colliding() == false:
-		if item_type == "Quest Item" && Input.is_action_just_pressed("interact"):
-			find_child("QuestItem").start_interact()
-		elif item_type != "Quest Item" && Input.is_action_pressed("interact"):
+		if item_type != "Quest Item" && Input.is_action_pressed("interact"):
 			if Global.inventory_full == false:
 				move_to_player(delta)
 				if position.round() == Global.player_node.position.round():

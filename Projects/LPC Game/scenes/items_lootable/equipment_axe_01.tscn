@@ -8,9 +8,8 @@
 item_id = "axe_01"
 item_name = "Axe"
 item_type = "Equipment"
-equippable = ExtResource("2_o2s2t")
-item_effect = "Chop"
 item_texture = ExtResource("3_deik2")
+equippable = ExtResource("2_o2s2t")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_deik2")

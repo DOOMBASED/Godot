@@ -20,24 +20,25 @@ extends CharacterBody2D
 @export var running: bool
 @export var swinging: bool
 
-@onready var ray_cast: RayCast2D = $RayCast2D
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var ray_cast: RayCast2D = $RayCast2D
+@onready var hand: Hand = $Hand
+@onready var projectile_origin: Marker2D = $ProjectileOrigin
 @onready var follow_camera: RemoteTransform2D = $"../Camera"
 @onready var interface: CanvasLayer = $UserInterface
 @onready var inventory: Control = $UserInterface/HUD/InventoryUI
+@onready var quest_manager: Node2D = $QuestManager
 @onready var quest_tracker: Control = $UserInterface/HUD/QuestTracker
 @onready var quest_title: Label = $UserInterface/HUD/QuestTracker/ColorRect/Details/Title
 @onready var quest_objectives: VBoxContainer = $UserInterface/HUD/QuestTracker/ColorRect/Details/Objectives
-@onready var interact_label: Control = $UserInterface/HUD/Interact
-@onready var fps_label: Control = $UserInterface/HUD/FPSLabel/Label
-@onready var hand: Hand = $Hand
-@onready var projectile_origin: Marker2D = $ProjectileOrigin
 @onready var health_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Health
 @onready var health_label: Label = health_bar.get_child(0)
 @onready var stamina_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Stamina
 @onready var stamina_label: Label = stamina_bar.get_child(0)
 @onready var magic_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Magic
 @onready var magic_label: Label = magic_bar.get_child(0)
+@onready var interact_label: Control = $UserInterface/HUD/Interact
+@onready var fps_label: Control = $UserInterface/HUD/FPSLabel/Label
 
 const FIREBALL = preload("res://scenes/effects/effect_fireball.tscn")
 
@@ -57,11 +58,15 @@ var looting = false
 var should_use = false
 var recent_pickup = false
 var in_interact_area = false
+var selected_quest: Quest = null
 var time_since_pickup: int = 0
+var quest_coins_reward: int = 0
 
 func _ready():
 	Global.set_player(self)
 	Global.player_name = player_name
+	quest_manager.quest_updated.connect(_on_quest_updated)
+	quest_manager.objectives_updated.connect(_on_objective_updated)
 
 func _process(_delta):
 	check_ui()
@@ -76,6 +81,10 @@ func _physics_process(_delta):
 		check_input()
 		check_interact()
 		camera_follow()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("quests"):
+		quest_manager.toggle_quest_log()
 
 func check_input():
 	if get_tree().paused == false:
@@ -153,19 +162,86 @@ func check_interact():
 				if target.is_in_group("NPC"):
 					can_move = false
 					target.start_dialogue()
+					check_quest_objectives(target.npc_id, "talk_to")
 				elif target.is_in_group("QuestItem"):
-					target.start_interact()
+					if check_quest_items(target.get_parent().item_id):
+						check_quest_objectives(target.item_id, "collection", target.item_quantity)
+						target.queue_free()
+					else:
+						print("Item not needed for any active quest.")
+						print("")
 	if ray_cast.is_colliding() || in_interact_area == true:
 		interact_label.visible = true
 	else:
 		interact_label.visible = false
+
+func check_quest_items(item_id: String) -> bool:
+	if selected_quest != null:
+		for objective in selected_quest.objectives:
+			if objective.terget_id == item_id && objective.target_type == "collection" && !objective.is__completed:
+				return true
+	return false
+
+func check_quest_objectives(target_id: String, target_type: String, quantity: int = 1):
+	if selected_quest == null:
+		return
+	var objective_updated = false
+	for objective in selected_quest.objectives:
+		if objective.terget_id == target_id && objective.target_type == target_type && !objective.is__completed:
+			print("Finished objective for quest: ", selected_quest.quest_name)
+			print("")
+			selected_quest.complete_objectives(objective.id, quantity)
+			objective_updated = true
+			break
+	if objective_updated:
+		if selected_quest.is_completed():
+			check_quest_completion(selected_quest)
+		check_quest_tracker(selected_quest)
+
+func check_quest_completion(quest: Quest):
+	for reward in quest.rewards:
+		if reward.reward_type == "coins":
+			quest_coins_reward += reward.reward_amount
+			print(quest_coins_reward)
+			print("")
+			print("Need to implement giving coins as an item.")
+			print("")
+	check_quest_tracker(quest)
+	quest_manager.update_quest(quest.quest_id, "completed")
+
+func _on_quest_updated(quest_id: String):
+	var quest = quest_manager.get_quest(quest_id)
+	if quest == selected_quest:
+		check_quest_tracker(quest)
+
+func _on_objective_updated(quest_id: String, _objective_id: String):
+	if selected_quest && selected_quest.quest_id == quest_id:
+		check_quest_tracker(selected_quest)
 
 func check_health():
 	health_bar.value = health
 	health_label.text = str(health as int).pad_zeros(3)
 	if health == 0:
 		print("DEAD")
+		print("")
 		process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
+func check_quest_tracker(quest: Quest):
+	if quest:
+		quest_tracker.visible = true
+		quest_title.text = quest.quest_name
+		for child in quest_objectives.get_children():
+			quest_objectives.remove_child(child)
+		for objective in quest.objectives:
+			var label = Label.new()
+			label.text = objective.description
+			if objective.is_completed:
+				label.add_theme_color_override("font_color", Color(0, 1, 0))
+			else:
+				label.add_theme_color_override("font_color", Color(1, 0, 0))
+			quest_objectives.add_child(label)
+	else:
+		quest_tracker.visible = false
 
 func animate_bars():
 	var stamina_tween = stamina
@@ -274,46 +350,49 @@ func apply_item_effect(item):
 	match item["effect"]:
 		"Health":
 			if health >= max_health:
-				print("")
 				print("Already at max Health.")
+				print("")
 			else:
 				should_use = true
 				heal_health(item["magnitude"])
 				print("Healed " + str(item["magnitude"]) + " HP")
+				print("")
 		"Stamina":
 			if stamina >= max_stamina:
-				print("")
 				print("Already at max Stamina.")
+				print("")
 			else:
 				should_use = true
 				heal_stamina(item["magnitude"])
 				print("Healed " + str(item["magnitude"]) + " Stamina")
+				print("")
 		"Magic":
 			if magic >= max_magic:
-				print("")
 				print("Already at max Magic.")
+				print("")
 			else:
 				should_use = true
 				heal_magic(item["magnitude"])
 				print("Healed " + str(item["magnitude"]) + " MP")
+				print("")
 		"Inventory":
 			if Global.inventory.size() >= Global.inventory_max:
-				print("")
 				print("Already at max Inventory capacity.")
+				print("")
 			else:
 				should_use = true
 				Global.increase_inventory_size(item["magnitude"])
 				Global.inventory_full = false
-				print("")
 				print("Inventory Slots +" + str(item["magnitude"]))
+				print("")
 		"Damage":
 			should_use = true
 			damage_health(item["magnitude"])
-			print("")
 			print("Damaged " + str(item["magnitude"]) + " HP")
-		_:
 			print("")
+		_:
 			print("This item has no effect")
+			print("")
 
 func animation_parameters():
 	if velocity == Vector2.ZERO || last_position == position.round():
