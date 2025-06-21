@@ -9,5 +9,5 @@ var stats_type:
 		stats_type = new_type
 		display_texture.texture = stats_type.display_texture
 
-func update_count(count):
+func stats_update(count):
 	display_label.text = str(count).pad_zeros(3) + " XP"

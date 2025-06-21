@@ -32,14 +32,14 @@ var current_resources:
 func _ready():
 	current_resources = starting_resources
 
-func harvest(amount):
-	for n in amount:
-		spawn_resource()
-	current_resources -= amount
-
-func spawn_resource():
+func resource_spawn():
 	loot_instance = loot.instantiate()
 	loot_instance.position = position
 	spawn_point.call_deferred("add_child", loot_instance)
 	direction = Vector2(randf_range(-1.0,1.0), randf_range(-1.0,1.0)).normalized()
 	loot_instance.launch(direction * launch_speed, launch_duration)
+
+func resource_harvest(amount):
+	for n in amount:
+		resource_spawn()
+	current_resources -= amount

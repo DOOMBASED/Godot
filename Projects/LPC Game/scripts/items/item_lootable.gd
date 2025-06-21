@@ -22,17 +22,9 @@ func _ready():
 	connect("body_entered", _on_body_entered)
 
 func _process(delta):
-	check_launch(delta)
+	launch_check(delta)
 
-func _on_body_entered(body):
-	if body == Global.player_node:
-		var item = preload("res://scenes/items/item_base.tscn")
-		var instance = item.instantiate()
-		instance.init_items(resource_type["id"], resource_type["type"], resource_type["equippable"], resource_type["name"], resource_type["effect"], resource_type["magnitude"], resource_type["texture"], resource_type["scene"])
-		instance.pickup_item()
-		queue_free()
-
-func check_launch(delta):
+func launch_check(delta):
 	if launching:
 		position += launch_velocity * delta
 		launch_elapsed += delta
@@ -45,8 +37,17 @@ func launch(velocity, duration):
 	launch_elapsed = 0.0
 	launching = true
 
+
+func _on_body_entered(body):
+	if body == Global.player_node:
+		var item = preload("res://scenes/items/item_base.tscn")
+		var instance = item.instantiate()
+		instance.item_initialize(resource_type["id"], resource_type["type"], resource_type["equippable"], resource_type["name"], resource_type["effect"], resource_type["magnitude"], resource_type["texture"], resource_type["scene"])
+		instance.item_pickup()
+		queue_free()
+
 func _on_lootable_stats_body_entered(body):
 	if body == Global.player_node && launching == true:
-		stats = body.find_child("Stats")
+		stats = body.find_child("StatsManager")
 		if stats:
-			stats.add_stats(stats_type, xp_amount)
+			stats.stats_add(stats_type, xp_amount)

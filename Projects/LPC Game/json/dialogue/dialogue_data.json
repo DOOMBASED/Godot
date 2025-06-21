@@ -8,25 +8,25 @@
 						"state": "start",
 						"text": "Hello, #PN#! What do you need?",
 						"options": {
-							"Tell me about this town.": "in_progress",
+							"Tell me about this place.": "in_progress",
 							"Do you have any quests?": "give_quests",
 							"Goodbye": "exit"
 						}
 					},
 					{
 						"state": "in_progress",
-						"text": "This town is known for its beautiful gardens and not so friendly creatures.",
+						"text": "There isn't much to say... it's pretty much a deserted island right now.",
 						"options": {
-							"<-": "start",
+							"<": "start",
 							"Goodbye": "end"
 						}
 					},
 					{
 						"state": "give_quests",
-						"text": "Sure! If I have anything, you can find it in your Quest Log.",
+						"text": "Yes, I need you to go and talk to the Blue Guy over there. He will tell you what you need to do next.",
 						"options": {
-							"<-": "start",
-							"Say Goodbye": "exit"
+							"<": "start",
+							"Accept Quest": "exit"
 						}
 					},
 					{
@@ -55,18 +55,18 @@
 					},
 					{
 						"state": "in_progress",
-						"text": "I heard that guy next to me makes a mean cat-eye soup.",
+						"text": "I heard that Blue Guy makes a mean cat-eye soup.",
 						"options": {
-							"<-": "start",
+							"<": "start",
 							"Goodbye": "end"
 						}
 					},
 					{
 						"state": "give_quests",
-						"text": "Sure! If I have anything, you can find it in your Quest Log.",
+						"text": "Just go and pick up that Red Gold behind you.",
 						"options": {
-							"<-": "start",
-							"Goodbye": "exit"
+							"<": "start",
+							"Accept Quest": "exit"
 						}
 					},
 					{
@@ -94,9 +94,9 @@
 					},
 					{
 						"state": "give_quests",
-						"text": "Sure! If I have anything, you can find it in your Quest Log.",
+						"text": "If there is anything else I can think of I will add it your Quest Log.",
 						"options": {
-							"<-": "start"
+							"<": "start"
 						}
 					}
 				]
@@ -119,18 +119,18 @@
 					},
 					{
 						"state": "in_progress",
-						"text": "The forest is home to many mystical creatures.",
+						"text": "There's just some chickens running around. Watch out for the red chicken, if you touch it you will get hurt!",
 						"options": {
-							"<-": "start",
+							"<": "start",
 							"Goodbye": "end"
 						}
 					},
 					{
 						"state": "give_quests",
-						"text": "Okay. I've updated your quest log with things I need done.",
+						"text": "Go and talk to the Red Guy. He will tell you what to do next.",
 						"options": {
-							"<-": "start",
-							"Goodbye": "exit"
+							"<": "start",
+							"Accept Quest": "exit"
 						}
 					},
 					{
@@ -150,7 +150,7 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "I wonder why that guy is always smelling me...",
+						"text": "I wonder why Red Guy is always smelling me...",
 						"options": {
 							"Do you have any quests?": "give_quests",
 							"Goodbye": "exit"
@@ -158,9 +158,9 @@
 					},
 					{
 						"state": "give_quests",
-						"text": "Okay. I've updated your quest log with things I need done.",
+						"text": "If there is anything else I can think of I will add it your Quest Log",
 						"options": {
-							"<-": "start"
+							"<": "start"
 						}
 					},
 				]

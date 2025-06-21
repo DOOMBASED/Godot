@@ -48,6 +48,15 @@ layout_mode = 2
 [node name="InventorySlot5" parent="ItemHotbar" instance=ExtResource("2_4g526")]
 layout_mode = 2
 
+[node name="InventorySlot6" parent="ItemHotbar" instance=ExtResource("2_4g526")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="ItemHotbar" instance=ExtResource("2_4g526")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="ItemHotbar" instance=ExtResource("2_4g526")]
+layout_mode = 2
+
 [node name="EquipHotbar" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2

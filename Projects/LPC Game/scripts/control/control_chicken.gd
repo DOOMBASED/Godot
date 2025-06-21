@@ -37,7 +37,7 @@ func _physics_process(_delta):
 				move_and_slide()
 				direction = (-Global.player_node.position - position).normalized()
 		if evil == false:
-			movement()
+			check_movement_type()
 
 func animation_parameters():
 	if velocity == Vector2.ZERO:
@@ -50,7 +50,7 @@ func animation_parameters():
 		animation_tree["parameters/Idle/blend_position"] = direction
 		animation_tree["parameters/Walk/blend_position"] = direction
 
-func movement():
+func check_movement_type():
 	if direction:
 		velocity = direction * speed
 	else:
@@ -59,22 +59,10 @@ func movement():
 	if get_last_slide_collision():
 		direction = (-direction + Vector2(randf_range(-0.95,0.95),randf_range(-0.95,0.95))).normalized()
 
+
 func choose_random_direction():
 		direction = Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)).normalized()
 
-func _on_direction_timer_timeout():
-	if animation_tree["parameters/conditions/idle"] == true:
-		choose_random_direction()
-		direction_timer.start(randf_range(1.0,5.0))
-
-func _on_idle_timer_timeout():
-	direction = Vector2.ZERO
-	idle_timer.start(randf_range(3.0,7.0))
-
-func _on_damage_collision_body_entered(body):
-	if evil == true && body == Global.player_node:
-		body.damage_health(10)
-		
 func damage_health(damage):
 	health -= damage
 	if health >= 0:
@@ -87,3 +75,16 @@ func damage_health(damage):
 		tween = get_tree().create_tween()
 		tween.tween_property(self, "scale", Vector2(), 0.25)
 		tween.tween_callback(queue_free)
+
+func _on_direction_timer_timeout():
+	if animation_tree["parameters/conditions/idle"] == true:
+		choose_random_direction()
+		direction_timer.start(randf_range(1.0,5.0))
+
+func _on_idle_timer_timeout():
+	direction = Vector2.ZERO
+	idle_timer.start(randf_range(3.0,7.0))
+
+func _on_damage_collision_body_entered(body):
+	if evil == true && body == Global.player_node:
+		body.health_damage(10)

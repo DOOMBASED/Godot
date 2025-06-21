@@ -14,33 +14,33 @@ var current_branch_index = 0
 func _ready():
 	dialogue_manager.npc = self
 	quest_manager = Global.player_node.quest_manager
-	dialogue_resource.load_from_json("res://json/dialogue/dialogue_data.json")
+	dialogue_resource.load_dialogue("res://json/dialogue/dialogue_data.json")
 	print("Quests loaded for " + npc_name + " : " + str(quests.size()))
 	print("")
 
 
-func start_dialogue():
-	var npc_dialogues = dialogue_resource.get_npc_dialogue(npc_id)
+func dialogue_start():
+	var npc_dialogues = dialogue_resource.npc_get_dialogue(npc_id)
 	if npc_dialogues.is_empty():
 		return
-	dialogue_manager.show_dialogue(self)
+	dialogue_manager.dialogue_show(self)
 
-func get_current_dialogue():
-	var npc_dialogues = dialogue_resource.get_npc_dialogue(npc_id)
+func dialogue_get_current():
+	var npc_dialogues = dialogue_resource.npc_get_dialogue(npc_id)
 	if current_branch_index < npc_dialogues.size():
 		for dialogue in npc_dialogues[current_branch_index]["dialogues"]:
 			if dialogue["state"] == current_state:
 				return dialogue
 	return null
 
-func set_dialogue_branch(branch_index):
+func dialogue_set_branch(branch_index):
 	current_branch_index = branch_index
 	current_state = "start"
 
-func set_dialogue_state(state):
+func dialogue_set_state(state):
 	current_state = state
 
-func offer_quest(quest_id: String):
+func quest_offer(quest_id: String):
 	for quest in quests:
 		if quest.quest_id == quest_id && quest.state == "not_started":
 			quest.state = "in_progress"
@@ -51,7 +51,7 @@ func offer_quest(quest_id: String):
 	print("No quest found, or quest is already started")
 	print("")
 
-func get_quest_dialogue() -> Dictionary:
+func quest_get_dialogue() -> Dictionary:
 	var active_quests = quest_manager.quest_get_active()
 	for quest in active_quests:
 		for objective in quest.objectives:

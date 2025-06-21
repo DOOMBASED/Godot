@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dlx51id2yohq0" path="res://sprites/characters/player/idle.png" id="3_dyp2m"]
 [ext_resource type="Texture2D" uid="uid://cn6y8e7mulwro" path="res://sprites/characters/player/walk.png" id="4_atpat"]
 [ext_resource type="Texture2D" uid="uid://mj5slfxqcwgj" path="res://sprites/characters/player/run.png" id="5_qgnko"]
-[ext_resource type="Script" uid="uid://db1170lxybr2p" path="res://scripts/control/control_hand.gd" id="6_kqtwu"]
+[ext_resource type="Script" uid="uid://db1170lxybr2p" path="res://scripts/control/control_player_hand.gd" id="6_kqtwu"]
 [ext_resource type="PackedScene" uid="uid://d38tomssea2o1" path="res://scenes/interface/quests/quest_manager.tscn" id="9_qgnko"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgnko"]
@@ -2974,9 +2974,9 @@ parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="UserInterface" parent="." instance=ExtResource("2_7vyk4")]
 
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("2_jk2m4")
-
 [node name="QuestManager" parent="." instance=ExtResource("9_qgnko")]
+
+[node name="StatsManager" type="Node" parent="."]
+script = ExtResource("2_jk2m4")
 
 [connection signal="body_entered" from="Weapon" to="Hand" method="_on_weapon_body_entered"]

@@ -21,15 +21,9 @@ func _process(_delta):
 		outer_border.modulate = Color.GREEN
 	else:
 		outer_border.modulate = Color.BLACK
-	hotkey_check()
+	hotbar_key_check()
 
-func _on_pressed():
-	if item.equippable != null:
-		if Global.player_node.hand!= null:
-			index = str(self.get_index() + 1)
-			Global.player_node.hand.equipped_item = item
-
-func hotkey_check():
+func hotbar_key_check():
 	if Input.is_action_pressed(name):
 		if item is ItemEquipment:
 			if Global.player_node.hand != null:
@@ -39,3 +33,9 @@ func hotkey_check():
 					Global.player_node.hand.equipped_item = item
 	if Input.is_action_just_pressed("unequip"):
 		Global.player_node.hand.equipped_item = null
+
+func _on_pressed():
+	if item.equippable != null:
+		if Global.player_node.hand!= null:
+			index = str(self.get_index() + 1)
+			Global.player_node.hand.equipped_item = item

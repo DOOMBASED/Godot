@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 @onready var quest_ui: Control = $QuestUI
 
@@ -29,6 +29,7 @@ func quest_update(quest_id: String, state: String):
 		quest_updated.emit(quest_id)
 		if state == "completed":
 			quest_remove(quest_id)
+			Global.player_node.selected_quest = null
 
 func quest_remove(quest_id: String):
 	quests.erase(quest_id)
@@ -41,4 +42,4 @@ func quest_objective_complete(quest_id: String, objective_id: String):
 		objectives_updated.emit(quest_id, objective_id)
 
 func quest_log_toggle():
-	quest_ui.toggle_log()
+	quest_ui.quest_log_toggle()

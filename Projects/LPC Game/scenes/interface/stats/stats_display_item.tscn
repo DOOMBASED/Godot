@@ -4,21 +4,27 @@
 [ext_resource type="Texture2D" uid="uid://mnp0r44d6y4k" path="res://sprites/stats/mining.png" id="2_50wop"]
 
 [node name="StatsItemDisplay" type="HBoxContainer" node_paths=PackedStringArray("display_texture", "display_label")]
+custom_minimum_size = Vector2(0, 32)
 offset_right = 94.0
 offset_bottom = 17.0
 script = ExtResource("1_50wop")
 display_texture = NodePath("TextureRect")
 display_label = NodePath("XPLabel")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_50wop")
+expand_mode = 3
+
 [node name="LevelLabel" type="Label" parent="."]
 layout_mode = 2
 theme_override_constants/outline_size = 4
 text = "LEVEL 1"
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="-" type="Label" parent="."]
 layout_mode = 2
-texture = ExtResource("2_50wop")
-expand_mode = 3
+theme_override_constants/outline_size = 4
+text = " - "
 
 [node name="XPLabel" type="Label" parent="."]
 layout_mode = 2

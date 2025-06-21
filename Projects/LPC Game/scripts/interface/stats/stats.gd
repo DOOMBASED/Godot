@@ -5,7 +5,7 @@ var stats: Dictionary = {}
 
 signal stats_amount_changed(type, new_amount)
 
-func add_stats(type, amount):
+func stats_add(type, amount):
 	if stats.has(type):
 		stats[type] = stats[type] + amount
 	else:

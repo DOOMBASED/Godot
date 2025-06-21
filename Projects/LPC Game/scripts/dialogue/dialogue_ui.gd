@@ -6,9 +6,9 @@ extends Control
 @onready var dialogue_options: HBoxContainer = $CanvasLayer/Panel/DialogueBox/DialogueOptions
 
 func _ready() -> void:
-	hide_dialogue()
+	dialogue_hide()
 
-func show_dialogue(speaker, text, options):
+func dialogue_show(speaker, text, options):
 	Global.player_node.interface.visible = false
 	Global.player_node.velocity = Vector2.ZERO
 	panel.visible = true
@@ -24,13 +24,13 @@ func show_dialogue(speaker, text, options):
 		button.pressed.connect(_on_option_selected.bind(option))
 		dialogue_options.add_child(button)
 
-func hide_dialogue():
+func dialogue_hide():
 	panel.visible = false
 	Global.player_node.can_move = true
 	Global.player_node.interface.visible = true
 
 func _on_option_selected(option):
-	get_parent().handle_dialogue_choice(option)
+	get_parent().dialogue_handle_choice(option)
 
 func _on_close_button_pressed() -> void:
-	hide_dialogue()
+	dialogue_hide()

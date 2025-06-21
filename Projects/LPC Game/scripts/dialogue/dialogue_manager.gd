@@ -5,64 +5,65 @@ extends Node2D
 var npc: Node = null
 
 @warning_ignore("shadowed_variable")
-func show_dialogue(npc):
-	check_and_advance_branch()
+func dialogue_show(npc):
+	branch_check_and_advance()
 
-	var quest_dialogue = npc.get_quest_dialogue()
+	var quest_dialogue = npc.quest_get_dialogue()
 	if quest_dialogue["text"] != "":
-		dialogue_ui.show_dialogue(npc.npc_name, quest_dialogue["text"], quest_dialogue["options"])
+		dialogue_ui.dialogue_show(npc.npc_name, quest_dialogue["text"], quest_dialogue["options"])
 	else:
-		var dialogue = npc.get_current_dialogue()
+		var dialogue = npc.dialogue_get_current()
 		if dialogue:
-			dialogue_ui.show_dialogue(npc.npc_name, dialogue["text"], dialogue["options"])
+			dialogue_ui.dialogue_show(npc.npc_name, dialogue["text"], dialogue["options"])
 
-func hide_dialogue():
-	dialogue_ui.hide_dialogue()
+func dialogue_hide():
+	dialogue_ui.dialogue_hide()
 
-func handle_dialogue_choice(option):
-	var current_dialogue = npc.get_current_dialogue()
+func dialogue_handle_choice(option):
+	var current_dialogue = npc.dialogue_get_current()
 	if not current_dialogue:
 		return
 
 	var next_state = current_dialogue["options"].get(option, "start")
-	npc.set_dialogue_state(next_state)
+	npc.dialogue_set_state(next_state)
 
 	if next_state == "end":
-		if all_quests_completed_for_branch(npc.current_branch_index):
-			advance_to_next_branch()
+		if branch_quests_completed(npc.current_branch_index):
+			branch_advance_to_next()
 		else:
-			dialogue_ui.show_dialogue(npc.npc_name, "Goodbye for now.", {"Okay": "exit"})
+			dialogue_ui.dialogue_show(npc.npc_name, "Goodbye for now.", {"Okay": "exit"})
 	elif next_state == "exit":
-		npc.set_dialogue_state("start")
-		hide_dialogue()
+		npc.dialogue_set_state("start")
+		dialogue_hide()
 	elif next_state == "give_quests":
-		offer_quests(npc.dialogue_resource.get_npc_dialogue(npc.npc_id)[npc.current_branch_index]["branch_id"])
-		show_dialogue(npc)
+		quests_offer(npc.dialogue_resource.npc_get_dialogue(npc.npc_id)[npc.current_branch_index]["branch_id"])
+		dialogue_show(npc)
 	else:
-		show_dialogue(npc)
+		dialogue_show(npc)
 
-func all_quests_completed_for_branch(branch_index):
-	var branch_id = npc.dialogue_resource.get_npc_dialogue(npc.npc_id)[branch_index]["branch_id"]
+
+func branch_check_and_advance():
+	if branch_quests_completed(npc.current_branch_index) and npc.current_branch_index < npc.dialogue_resource.npc_get_dialogue(npc.npc_id).size() - 1:
+		branch_advance_to_next()
+
+func branch_advance_to_next():
+	npc.dialogue_set_branch(npc.current_branch_index + 1)
+	npc.dialogue_set_state("start")
+	dialogue_show(npc)
+
+func branch_quests_completed(branch_index):
+	var branch_id = npc.dialogue_resource.npc_get_dialogue(npc.npc_id)[branch_index]["branch_id"]
 	for quest in npc.quests:
 		if quest.unlock_id == branch_id and quest.state != "completed":
 			return false
 	return true
 
-func offer_quests(branch_id: String):
+func quests_offer(branch_id: String):
 	for quest in npc.quests:
 		if quest.unlock_id == branch_id and quest.state == "not_started":
-			npc.offer_quest(quest.quest_id)
+			npc.quest_offer(quest.quest_id)
 
-func offer_remaining_quests():
+func quests_offer_remaining():
 	for quest in npc.quests:
 		if quest.state == "not_started":
-			npc.offer_quest(quest.quest_id)
-
-func check_and_advance_branch():
-	if all_quests_completed_for_branch(npc.current_branch_index) and npc.current_branch_index < npc.dialogue_resource.get_npc_dialogue(npc.npc_id).size() - 1:
-		advance_to_next_branch()
-
-func advance_to_next_branch():
-	npc.set_dialogue_branch(npc.current_branch_index + 1)
-	npc.set_dialogue_state("start")
-	show_dialogue(npc)
+			npc.quest_offer(quest.quest_id)

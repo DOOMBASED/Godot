@@ -27,16 +27,17 @@ extends CharacterBody2D
 @onready var follow_camera: RemoteTransform2D = $"../Camera"
 @onready var interface: CanvasLayer = $UserInterface
 @onready var inventory: Control = $UserInterface/HUD/InventoryUI
-@onready var quest_manager: Node2D = $QuestManager
+@onready var quest_manager: Node = $QuestManager
 @onready var quest_tracker: Control = $UserInterface/HUD/QuestTracker
 @onready var quest_title: Label = $UserInterface/HUD/QuestTracker/ColorRect/Details/Title
 @onready var quest_objectives: VBoxContainer = $UserInterface/HUD/QuestTracker/ColorRect/Details/Objectives
-@onready var health_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Health
+@onready var health_bar: TextureProgressBar = $UserInterface/HUD/HealthBars/HealthBars/Health
 @onready var health_label: Label = health_bar.get_child(0)
-@onready var stamina_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Stamina
+@onready var stamina_bar: TextureProgressBar = $UserInterface/HUD/HealthBars/HealthBars/Stamina
 @onready var stamina_label: Label = stamina_bar.get_child(0)
-@onready var magic_bar: TextureProgressBar = $UserInterface/HUD/StatsUI/HealthBars/Magic
+@onready var magic_bar: TextureProgressBar = $UserInterface/HUD/HealthBars/HealthBars/Magic
 @onready var magic_label: Label = magic_bar.get_child(0)
+@onready var stats_ui: Control = $UserInterface/HUD/StatsUI
 @onready var interact_label: Control = $UserInterface/HUD/Interact
 @onready var fps_label: Control = $UserInterface/HUD/FPSLabel/Label
 
@@ -69,20 +70,20 @@ func _ready():
 	quest_manager.objectives_updated.connect(_on_objective_updated)
 
 func _process(_delta):
-	check_ui()
-	check_health()
-	check_stamina()
-	check_magic()
+	interface_check()
+	health_check()
+	stamina_check()
+	magic_check()
 
 func _physics_process(_delta):
-	animation_parameters()
-	animate_bars()
+	animation_check()
+	interface_check_bars()
 	if can_move:
-		check_input()
-		check_interact()
-		camera_follow()
+		input_check()
+		interact_check()
+		camera_check()
 
-func check_input():
+func input_check():
 	if get_tree().paused == false:
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
 		ray_cast.target_position = animation_tree["parameters/Idle/blend_position"] * 48
@@ -108,9 +109,9 @@ func check_input():
 			if hand.equipped_item != null && get_tree().paused == false:
 				if hand.equipped_item["type"] == "Spell" && magic >= magic_drain:
 					if magic_cooldown == false:
-						shoot_fireball()
+						magic_cast()
 	if Input.is_action_just_pressed("inventory"):
-		open_inventory()
+		inventory_check()
 		quest_manager.quest_log_toggle()
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
@@ -122,29 +123,7 @@ func check_input():
 	if fps_label.get_parent().visible == true:
 		fps_label.text = str(Engine.get_frames_per_second())
 
-func open_inventory():
-	if looting == false:
-		if inventory.visible == false:
-			Global.inventory_updated.emit()
-			animation_tree.active = false
-			inventory.visible = true
-			get_tree().paused = true
-		elif inventory.visible == true:
-			animation_tree.active = true
-			inventory.visible = false
-			get_tree().paused = false
-
-func check_ui():
-	if interface.visible == false:
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	elif inventory.visible == true:
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-		get_tree().paused = true
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		get_tree().paused = false
-
-func check_interact():
+func interact_check():
 	if recent_pickup == true:
 		time_since_pickup += 1
 		if time_since_pickup == 50:
@@ -158,11 +137,11 @@ func check_interact():
 			if target != null:
 				if target.is_in_group("NPC"):
 					can_move = false
-					target.start_dialogue()
-					check_quest_objectives(target.npc_id, "talk_to")
+					target.dialogue_start()
+					quest_objectives_check(target.npc_id, "talk_to")
 				elif target.is_in_group("QuestItem"):
-					if check_quest_items(target.item_id):
-						check_quest_objectives(target.item_id, "collection", target.item_quantity)
+					if quest_items_check(target.item_id):
+						quest_objectives_check(target.item_id, "collection", target.item_quantity)
 						target.get_parent().queue_free()
 					else:
 						print("Item not needed for any active quest.")
@@ -172,70 +151,39 @@ func check_interact():
 	else:
 		interact_label.visible = false
 
-func check_quest_items(item_id: String) -> bool:
-	if selected_quest != null:
-		for objective in selected_quest.objectives:
-			if objective.target_id == item_id && objective.target_type == "collection" && not objective.is_completed:
-				return true
-	return false
-
-func check_quest_objectives(target_id: String, target_type: String, quantity: int = 1):
-	if selected_quest == null:
-		return
-	var objective_updated = false
-	for objective in selected_quest.objectives:
-		if objective.target_id == target_id && objective.target_type == target_type && not objective.is_completed:
-			print("Finished objective for quest: ", selected_quest.quest_name)
-			print("")
-			selected_quest.complete_objective(objective.id, quantity)
-			objective_updated = true
-			break
-	if objective_updated:
-		if selected_quest.is_completed():
-			check_quest_completion(selected_quest)
-		check_quest_tracker(selected_quest)
-
-func check_quest_completion(quest: Quest):
-	for reward in quest.rewards:
-		if reward.reward_type == "quest_coins_reward":
-			quest_coins_reward += reward.reward_amount
-			print("Received " + str(quest_coins_reward) + " coins.")
-			print("(Need to implement giving coins as an item.)")
-			print("")
-	check_quest_tracker(quest)
-	quest_manager.quest_update(quest.quest_id, "completed")
-
-
-func check_quest_tracker(quest: Quest):
-	if quest:
-		quest_tracker.visible = true
-		quest_title.text = quest.quest_name
-		for child in quest_objectives.get_children():
-			quest_objectives.remove_child(child)
-		for objective in quest.objectives:
-			var label = Label.new()
-			label.text = objective.description
-			if objective.is_completed:
-				label.add_theme_color_override("font_color", Color(0, 1, 0))
-			else:
-				label.add_theme_color_override("font_color", Color(1, 0, 0))
-			quest_objectives.add_child(label)
+func interface_check():
+	if interface.visible == false:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	elif inventory.visible == true:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+		get_tree().paused = true
 	else:
-		quest_tracker.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_tree().paused = false
 
+func interface_check_bars():
+	var stamina_tween = stamina
+	var s_tween = create_tween()
+	s_tween.tween_property(stamina_bar, "value", stamina_tween, 0.1)
+	var magic_tween = magic
+	var m_tween = create_tween()
+	m_tween.tween_property(magic_bar, "value", magic_tween, 0.1)
 
-func _on_quest_updated(quest_id: String):
-	var quest = quest_manager.quest_get(quest_id)
-	if quest == selected_quest:
-		check_quest_tracker(quest)
-	selected_quest = null
+func inventory_check():
+	if looting == false:
+		if inventory.visible == false:
+			Global.inventory_updated.emit()
+			animation_tree.active = false
+			inventory.visible = true
+			stats_ui.visible = true
+			get_tree().paused = true
+		elif inventory.visible == true:
+			animation_tree.active = true
+			inventory.visible = false
+			stats_ui.visible = false
+			get_tree().paused = false
 
-func _on_objective_updated(quest_id: String, _objective_id: String):
-	if selected_quest && selected_quest.quest_id == quest_id:
-		check_quest_tracker(selected_quest)
-	selected_quest = null
-
-func check_health():
+func health_check():
 	health_bar.value = health
 	health_label.text = str(health as int).pad_zeros(3)
 	if health == 0:
@@ -243,15 +191,17 @@ func check_health():
 		print("")
 		process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
-func animate_bars():
-	var stamina_tween = stamina
-	var s_tween = create_tween()
-	s_tween.tween_property(stamina_bar, "value", stamina_tween, 0.1)
-	var magic_tween = magic
-	var m_tween = create_tween()
-	m_tween.tween_property(magic_bar, "value", magic_tween, 0.1)
-	
-func check_stamina():
+func health_heal(amount):
+	if health < max_health:
+		health += amount
+		if health > max_health:
+			health = max_health
+
+func health_damage(amount):
+	if health > 0:
+		health -= amount
+
+func stamina_check():
 	stamina_label.text = str(stamina as int).pad_zeros(3)
 	if running == true && swinging == false && stamina_cooldown == false:
 		if last_position != position.round():
@@ -273,8 +223,18 @@ func check_stamina():
 					stamina_label.self_modulate = Color.WHITE
 			elif stamina_cooldown == false:
 				stamina += stamina_gain
-	
-func check_magic():
+
+func stamina_heal(amount):
+	if stamina < max_stamina:
+		stamina += amount
+		if stamina > max_stamina:
+			stamina = max_stamina
+
+func stamina_damage(amount):
+	if stamina > 0:
+		stamina -= amount
+
+func magic_check():
 	magic_label.text = str(magic as int).pad_zeros(3)
 	if magic < 0:
 		magic = 0
@@ -292,7 +252,7 @@ func check_magic():
 	if magic > max_magic:
 		magic = max_magic
 
-func shoot_fireball():
+func magic_cast():
 	if magic_cooldown == false:
 		var new_fireball = FIREBALL.instantiate()
 		magic_cooldown = true
@@ -306,46 +266,17 @@ func shoot_fireball():
 		await get_tree().create_timer(1.0).timeout
 		magic_cooldown = false
 
-func camera_follow():
-	last_direction = direction
-	if last_direction != direction:
-		last_direction = direction
-	if direction != Vector2.ZERO:
-		position.x = round(position.x)
-		position.y = round(position.y)
-	follow_camera.position = position
-
-func heal_health(amount):
-	if health < max_health:
-		health += amount
-		if health > max_health:
-			health = max_health
-
-func damage_health(amount):
-	if health > 0:
-		health -= amount
-
-func heal_stamina(amount):
-	if stamina < max_stamina:
-		stamina += amount
-		if stamina > max_stamina:
-			stamina = max_stamina
-
-func damage_stamina(amount):
-	if stamina > 0:
-		stamina -= amount
-
-func heal_magic(amount):
+func magic_heal(amount):
 	if magic < max_magic:
 		magic += amount
 		if magic > max_magic:
 			magic = max_magic
 
-func damage_magic(amount):
+func magic_damage(amount):
 	if magic > 0:
 		magic -= amount
 
-func apply_item_effect(item):
+func item_effect(item):
 	should_use = false
 	match item["effect"]:
 		"Health":
@@ -354,7 +285,7 @@ func apply_item_effect(item):
 				print("")
 			else:
 				should_use = true
-				heal_health(item["magnitude"])
+				health_heal(item["magnitude"])
 				print("Healed " + str(item["magnitude"]) + " HP")
 				print("")
 		"Stamina":
@@ -363,7 +294,7 @@ func apply_item_effect(item):
 				print("")
 			else:
 				should_use = true
-				heal_stamina(item["magnitude"])
+				stamina_heal(item["magnitude"])
 				print("Healed " + str(item["magnitude"]) + " Stamina")
 				print("")
 		"Magic":
@@ -372,7 +303,7 @@ func apply_item_effect(item):
 				print("")
 			else:
 				should_use = true
-				heal_magic(item["magnitude"])
+				magic_heal(item["magnitude"])
 				print("Healed " + str(item["magnitude"]) + " MP")
 				print("")
 		"Inventory":
@@ -381,20 +312,20 @@ func apply_item_effect(item):
 				print("")
 			else:
 				should_use = true
-				Global.increase_inventory_size(item["magnitude"])
+				Global.inventory_increase_size(item["magnitude"])
 				Global.inventory_full = false
 				print("Inventory Slots +" + str(item["magnitude"]))
 				print("")
 		"Damage":
 			should_use = true
-			damage_health(item["magnitude"])
+			health_damage(item["magnitude"])
 			print("Damaged " + str(item["magnitude"]) + " HP")
 			print("")
 		_:
 			print("This item has no effect")
 			print("")
 
-func animation_parameters():
+func animation_check():
 	if velocity == Vector2.ZERO || last_position == position.round():
 		Input.action_release("run")
 		idle = true
@@ -434,3 +365,85 @@ func animation_parameters():
 		animation_tree["parameters/Walk/blend_position"] = direction
 		animation_tree["parameters/Run/blend_position"] = direction
 		animation_tree["parameters/Swing/blend_position"] = direction
+
+func camera_check():
+	last_direction = direction
+	if last_direction != direction:
+		last_direction = direction
+	if direction != Vector2.ZERO:
+		position.x = round(position.x)
+		position.y = round(position.y)
+	follow_camera.position = position
+
+func quest_tracker_check(quest: Quest):
+	if quest:
+		quest_tracker.visible = true
+		quest_objectives.visible = true
+		if inventory.visible == true:
+			quest_tracker.modulate = Color(1, 1, 1, 1)
+		else:
+			quest_tracker.modulate = Color(1, 1, 1, 0.8)
+		quest_title.text = quest.quest_name
+		for child in quest_objectives.get_children():
+			quest_objectives.remove_child(child)
+		for objective in quest.objectives:
+			var label = Label.new()
+			label.text = objective.description
+			if objective.is_completed:
+				label.add_theme_font_size_override("font_size", 12)
+				label.add_theme_color_override("font_color", Color(0, 1, 0))
+			else:
+				label.add_theme_font_size_override("font_size", 12)
+				label.add_theme_color_override("font_color", Color(1, 0, 0))
+			quest_objectives.add_child(label)
+	elif !quest && inventory.visible == true:
+		quest_title.text = "No Active Quests"
+		quest_tracker.modulate = Color(1, 1, 1, 1)
+		quest_tracker.visible = true
+		quest_objectives.visible = false
+	else:
+		quest_tracker.visible = false
+
+func quest_items_check(item_id: String) -> bool:
+	if selected_quest != null:
+		for objective in selected_quest.objectives:
+			if objective.target_id == item_id && objective.target_type == "collection" && not objective.is_completed:
+				return true
+	return false
+
+func quest_objectives_check(target_id: String, target_type: String, quantity: int = 1):
+	if selected_quest == null:
+		return
+	var objective_updated = false
+	for objective in selected_quest.objectives:
+		if objective.target_id == target_id && objective.target_type == target_type && not objective.is_completed:
+			print("Finished objective for quest: ", selected_quest.quest_name)
+			print("")
+			selected_quest.complete_objective(objective.id, quantity)
+			objective_updated = true
+			break
+	if objective_updated:
+		if selected_quest.complete():
+			quest_completion_check(selected_quest)
+		quest_tracker_check(selected_quest)
+
+func quest_completion_check(quest: Quest):
+	for reward in quest.rewards:
+		if reward.reward_type == "Coins":
+			quest_coins_reward += reward.reward_amount
+			print("Received " + str(quest_coins_reward) + " coins.")
+			print("(Need to implement giving coins as an item.)")
+			print("")
+	quest_tracker_check(quest)
+	quest_manager.quest_update(quest.quest_id, "completed")
+
+func _on_quest_updated(quest_id: String):
+	var quest = quest_manager.quest_get(quest_id)
+	if quest == selected_quest:
+		quest_tracker_check(quest)
+	selected_quest = null
+
+func _on_objective_updated(quest_id: String, _objective_id: String):
+	if selected_quest && selected_quest.quest_id == quest_id:
+		quest_tracker_check(selected_quest)
+	selected_quest = null

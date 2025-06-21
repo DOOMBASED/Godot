@@ -19,10 +19,10 @@ func complete_objective(objective_id: String, quantity: int = 1):
 			else:
 				objective.is_completed = true
 			break
-	if is_completed():
+	if complete():
 		state = "completed"
 
-func is_completed() -> bool:
+func complete() -> bool:
 	for objective in objectives:
 		if not objective.is_completed:
 			return false

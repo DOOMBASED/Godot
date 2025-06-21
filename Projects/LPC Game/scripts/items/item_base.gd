@@ -24,18 +24,48 @@ func _process(delta: float) -> void:
 	if in_range == true && item_type && Global.player_node.ray_cast.is_colliding() == false:
 		if item_type != "Quest Item" && Input.is_action_pressed("interact"):
 			if Global.inventory_full == false:
-				move_to_player(delta)
+				item_move_to_player(delta)
 				if position.round() == Global.player_node.position.round():
-					pickup_item()
+					item_pickup()
 			else:
 				for i in range(Global.inventory.size()):
 					if Global.inventory[i] != null:
 						if Global.inventory[i]["id"] == item_id:
-							move_to_player(delta)
+							item_move_to_player(delta)
 							if position.round() == Global.player_node.position.round():
-								pickup_item()
+								item_pickup()
+		elif item_type == "Quest Item" && Input.is_action_just_pressed("interact"):
+			if Global.player_node.quest_items_check(item_id):
+				Global.player_node.quest_objectives_check(item_id, "collection", get_child(0).item_quantity)
+				queue_free()
+			else:
+				print("Item not needed for any active quest.")
+				print("")
 
-func pickup_item():
+func item_set_data(data):
+	item_id = data["id"]
+	item_type = data["type"]
+	equippable = data["equippable"]
+	item_name = data["name"]
+	item_effect = data["effect"]
+	effect_magnitude = data["magnitude"]
+	item_texture = data["texture"]
+	scene_path = data["scene_path"]
+
+func item_initialize(id, type, equip, i_name, effect, magnitude, texture, scene):
+	item_id = id
+	item_type = type
+	equippable = equip
+	item_name = i_name
+	item_effect = effect
+	effect_magnitude = magnitude
+	item_texture = texture
+	scene_path = scene
+
+func item_move_to_player(delta):
+	position = position.move_toward(Global.player_node.position, delta * speed)
+
+func item_pickup():
 	Global.player_node.time_since_pickup = 0
 	Global.player_node.recent_pickup = true
 	var item = {
@@ -50,32 +80,8 @@ func pickup_item():
 		"scene_path" : scene_path,
 	}
 	if Global.player_node:
-		Global.add_item(item, false)
+		Global.item_add(item, false)
 		self.queue_free()
-
-
-func move_to_player(delta):
-	position = position.move_toward(Global.player_node.position, delta * speed)
-
-func set_item_data(data):
-	item_id = data["id"]
-	item_type = data["type"]
-	equippable = data["equippable"]
-	item_name = data["name"]
-	item_effect = data["effect"]
-	effect_magnitude = data["magnitude"]
-	item_texture = data["texture"]
-	scene_path = data["scene_path"]
-
-func init_items(id, type, equip, i_name, effect, magnitude, texture, scene):
-	item_id = id
-	item_type = type
-	equippable = equip
-	item_name = i_name
-	item_effect = effect
-	effect_magnitude = magnitude
-	item_texture = texture
-	scene_path = scene
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Global.player_node:

@@ -7,7 +7,7 @@
 default_font = ExtResource("2_lh6db")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygx5g"]
-bg_color = Color(0, 0, 0, 0.392157)
+bg_color = Color(0, 0, 0, 0.784314)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfri7"]
 bg_color = Color(0, 0, 0, 0.784314)
@@ -32,7 +32,7 @@ anchor_bottom = 1.0
 offset_left = 248.0
 offset_top = 8.0
 offset_right = -8.0
-offset_bottom = -176.0
+offset_bottom = -175.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_mhufo")
@@ -48,11 +48,13 @@ grow_vertical = 2
 theme_override_constants/separation = -1
 
 [node name="Background1" type="Panel" parent="CanvasLayer/Panel/Backgrounds"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_dfri7")
 
 [node name="Background2" type="Panel" parent="CanvasLayer/Panel/Backgrounds"]
+modulate = Color(0, 0, 0, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_dfri7")
@@ -62,6 +64,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -89,20 +95,22 @@ theme_override_constants/separation = 32
 
 [node name="QuestList" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 
 [node name="QuestDetails" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 
 [node name="QuestTitle" type="Label" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 14
 text = "Title"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="QuestDescription" type="Label" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "Description"
 
 [node name="QuestObjectives" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]

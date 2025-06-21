@@ -16,7 +16,7 @@ func _ready() -> void:
 	quest_manager.quest_updated.connect(_on_quest_updated)
 	quest_manager.objectives_updated.connect(_on_objectives_updated)
 
-func toggle_log():
+func quest_log_toggle():
 	panel.visible = !panel.visible
 	quest_list_update()
 	if selected_quest:
@@ -29,7 +29,7 @@ func quest_list_update():
 	if active_quests.size() == 0:
 		quest_details_clear()
 		Global.player_node.selected_quest = null
-		Global.player_node.check_quest_tracker(null)
+		Global.player_node.quest_tracker_check(null)
 	else:
 		for quest in active_quests:
 			var button = Button.new()
@@ -37,7 +37,7 @@ func quest_list_update():
 			button.text = quest.quest_name
 			button.pressed.connect(_on_quest_selected.bind(quest))
 			quest_list.add_child(button)
-	Global.player_node.check_quest_tracker(selected_quest)
+	Global.player_node.quest_tracker_check(selected_quest)
 
 func quest_details_clear():
 	quest_title.text = ""
@@ -72,7 +72,7 @@ func _on_quest_selected(quest: Quest):
 		var label = Label.new()
 		label.add_theme_font_size_override("font_size", 12)
 		label.add_theme_color_override("font_color", Color(0, 0.85, 0))
-		label.text = "Rewards: " + reward.reward_type.capitalize() + ": " + str(reward.reward_amount)
+		label.text = "Rewards: " + reward.reward_type + ": " + str(reward.reward_amount)
 		quest_rewards.add_child(label)
 
 func _on_quest_updated(quest_id: String):

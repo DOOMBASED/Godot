@@ -54,7 +54,7 @@ metadata/_custom_type_script = "uid://dqdmxcap5f4pi"
 
 [sub_resource type="Resource" id="Resource_poqbc"]
 script = ExtResource("14_6ymca")
-reward_type = "quest_coins_reward"
+reward_type = "Coins"
 reward_amount = 50
 metadata/_custom_type_script = "uid://dk6ick82r7vsf"
 
@@ -83,7 +83,7 @@ metadata/_custom_type_script = "uid://dqdmxcap5f4pi"
 
 [sub_resource type="Resource" id="Resource_1ralu"]
 script = ExtResource("14_6ymca")
-reward_type = "quest_coins_reward"
+reward_type = "Coins"
 reward_amount = 25
 metadata/_custom_type_script = "uid://dk6ick82r7vsf"
 
@@ -117,7 +117,7 @@ metadata/_custom_type_script = "uid://dqdmxcap5f4pi"
 
 [sub_resource type="Resource" id="Resource_6ymca"]
 script = ExtResource("14_6ymca")
-reward_type = "quest_coins_reward"
+reward_type = "Coins"
 reward_amount = 25
 metadata/_custom_type_script = "uid://dk6ick82r7vsf"
 
@@ -147,15 +147,15 @@ player_name = "DOOM"
 
 [node name="PlacedNPCs" type="Node2D" parent="."]
 
-[node name="TestNPC01" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
+[node name="RedGuy" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
 modulate = Color(1, 0.196078, 0.196078, 1)
-position = Vector2(58, -96)
+position = Vector2(-144, -97)
 npc_id = "test_npc_01"
 npc_name = "Red Guy"
 dialogue_resource = SubResource("Resource_dhbhc")
 quests = Array[ExtResource("12_u78vl")]([SubResource("Resource_q47lv"), SubResource("Resource_4juvx")])
 
-[node name="TestNPC02" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
+[node name="BlueGuy" parent="PlacedNPCs" instance=ExtResource("10_opodw")]
 modulate = Color(0.196078, 0.196078, 1, 1)
 position = Vector2(128, -97)
 npc_id = "test_npc_02"
@@ -170,13 +170,13 @@ can_move = false
 [node name="PlacedItems" type="Node2D" parent="."]
 
 [node name="TestQuestItem01" parent="PlacedItems" instance=ExtResource("11_s25ru")]
-position = Vector2(-64, -32)
+position = Vector2(128, 29)
 item_id = "quest_item_gold"
 item_name = "Gold"
 
 [node name="TestQuestItem02" parent="PlacedItems" instance=ExtResource("11_s25ru")]
 modulate = Color(1, 0.313726, 0.313726, 1)
-position = Vector2(-192, -32)
+position = Vector2(-144, 30)
 item_id = "quest_item_red_gold"
 item_name = "Red Gold"
 
