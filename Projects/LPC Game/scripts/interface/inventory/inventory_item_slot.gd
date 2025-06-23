@@ -24,13 +24,10 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		usage_panel.visible = false
 
-func hotbar_set_empty():
-	outer_border.modulate = Color.BLACK
-	item_button.mouse_filter = MOUSE_FILTER_PASS
-	icon.texture = null
-	quantity_label.text = ""
+func slot_set_index(new_index) -> void:
+	slot_index = new_index
 
-func hotbar_set_item(new_item):
+func slot_set_item(new_item) -> void:
 	outer_border.modulate = Color.BLACK
 	item_button.mouse_filter = MOUSE_FILTER_STOP
 	item = new_item
@@ -47,12 +44,15 @@ func hotbar_set_item(new_item):
 			item_effect.text = ""
 	else:
 		item_effect.text = ""
-	hotbar_set_assignment()
+	slot_set_assignment()
 
-func hotbar_set_index(new_index):
-	slot_index = new_index
+func slot_set_empty() -> void:
+	outer_border.modulate = Color.BLACK
+	item_button.mouse_filter = MOUSE_FILTER_PASS
+	icon.texture = null
+	quantity_label.text = ""
 
-func hotbar_set_assignment():
+func slot_set_assignment() -> void:
 	assigned = Global.hotbar_assignment_check(item)
 	if assigned:
 		hotbar_button.text = "UNASSIGN"
@@ -93,7 +93,7 @@ func _on_use_button_pressed() -> void:
 				usage_panel.visible = false
 				if Global.player_node:
 					Global.player_node.item_effect(item)
-					var use = Global.player_node.should_use
+					var use: bool = Global.player_node.should_use
 					if use:
 						Global.item_remove(item["id"])
 						Global.item_remove_from_hotbar(item["id"])
@@ -116,15 +116,15 @@ func _on_hotbar_button_pressed() -> void:
 			else:
 				Global.item_add(item, true)
 				assigned = true
-			hotbar_set_assignment()
+			slot_set_assignment()
 		else:
 			print("Cannot assign this item!")
 			print("")
 
 func _on_drop_button_pressed() -> void:
 	if item != null && item["effect"] != "Quest Item":
-		var drop_position = Global.player_node.position + Vector2(0.0, 64.0)
-		var drop_offset = Global.player_node.last_direction
+		var drop_position: Vector2 = Global.player_node.position + Vector2(0.0, 64.0)
+		var drop_offset: Vector2 = Global.player_node.last_direction
 		Global.item_drop(item, drop_position + drop_offset)
 		Global.item_remove(item["id"])
 		Global.item_remove_from_hotbar(item["id"])

@@ -2,7 +2,7 @@ extends Control
 
 var hand: Hand
 
-func _ready():
+func _ready() -> void:
 	visible = true
 	if Global.player_node:
 		hand = Global.player_node.find_child("Hand")

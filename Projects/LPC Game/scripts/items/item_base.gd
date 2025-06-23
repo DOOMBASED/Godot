@@ -5,17 +5,18 @@ extends Node2D
 @export var item_type: String = ""
 @export var item_effect: String = ""
 @export var effect_magnitude: int
+@export var item_quantity: int
+@export var spawn_chance: float = 1.0
 @export var item_texture: Texture
 @export var equippable: Resource
-@export var spawn_chance: float = 1.0
 
 @onready var sprite: Sprite2D = $Sprite2D
 
 var scene_path: String = "res://scenes/items/item_base.tscn"
 
-var direction = Vector2.ZERO
-var speed = 480
-var in_range = false
+var direction:Vector2 = Vector2.ZERO
+var speed: int = 480
+var in_range: bool = false
 
 func _ready() -> void:
 	sprite.texture = item_texture
@@ -40,19 +41,19 @@ func _process(delta: float) -> void:
 				queue_free()
 			else:
 				print("Item not needed for any active quest.")
-				print("")
 
-func item_set_data(data):
+func item_set_data(data: Dictionary) -> void:
 	item_id = data["id"]
 	item_type = data["type"]
 	equippable = data["equippable"]
 	item_name = data["name"]
 	item_effect = data["effect"]
 	effect_magnitude = data["magnitude"]
+	item_quantity = data["quantity"]
 	item_texture = data["texture"]
 	scene_path = data["scene_path"]
 
-func item_initialize(id, type, equip, i_name, effect, magnitude, texture, scene):
+func item_initialize(id: String, type: String, equip: Resource, i_name: String, effect: String, magnitude: int, texture: Texture, scene: String, quantity: int) -> void:
 	item_id = id
 	item_type = type
 	equippable = equip
@@ -61,14 +62,15 @@ func item_initialize(id, type, equip, i_name, effect, magnitude, texture, scene)
 	effect_magnitude = magnitude
 	item_texture = texture
 	scene_path = scene
+	item_quantity = quantity
 
-func item_move_to_player(delta):
+func item_move_to_player(delta: float) -> void:
 	position = position.move_toward(Global.player_node.position, delta * speed)
 
-func item_pickup():
+func item_pickup() -> void:
 	Global.player_node.time_since_pickup = 0
 	Global.player_node.recent_pickup = true
-	var item = {
+	var item: Dictionary = {
 		"quantity" : 1,
 		"id" : item_id,
 		"type" : item_type,
@@ -88,9 +90,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		in_range = true
 		if item_type == "Quest Item":
 			Global.player_node.in_interact_area = true
+			Global.player_node.interact_ui.visible = true
+			Global.player_node.interact_label.text = item_name
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body == Global.player_node:
 		in_range = false
 		if item_type == "Quest Item":
 			Global.player_node.in_interact_area = false
+			Global.player_node.interact_ui.visible = false

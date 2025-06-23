@@ -9,7 +9,7 @@ extends Resource
 @export var objectives: Array[Objectives] = []
 @export var rewards: Array[Rewards] = []
 
-func complete_objective(objective_id: String, quantity: int = 1):
+func complete_objective(objective_id: String, quantity: int = 1) -> void:
 	for objective in objectives:
 		if objective.id == objective_id:
 			if objective.target_type == "collection":

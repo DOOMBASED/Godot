@@ -12,12 +12,12 @@ extends RigidBody2D
 
 @onready var spawn_point: Node2D = get_parent()
 
-var explosion_instance
-var tween
-var loot_instance
-var direction
+var explosion_instance: Node
+var tween: Tween
+var loot_instance: Node
+var direction: Vector2
 
-var current_resources:
+var current_resources: int:
 	set(resource_count):
 		current_resources = resource_count
 		if resource_count <= 0:
@@ -29,17 +29,17 @@ var current_resources:
 			tween.tween_property(self, "scale", Vector2(), 0.25)
 			tween.tween_callback(queue_free)
 
-func _ready():
+func _ready() -> void:
 	current_resources = starting_resources
 
-func resource_spawn():
+func resource_spawn() -> void:
 	loot_instance = loot.instantiate()
 	loot_instance.position = position
 	spawn_point.call_deferred("add_child", loot_instance)
 	direction = Vector2(randf_range(-1.0,1.0), randf_range(-1.0,1.0)).normalized()
 	loot_instance.launch(direction * launch_speed, launch_duration)
 
-func resource_harvest(amount):
+func resource_harvest(amount: int) -> void:
 	for n in amount:
 		resource_spawn()
 	current_resources -= amount

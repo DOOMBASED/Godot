@@ -2,20 +2,20 @@ extends Sprite2D
 
 #source: https://johnnysdabblings.code.blog/2020/01/22/how-to-make-a-touch-joystick-in-godot/
 
-var radiusJoyStick 
-var radiusJoyBase 
-var maxLength
-var touchInsideJoystick = false
+var radiusJoyStick: float
+var radiusJoyBase: float
+var maxLength: float
+var touchInsideJoystick: bool = false
 
 signal joystick_moved
 signal joystick_released
 
-func _ready():
+func _ready() -> void:
 	radiusJoyStick = global_scale.x * texture.get_size().x/2;
 	radiusJoyBase = get_node("../Base").global_scale.x * $"../Base".texture.get_size().x/2
 	maxLength = radiusJoyBase - radiusJoyStick
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
 		if touchInsideJoystick == true:
 			position.x = position.x + event.relative.x

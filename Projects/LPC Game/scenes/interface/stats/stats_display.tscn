@@ -4,29 +4,34 @@
 [ext_resource type="PackedScene" uid="uid://bf4ajfqxih7al" path="res://scenes/interface/stats/stats_display_item.tscn" id="2_stnqn"]
 
 [node name="StatsDisplay" type="MarginContainer"]
-custom_minimum_size = Vector2(144, 32)
-offset_right = 144.0
-offset_bottom = 32.0
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
+custom_minimum_size = Vector2(540, 104)
+offset_right = 540.0
+offset_bottom = 104.0
 script = ExtResource("1_2x060")
 stats_display_template = ExtResource("2_stnqn")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
+custom_minimum_size = Vector2(540, 104)
 layout_mode = 2
-color = Color(0, 0, 0, 0.784314)
+color = Color(0, 0, 0, 0.870588)
 
-[node name="DisplayGrid" type="GridContainer" parent="ColorRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -62.0
-offset_top = -11.5
-offset_right = 62.0
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Skills"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DisplayGrid" type="GridContainer" parent="ColorRect/VBoxContainer"]
+layout_mode = 2

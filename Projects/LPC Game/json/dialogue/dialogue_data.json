@@ -6,7 +6,7 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Hello, #PN#! What do you need?",
+						"text": "Hello, #PLAYER#! I am #NPC#. What can I do for you?",
 						"options": {
 							"Tell me about this place.": "in_progress",
 							"Do you have any quests?": "give_quests",
@@ -17,7 +17,7 @@
 						"state": "in_progress",
 						"text": "There isn't much to say... it's pretty much a deserted island right now.",
 						"options": {
-							"<": "start",
+							"Return": "start",
 							"Goodbye": "end"
 						}
 					},
@@ -25,18 +25,18 @@
 						"state": "give_quests",
 						"text": "Yes, I need you to go and talk to the Blue Guy over there. He will tell you what you need to do next.",
 						"options": {
-							"<": "start",
+							"Return": "start",
 							"Accept Quest": "exit"
 						}
 					},
 					{
 						"state": "end",
-						"text": "Goodbye, #PN#!",
+						"text": "Goodbye, #PLAYER#!",
 						"options": {}
 					},
 					{
 						"state": "exit",
-						"text": "Come back soon #PN#!",
+						"text": "Come back soon #PLAYER#!",
 						"options": {}
 					}
 				]
@@ -46,7 +46,7 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Hey #PN#! Back so soon?",
+						"text": "Hey #PLAYER#! Back so soon?",
 						"options": {
 							"Anthing else you can tell me?": "in_progress",
 							"Do you have any quests?": "give_quests",
@@ -57,7 +57,7 @@
 						"state": "in_progress",
 						"text": "I heard that Blue Guy makes a mean cat-eye soup.",
 						"options": {
-							"<": "start",
+							"Return": "start",
 							"Goodbye": "end"
 						}
 					},
@@ -65,13 +65,13 @@
 						"state": "give_quests",
 						"text": "Just go and pick up that Red Gold behind you.",
 						"options": {
-							"<": "start",
+							"Return": "start",
 							"Accept Quest": "exit"
 						}
 					},
 					{
 						"state": "end",
-						"text": "Goodbye, #PN#!",
+						"text": "Goodbye, #PLAYER#!",
 						"options": {}
 					},
 					{
@@ -86,7 +86,7 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Hey #PN#! Thanks again for helping me.",
+						"text": "Hey #PLAYER#! Thanks again for helping me.",
 						"options": {
 							"Do you have any quests?": "give_quests",
 							"Goodbye": "exit"
@@ -96,7 +96,7 @@
 						"state": "give_quests",
 						"text": "If there is anything else I can think of I will add it your Quest Log.",
 						"options": {
-							"<": "start"
+							"Return": "start"
 						}
 					}
 				]
@@ -110,7 +110,7 @@
 				"dialogues": [
 					{
 						"state": "start",
-						"text": "Greetings, #PN#! How can I assist you?",
+						"text": "Greetings, #PLAYER#! How can I assist you?",
 						"options": {
 							"Tell me about this forest.": "in_progress",
 							"Do you have any quests?": "give_quests",
@@ -121,7 +121,7 @@
 						"state": "in_progress",
 						"text": "There's just some chickens running around. Watch out for the red chicken, if you touch it you will get hurt!",
 						"options": {
-							"<": "start",
+							"Return": "start",
 							"Goodbye": "end"
 						}
 					},
@@ -129,13 +129,13 @@
 						"state": "give_quests",
 						"text": "Go and talk to the Red Guy. He will tell you what to do next.",
 						"options": {
-							"<": "start",
+							"Return": "start",
 							"Accept Quest": "exit"
 						}
 					},
 					{
 						"state": "end",
-						"text": "Farewell, #PN#!",
+						"text": "Farewell, #PLAYER#!",
 						"options": {}
 					},
 					{
@@ -160,7 +160,7 @@
 						"state": "give_quests",
 						"text": "If there is anything else I can think of I will add it your Quest Log",
 						"options": {
-							"<": "start"
+							"Return": "start"
 						}
 					},
 				]

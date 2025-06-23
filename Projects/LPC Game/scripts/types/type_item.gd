@@ -11,3 +11,5 @@ extends Resource
 @export var spawn_chance: float
 
 var scene = "res://scenes/items/item_base.tscn"
+
+var quantity: int = 1

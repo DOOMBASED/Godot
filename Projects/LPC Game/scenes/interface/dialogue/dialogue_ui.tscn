@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsmjtl6sp4an4"]
+[gd_scene load_steps=6 format=3 uid="uid://dsmjtl6sp4an4"]
 
 [ext_resource type="FontFile" uid="uid://oxelnataqj4p" path="res://fonts/font.ttf" id="1_wxiqv"]
 [ext_resource type="Script" uid="uid://d1rbqm4rhwgi8" path="res://scripts/dialogue/dialogue_ui.gd" id="1_y20y4"]
@@ -13,6 +13,9 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wxiqv"]
+bg_color = Color(0, 0, 0, 0)
+
 [node name="DialogueUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -26,7 +29,10 @@ anchor_left = 0.03
 anchor_top = 0.707
 anchor_right = 0.97
 anchor_bottom = 0.96
-offset_top = -0.200012
+offset_left = 0.600002
+offset_top = -0.480011
+offset_right = 0.599976
+offset_bottom = -0.279968
 grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_wxiqv")
@@ -70,11 +76,12 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -50.0
+offset_left = -89.2001
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = 27.0
+offset_right = -3.20007
+offset_bottom = 24.0
 grow_horizontal = 0
-text = "EXIT"
+theme_override_styles/normal = SubResource("StyleBoxFlat_wxiqv")
+text = "(~) Exit"
 
 [connection signal="pressed" from="CanvasLayer/Panel/CloseButton" to="." method="_on_close_button_pressed"]

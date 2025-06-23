@@ -11,20 +11,20 @@ extends CharacterBody2D
 @onready var spawn_point: Node2D = get_parent()
 
 var direction = Vector2(0.0, 1.0)
-var damage_collision
-var direction_timer
-var idle_timer
-var tween
-var explosion_instance
+var damage_collision: CollisionObject2D
+var direction_timer: Timer
+var idle_timer: Timer
+var tween: Tween
+var explosion_instance: Node
 
-func _ready():
+func _ready() -> void:
 	if evil == true:
 		damage_collision = $DamageCollision
 	elif evil == false:
 		direction_timer = $DirectionTimer
 		idle_timer = $IdleTimer
 
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
 	animation_parameters()
 	if can_move:
 		if evil == true:
@@ -39,7 +39,7 @@ func _physics_process(_delta):
 		if evil == false:
 			check_movement_type()
 
-func animation_parameters():
+func animation_parameters() -> void:
 	if velocity == Vector2.ZERO:
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/is_moving"] = false
@@ -50,7 +50,7 @@ func animation_parameters():
 		animation_tree["parameters/Idle/blend_position"] = direction
 		animation_tree["parameters/Walk/blend_position"] = direction
 
-func check_movement_type():
+func check_movement_type() -> void:
 	if direction:
 		velocity = direction * speed
 	else:
@@ -60,10 +60,10 @@ func check_movement_type():
 		direction = (-direction + Vector2(randf_range(-0.95,0.95),randf_range(-0.95,0.95))).normalized()
 
 
-func choose_random_direction():
+func choose_random_direction() -> void:
 		direction = Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)).normalized()
 
-func damage_health(damage):
+func damage_health(damage: int) -> void:
 	health -= damage
 	if health >= 0:
 		direction = Vector2.ZERO
@@ -76,15 +76,15 @@ func damage_health(damage):
 		tween.tween_property(self, "scale", Vector2(), 0.25)
 		tween.tween_callback(queue_free)
 
-func _on_direction_timer_timeout():
+func _on_direction_timer_timeout() -> void:
 	if animation_tree["parameters/conditions/idle"] == true:
 		choose_random_direction()
 		direction_timer.start(randf_range(1.0,5.0))
 
-func _on_idle_timer_timeout():
+func _on_idle_timer_timeout() -> void:
 	direction = Vector2.ZERO
 	idle_timer.start(randf_range(3.0,7.0))
 
-func _on_damage_collision_body_entered(body):
+func _on_damage_collision_body_entered(body: CharacterBody2D) -> void:
 	if evil == true && body == Global.player_node:
 		body.health_damage(10)

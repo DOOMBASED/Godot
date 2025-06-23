@@ -1,11 +1,11 @@
 class_name Stats
-extends Node
+extends Control
 
 var stats: Dictionary = {}
 
 signal stats_amount_changed(type, new_amount)
 
-func stats_add(type, amount):
+func stats_add(type: Resource, amount: int) -> void:
 	if stats.has(type):
 		stats[type] = stats[type] + amount
 	else:

@@ -9,9 +9,9 @@ extends Sprite2D
 		else:
 			texture = null
 
-@onready var collided = false
+@onready var collided: bool = false
 
-func _on_weapon_body_entered(body):
+func _on_weapon_body_entered(body: Node) -> void:
 	if body is ResourceNode && collided == false:
 		if equipped_item != null:
 			if equipped_item.has_method("interact"):

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c04oy2a4rq74f"]
 
 [ext_resource type="Script" uid="uid://cre84pt75w18b" path="res://scripts/items/item_base.gd" id="1_0w1ss"]
-[ext_resource type="Texture2D" uid="uid://cd4r0kunoo3sd" path="res://sprites/items/quest_item_test.png" id="2_0w1ss"]
+[ext_resource type="Texture2D" uid="uid://cd4r0kunoo3sd" path="res://sprites/items/gold.png" id="2_0w1ss"]
 [ext_resource type="Script" uid="uid://duwvuvnsbgrem" path="res://scripts/quests/quest_item.gd" id="3_2ogv2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bkiyj"]

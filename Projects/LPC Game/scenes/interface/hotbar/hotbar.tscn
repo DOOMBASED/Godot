@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://biq8k4lj4jr4a"]
 
-[ext_resource type="Script" uid="uid://ds2tjdorfjba3" path="res://scripts/interface/hotbar/hotbar_item.gd" id="1_ttowt"]
+[ext_resource type="Script" uid="uid://ds2tjdorfjba3" path="res://scripts/interface/hotbar/hotbar_item_slot.gd" id="1_ttowt"]
 [ext_resource type="PackedScene" uid="uid://devqdtb6y1mty" path="res://scenes/interface/hotbar/hotbar_item_button.tscn" id="2_4g526"]
 [ext_resource type="Script" uid="uid://n8662hryyt1u" path="res://scripts/interface/hotbar/hotbar_equip.gd" id="2_vt4wj"]
 [ext_resource type="PackedScene" uid="uid://b63giumoaqmg2" path="res://scenes/interface/hotbar/hotbar_equip_button.tscn" id="3_jcudm"]
@@ -33,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
 
-[node name="InventorySlot" parent="ItemHotbar" instance=ExtResource("2_4g526")]
+[node name="InventorySlot1" parent="ItemHotbar" instance=ExtResource("2_4g526")]
 layout_mode = 2
 
 [node name="InventorySlot2" parent="ItemHotbar" instance=ExtResource("2_4g526")]
@@ -55,6 +55,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventorySlot8" parent="ItemHotbar" instance=ExtResource("2_4g526")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="ItemHotbar" instance=ExtResource("2_4g526")]
 layout_mode = 2
 
 [node name="EquipHotbar" type="HBoxContainer" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://devqdtb6y1mty"]
 
-[ext_resource type="Script" uid="uid://bu1bk4p5odu7s" path="res://scripts/interface/hotbar/hotbar_item_button.gd" id="2_hddt5"]
+[ext_resource type="Script" uid="uid://bu1bk4p5odu7s" path="res://scripts/interface/inventory/inventory_item_slot.gd" id="2_hddt5"]
 
 [sub_resource type="Gradient" id="Gradient_p7cng"]
 offsets = PackedFloat32Array(0)
@@ -73,7 +73,7 @@ offset_left = 3.0
 offset_right = 24.0
 offset_bottom = 17.0
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 14
 text = "000"
 
 [node name="KeyLabelBox" type="Panel" parent="InnerBorder"]
@@ -200,8 +200,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -44.0
+offset_top = 2.0
 offset_right = 44.0
-offset_bottom = 17.0
+offset_bottom = 19.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
@@ -215,9 +216,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -44.0
-offset_top = -8.0
+offset_top = -6.0
 offset_right = 44.0
-offset_bottom = 9.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 4
@@ -232,8 +233,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -44.0
-offset_top = -17.0
+offset_top = -15.0
 offset_right = 44.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 4

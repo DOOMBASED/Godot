@@ -1,13 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://db2budkistvit"]
+[gd_scene load_steps=5 format=3 uid="uid://db2budkistvit"]
 
 [ext_resource type="Script" uid="uid://bx5j0hpk8vw8m" path="res://scripts/quests/quest_ui.gd" id="1_dfri7"]
 [ext_resource type="FontFile" uid="uid://oxelnataqj4p" path="res://fonts/font.ttf" id="2_lh6db"]
 
 [sub_resource type="Theme" id="Theme_mhufo"]
 default_font = ExtResource("2_lh6db")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygx5g"]
-bg_color = Color(0, 0, 0, 0.784314)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfri7"]
 bg_color = Color(0, 0, 0, 0.784314)
@@ -21,24 +18,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dfri7")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 2
-
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-visible = false
-anchors_preset = 15
+[node name="Panel" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(540, 416)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 248.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -175.0
-grow_horizontal = 2
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -208.0
+offset_bottom = 208.0
+grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_mhufo")
-theme_override_styles/panel = SubResource("StyleBoxFlat_ygx5g")
+color = Color(0, 0, 0, 0.870588)
 
-[node name="Backgrounds" type="HBoxContainer" parent="CanvasLayer/Panel"]
+[node name="Backgrounds" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,19 +43,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -1
 
-[node name="Background1" type="Panel" parent="CanvasLayer/Panel/Backgrounds"]
+[node name="Background1" type="Panel" parent="Panel/Backgrounds"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_dfri7")
 
-[node name="Background2" type="Panel" parent="CanvasLayer/Panel/Backgrounds"]
+[node name="Background2" type="Panel" parent="Panel/Backgrounds"]
 modulate = Color(0, 0, 0, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_dfri7")
 
-[node name="Contents" type="VBoxContainer" parent="CanvasLayer/Panel"]
+[node name="Contents" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,50 +67,50 @@ offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Headings" type="HBoxContainer" parent="CanvasLayer/Panel/Contents"]
+[node name="Headings" type="HBoxContainer" parent="Panel/Contents"]
 layout_mode = 2
 
-[node name="List" type="Label" parent="CanvasLayer/Panel/Contents/Headings"]
+[node name="List" type="Label" parent="Panel/Contents/Headings"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Available Quests"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Details" type="Label" parent="CanvasLayer/Panel/Contents/Headings"]
+[node name="Details" type="Label" parent="Panel/Contents/Headings"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quest Details"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Details" type="HBoxContainer" parent="CanvasLayer/Panel/Contents"]
+[node name="Details" type="HBoxContainer" parent="Panel/Contents"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 32
 
-[node name="QuestList" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details"]
+[node name="QuestList" type="VBoxContainer" parent="Panel/Contents/Details"]
 layout_mode = 2
 size_flags_horizontal = 6
 
-[node name="QuestDetails" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details"]
+[node name="QuestDetails" type="VBoxContainer" parent="Panel/Contents/Details"]
 layout_mode = 2
 size_flags_horizontal = 6
 
-[node name="QuestTitle" type="Label" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+[node name="QuestTitle" type="Label" parent="Panel/Contents/Details/QuestDetails"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Title"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="QuestDescription" type="Label" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+[node name="QuestDescription" type="Label" parent="Panel/Contents/Details/QuestDetails"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Description"
 
-[node name="QuestObjectives" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+[node name="QuestObjectives" type="VBoxContainer" parent="Panel/Contents/Details/QuestDetails"]
 layout_mode = 2
 
-[node name="QuestRewards" type="VBoxContainer" parent="CanvasLayer/Panel/Contents/Details/QuestDetails"]
+[node name="QuestRewards" type="VBoxContainer" parent="Panel/Contents/Details/QuestDetails"]
 layout_mode = 2

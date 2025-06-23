@@ -7,7 +7,7 @@ colors = PackedColorArray(0, 0, 0, 0.588235)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yj408"]
 gradient = SubResource("Gradient_ebaj5")
 width = 160
-height = 21
+height = 14
 fill_to = Vector2(0, 0.0180995)
 
 [sub_resource type="Gradient" id="Gradient_tob0q"]
@@ -17,17 +17,17 @@ colors = PackedColorArray(0.498039, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fb0ou"]
 gradient = SubResource("Gradient_tob0q")
 width = 156
-height = 17
+height = 10
 fill_from = Vector2(1, 0)
 
 [sub_resource type="Gradient" id="Gradient_3sy7i"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0.498039, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_765iq"]
 gradient = SubResource("Gradient_3sy7i")
 width = 156
-height = 17
+height = 10
 fill_from = Vector2(1, 0)
 
 [sub_resource type="Gradient" id="Gradient_y647j"]
@@ -37,7 +37,7 @@ colors = PackedColorArray(0, 0, 0.498039, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kud8g"]
 gradient = SubResource("Gradient_y647j")
 width = 156
-height = 17
+height = 10
 fill_from = Vector2(1, 0)
 
 [node name="HealthBars" type="VBoxContainer"]
@@ -47,10 +47,10 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -160.0
-offset_top = -71.0
+offset_top = -48.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_constants/separation = 4
+theme_override_constants/separation = 3
 
 [node name="Health" type="TextureProgressBar" parent="."]
 layout_mode = 2
@@ -61,6 +61,7 @@ texture_progress = SubResource("GradientTexture2D_fb0ou")
 texture_progress_offset = Vector2(2, 2)
 
 [node name="Value" type="Label" parent="Health"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -75,6 +76,7 @@ text = "100"
 horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="Health"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -96,6 +98,7 @@ texture_progress = SubResource("GradientTexture2D_765iq")
 texture_progress_offset = Vector2(2, 2)
 
 [node name="Value" type="Label" parent="Stamina"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -110,6 +113,7 @@ text = "100"
 horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="Stamina"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -131,6 +135,7 @@ texture_progress = SubResource("GradientTexture2D_kud8g")
 texture_progress_offset = Vector2(2, 2)
 
 [node name="Value" type="Label" parent="Magic"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -145,6 +150,7 @@ text = "100"
 horizontal_alignment = 2
 
 [node name="Label" type="Label" parent="Magic"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5

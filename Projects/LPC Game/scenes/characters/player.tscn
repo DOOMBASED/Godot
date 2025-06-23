@@ -1,14 +1,12 @@
-[gd_scene load_steps=64 format=3 uid="uid://c73xloqro5cq2"]
+[gd_scene load_steps=62 format=3 uid="uid://c73xloqro5cq2"]
 
 [ext_resource type="Script" uid="uid://d4b23ee0xgp8b" path="res://scripts/control/control_player.gd" id="1_atpat"]
 [ext_resource type="Texture2D" uid="uid://bcxmq3kqn36be" path="res://sprites/characters/player/backslash.png" id="1_yewv4"]
 [ext_resource type="PackedScene" uid="uid://oy7nlwlixxf" path="res://scenes/interface/user_interface.tscn" id="2_7vyk4"]
-[ext_resource type="Script" uid="uid://ds6761vocw3p0" path="res://scripts/interface/stats/stats.gd" id="2_jk2m4"]
 [ext_resource type="Texture2D" uid="uid://dlx51id2yohq0" path="res://sprites/characters/player/idle.png" id="3_dyp2m"]
 [ext_resource type="Texture2D" uid="uid://cn6y8e7mulwro" path="res://sprites/characters/player/walk.png" id="4_atpat"]
 [ext_resource type="Texture2D" uid="uid://mj5slfxqcwgj" path="res://sprites/characters/player/run.png" id="5_qgnko"]
 [ext_resource type="Script" uid="uid://db1170lxybr2p" path="res://scripts/control/control_player_hand.gd" id="6_kqtwu"]
-[ext_resource type="PackedScene" uid="uid://d38tomssea2o1" path="res://scenes/interface/quests/quest_manager.tscn" id="9_qgnko"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgnko"]
 radius = 12.0
@@ -2973,10 +2971,5 @@ parameters/Swing/blend_position = Vector2(0.997743, -0.014966)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="UserInterface" parent="." instance=ExtResource("2_7vyk4")]
-
-[node name="QuestManager" parent="." instance=ExtResource("9_qgnko")]
-
-[node name="StatsManager" type="Node" parent="."]
-script = ExtResource("2_jk2m4")
 
 [connection signal="body_entered" from="Weapon" to="Hand" method="_on_weapon_body_entered"]

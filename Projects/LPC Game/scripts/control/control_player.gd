@@ -27,55 +27,57 @@ extends CharacterBody2D
 @onready var follow_camera: RemoteTransform2D = $"../Camera"
 @onready var interface: CanvasLayer = $UserInterface
 @onready var inventory: Control = $UserInterface/HUD/InventoryUI
-@onready var quest_manager: Node = $QuestManager
+@onready var quest_manager: Control = $UserInterface/HUD/QuestManager
 @onready var quest_tracker: Control = $UserInterface/HUD/QuestTracker
 @onready var quest_title: Label = $UserInterface/HUD/QuestTracker/ColorRect/Details/Title
 @onready var quest_objectives: VBoxContainer = $UserInterface/HUD/QuestTracker/ColorRect/Details/Objectives
 @onready var health_bar: TextureProgressBar = $UserInterface/HUD/HealthBars/HealthBars/Health
-@onready var health_label: Label = health_bar.get_child(0)
+#@onready var health_label: Label = health_bar.get_child(0)
 @onready var stamina_bar: TextureProgressBar = $UserInterface/HUD/HealthBars/HealthBars/Stamina
-@onready var stamina_label: Label = stamina_bar.get_child(0)
+#@onready var stamina_label: Label = stamina_bar.get_child(0)
 @onready var magic_bar: TextureProgressBar = $UserInterface/HUD/HealthBars/HealthBars/Magic
-@onready var magic_label: Label = magic_bar.get_child(0)
+#@onready var magic_label: Label = magic_bar.get_child(0)
 @onready var stats_ui: Control = $UserInterface/HUD/StatsUI
-@onready var interact_label: Control = $UserInterface/HUD/Interact
+@onready var interact_ui: Control = $UserInterface/HUD/Interact
+@onready var interact_label: Label = $UserInterface/HUD/Interact/ColorRect/InteractLabel
 @onready var fps_label: Control = $UserInterface/HUD/FPSLabel/Label
 
-const FIREBALL = preload("res://scenes/effects/effect_fireball.tscn")
+const FIREBALL: Resource = preload("res://scenes/effects/effect_fireball.tscn")
+var gold: Resource = preload("res://tres/items/currency/gold.tres")
 
-var direction = Vector2(0.0, 1.0)
-var last_direction
-var fireball_direction
-var last_position
-var speed = walk_speed
-var health = max_health
-var stamina = max_stamina
-var magic = max_magic
-var stamina_cooldown = false
-var magic_cooldown = false
+var direction: Vector2 = Vector2(0.0, 1.0)
+var last_direction: Vector2
+var fireball_direction: Vector2
+var last_position: Vector2
+var speed: float = walk_speed
+var health: float = max_health
+var stamina: float = max_stamina
+var magic: float = max_magic
+var stamina_cooldown: bool = false
+var magic_cooldown: bool = false
 
-var can_move = true
-var looting = false
-var should_use = false
-var recent_pickup = false
-var in_interact_area = false
-var selected_quest: Quest = null
+var can_move: bool = true
+var looting: bool = false
+var should_use: bool = false
+var recent_pickup: bool = false
+var in_interact_area: bool = false
 var time_since_pickup: int = 0
-var quest_coins_reward: int = 0
+var current_quest: Quest = null
 
-func _ready():
+func _ready() -> void:
 	Global.set_player(self)
 	Global.player_name = player_name
+	stamina_bar.modulate = Color(0, 127, 0)
 	quest_manager.quest_updated.connect(_on_quest_updated)
 	quest_manager.objectives_updated.connect(_on_objective_updated)
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	interface_check()
 	health_check()
 	stamina_check()
 	magic_check()
 
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
 	animation_check()
 	interface_check_bars()
 	if can_move:
@@ -83,7 +85,7 @@ func _physics_process(_delta):
 		interact_check()
 		camera_check()
 
-func input_check():
+func input_check() -> void:
 	if get_tree().paused == false:
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
 		ray_cast.target_position = animation_tree["parameters/Idle/blend_position"] * 48
@@ -123,7 +125,7 @@ func input_check():
 	if fps_label.get_parent().visible == true:
 		fps_label.text = str(Engine.get_frames_per_second())
 
-func interact_check():
+func interact_check() -> void:
 	if recent_pickup == true:
 		time_since_pickup += 1
 		if time_since_pickup == 50:
@@ -133,7 +135,7 @@ func interact_check():
 			recent_pickup = false
 	if can_move:
 		if Input.is_action_just_pressed("interact"):
-			var target = ray_cast.get_collider()
+			var target: Node = ray_cast.get_collider()
 			if target != null:
 				if target.is_in_group("NPC"):
 					can_move = false
@@ -145,11 +147,16 @@ func interact_check():
 						target.get_parent().queue_free()
 					else:
 						print("Item not needed for any active quest.")
-						print("")
-	if ray_cast.is_colliding() || in_interact_area == true:
-		interact_label.visible = true
-	else:
-		interact_label.visible = false
+	if ray_cast.is_colliding():
+		var target: Node = ray_cast.get_collider()
+		interact_ui.visible = true
+		if target != null:
+			if target.is_in_group("NPC"):
+				interact_label.text = target.npc_name
+			elif target.is_in_group("QuestItem"):
+				interact_label.text = target.get_parent().item_name
+	elif !ray_cast.is_colliding() && !in_interact_area:
+		interact_ui.visible = false
 
 func interface_check():
 	if interface.visible == false:
@@ -161,15 +168,15 @@ func interface_check():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		get_tree().paused = false
 
-func interface_check_bars():
-	var stamina_tween = stamina
-	var s_tween = create_tween()
+func interface_check_bars() -> void:
+	var stamina_tween: float = stamina
+	var s_tween: Tween = create_tween()
+	var magic_tween: float = magic
+	var m_tween: Tween = create_tween()
 	s_tween.tween_property(stamina_bar, "value", stamina_tween, 0.1)
-	var magic_tween = magic
-	var m_tween = create_tween()
 	m_tween.tween_property(magic_bar, "value", magic_tween, 0.1)
 
-func inventory_check():
+func inventory_check() -> void:
 	if looting == false:
 		if inventory.visible == false:
 			Global.inventory_updated.emit()
@@ -183,26 +190,25 @@ func inventory_check():
 			stats_ui.visible = false
 			get_tree().paused = false
 
-func health_check():
+func health_check() -> void:
 	health_bar.value = health
-	health_label.text = str(health as int).pad_zeros(3)
+	#health_label.text = str(health as int).pad_zeros(3)
 	if health == 0:
 		print("DEAD")
-		print("")
 		process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
-func health_heal(amount):
+func health_heal(amount: float) -> void:
 	if health < max_health:
 		health += amount
 		if health > max_health:
 			health = max_health
 
-func health_damage(amount):
+func health_damage(amount: float) -> void:
 	if health > 0:
 		health -= amount
 
-func stamina_check():
-	stamina_label.text = str(stamina as int).pad_zeros(3)
+func stamina_check() -> void:
+	#stamina_label.text = str(stamina as int).pad_zeros(3)
 	if running == true && swinging == false && stamina_cooldown == false:
 		if last_position != position.round():
 			stamina -= stamina_drain
@@ -214,47 +220,47 @@ func stamina_check():
 	if stamina < max_stamina:
 		if get_tree().paused == false && running == false:
 			if stamina_cooldown == true:
-				stamina_label.self_modulate = Color.RED
+				stamina_bar.modulate = Color.RED
 				if stamina == 0:
 					await get_tree().create_timer(2.0).timeout
 				stamina += stamina_gain
 				if stamina > max_stamina / PI:
 					stamina_cooldown = false
-					stamina_label.self_modulate = Color.WHITE
+					stamina_bar.modulate = Color(0, 127, 0)
 			elif stamina_cooldown == false:
 				stamina += stamina_gain
 
-func stamina_heal(amount):
+func stamina_heal(amount: float) -> void:
 	if stamina < max_stamina:
 		stamina += amount
 		if stamina > max_stamina:
 			stamina = max_stamina
 
-func stamina_damage(amount):
+func stamina_damage(amount: float) -> void:
 	if stamina > 0:
 		stamina -= amount
 
-func magic_check():
-	magic_label.text = str(magic as int).pad_zeros(3)
+func magic_check() -> void:
+	#magic_label.text = str(magic as int).pad_zeros(3)
 	if magic < 0:
 		magic = 0
 	if get_tree().paused == false && magic < max_magic:
 		if magic < 0.48:
-			magic_label.self_modulate = Color.RED
+			#magic_label.self_modulate = Color.RED
 			await get_tree().create_timer(1.5).timeout
 			magic = 0.49
 		if magic >= 0.49 && magic_cooldown == false:
 			magic += magic_gain
-	if magic < magic_drain:
-		magic_label.self_modulate = Color.RED
-	else:
-		magic_label.self_modulate = Color.WHITE
+	#if magic < magic_drain:
+		#magic_label.self_modulate = Color.RED
+	#else:
+		#magic_label.self_modulate = Color.WHITE
 	if magic > max_magic:
 		magic = max_magic
 
-func magic_cast():
+func magic_cast() -> void:
 	if magic_cooldown == false:
-		var new_fireball = FIREBALL.instantiate()
+		var new_fireball: Node = FIREBALL.instantiate()
 		magic_cooldown = true
 		magic -= magic_drain
 		if idle:
@@ -266,66 +272,57 @@ func magic_cast():
 		await get_tree().create_timer(1.0).timeout
 		magic_cooldown = false
 
-func magic_heal(amount):
+func magic_heal(amount: float) -> void:
 	if magic < max_magic:
 		magic += amount
 		if magic > max_magic:
 			magic = max_magic
 
-func magic_damage(amount):
+func magic_damage(amount: float) -> void:
 	if magic > 0:
 		magic -= amount
 
-func item_effect(item):
+func item_effect(item: Dictionary) -> void:
 	should_use = false
-	match item["effect"]:
-		"Health":
-			if health >= max_health:
-				print("Already at max Health.")
-				print("")
-			else:
+	if interface.visible == true:
+		match item["effect"]:
+			"Health":
+				if health >= max_health:
+					print("Already at max Health.")
+				else:
+					should_use = true
+					health_heal(item["magnitude"])
+					print("Healed " + str(item["magnitude"]) + " HP")
+			"Stamina":
+				if stamina >= max_stamina:
+					print("Already at max Stamina.")
+				else:
+					should_use = true
+					stamina_heal(item["magnitude"])
+					print("Healed " + str(item["magnitude"]) + " Stamina")
+			"Magic":
+				if magic >= max_magic:
+					print("Already at max Magic.")
+				else:
+					should_use = true
+					magic_heal(item["magnitude"])
+					print("Healed " + str(item["magnitude"]) + " MP")
+			"Inventory":
+				if Global.inventory.size() >= Global.inventory_max:
+					print("Already at max Inventory capacity.")
+				else:
+					should_use = true
+					Global.inventory_increase_size(item["magnitude"])
+					Global.inventory_full = false
+					print("Inventory Slots +" + str(item["magnitude"]))
+			"Damage":
 				should_use = true
-				health_heal(item["magnitude"])
-				print("Healed " + str(item["magnitude"]) + " HP")
-				print("")
-		"Stamina":
-			if stamina >= max_stamina:
-				print("Already at max Stamina.")
-				print("")
-			else:
-				should_use = true
-				stamina_heal(item["magnitude"])
-				print("Healed " + str(item["magnitude"]) + " Stamina")
-				print("")
-		"Magic":
-			if magic >= max_magic:
-				print("Already at max Magic.")
-				print("")
-			else:
-				should_use = true
-				magic_heal(item["magnitude"])
-				print("Healed " + str(item["magnitude"]) + " MP")
-				print("")
-		"Inventory":
-			if Global.inventory.size() >= Global.inventory_max:
-				print("Already at max Inventory capacity.")
-				print("")
-			else:
-				should_use = true
-				Global.inventory_increase_size(item["magnitude"])
-				Global.inventory_full = false
-				print("Inventory Slots +" + str(item["magnitude"]))
-				print("")
-		"Damage":
-			should_use = true
-			health_damage(item["magnitude"])
-			print("Damaged " + str(item["magnitude"]) + " HP")
-			print("")
-		_:
-			print("This item has no effect")
-			print("")
+				health_damage(item["magnitude"])
+				print("Damaged " + str(item["magnitude"]) + " HP")
+			_:
+				print("This item has no effect")
 
-func animation_check():
+func animation_check() -> void:
 	if velocity == Vector2.ZERO || last_position == position.round():
 		Input.action_release("run")
 		idle = true
@@ -353,7 +350,7 @@ func animation_check():
 	if Input.is_action_just_pressed("use"):
 		if hand.equipped_item != null:
 			if interface.visible == true:
-				if hand.equipped_item.name != "Fireball" || magic > magic_drain && magic_cooldown == false:
+				if hand.equipped_item.type != "Spell" || magic > magic_drain && magic_cooldown == false:
 					animation_tree["parameters/conditions/swing"] = true
 				animation_tree["parameters/conditions/idle"] = false
 				animation_tree["parameters/conditions/is_moving"] = false
@@ -366,7 +363,7 @@ func animation_check():
 		animation_tree["parameters/Run/blend_position"] = direction
 		animation_tree["parameters/Swing/blend_position"] = direction
 
-func camera_check():
+func camera_check() -> void:
 	last_direction = direction
 	if last_direction != direction:
 		last_direction = direction
@@ -375,7 +372,7 @@ func camera_check():
 		position.y = round(position.y)
 	follow_camera.position = position
 
-func quest_tracker_check(quest: Quest):
+func quest_tracker_check(quest: Quest) -> void:
 	if quest:
 		quest_tracker.visible = true
 		quest_objectives.visible = true
@@ -387,7 +384,7 @@ func quest_tracker_check(quest: Quest):
 		for child in quest_objectives.get_children():
 			quest_objectives.remove_child(child)
 		for objective in quest.objectives:
-			var label = Label.new()
+			var label: Label = Label.new()
 			label.text = objective.description
 			if objective.is_completed:
 				label.add_theme_font_size_override("font_size", 12)
@@ -405,45 +402,51 @@ func quest_tracker_check(quest: Quest):
 		quest_tracker.visible = false
 
 func quest_items_check(item_id: String) -> bool:
-	if selected_quest != null:
-		for objective in selected_quest.objectives:
+	if current_quest != null:
+		for objective in current_quest.objectives:
 			if objective.target_id == item_id && objective.target_type == "collection" && not objective.is_completed:
 				return true
 	return false
 
-func quest_objectives_check(target_id: String, target_type: String, quantity: int = 1):
-	if selected_quest == null:
+func quest_objectives_check(target_id: String, target_type: String, quantity: int = 1) -> void:
+	if current_quest == null:
 		return
-	var objective_updated = false
-	for objective in selected_quest.objectives:
+	var objective_updated: bool = false
+	for objective in current_quest.objectives:
 		if objective.target_id == target_id && objective.target_type == target_type && not objective.is_completed:
-			print("Finished objective for quest: ", selected_quest.quest_name)
-			print("")
-			selected_quest.complete_objective(objective.id, quantity)
+			current_quest.complete_objective(objective.id, quantity)
 			objective_updated = true
 			break
 	if objective_updated:
-		if selected_quest.complete():
-			quest_completion_check(selected_quest)
-		quest_tracker_check(selected_quest)
+		if current_quest.complete():
+			quest_completion_check(current_quest)
+		quest_tracker_check(current_quest)
 
-func quest_completion_check(quest: Quest):
+func quest_completion_check(quest: Quest) -> void:
 	for reward in quest.rewards:
-		if reward.reward_type == "Coins":
-			quest_coins_reward += reward.reward_amount
-			print("Received " + str(quest_coins_reward) + " coins.")
-			print("(Need to implement giving coins as an item.)")
-			print("")
+		if reward.reward_type == "Gold":
+			var item_instance: Dictionary = {
+			"quantity" : reward.reward_amount,
+			"id" : gold.id,
+			"type" : gold.type,
+			"equippable" : gold.equippable,
+			"name" : gold.name,
+			"texture" : gold.texture,
+			"effect" : gold.effect,
+			"magnitude" : gold.magnitude,
+			"scene_path" : gold.scene,
+			}
+			Global.item_add(item_instance)
 	quest_tracker_check(quest)
 	quest_manager.quest_update(quest.quest_id, "completed")
 
-func _on_quest_updated(quest_id: String):
-	var quest = quest_manager.quest_get(quest_id)
-	if quest == selected_quest:
+func _on_quest_updated(quest_id: String) -> void:
+	var quest: Quest = quest_manager.quest_get(quest_id)
+	if quest == current_quest:
 		quest_tracker_check(quest)
-	selected_quest = null
+	current_quest = null
 
-func _on_objective_updated(quest_id: String, _objective_id: String):
-	if selected_quest && selected_quest.quest_id == quest_id:
-		quest_tracker_check(selected_quest)
-	selected_quest = null
+func _on_objective_updated(quest_id: String, _objective_id: String) -> void:
+	if current_quest && current_quest.quest_id == quest_id:
+		quest_tracker_check(current_quest)
+	current_quest = null

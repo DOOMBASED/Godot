@@ -54,7 +54,7 @@ metadata/_custom_type_script = "uid://dqdmxcap5f4pi"
 
 [sub_resource type="Resource" id="Resource_poqbc"]
 script = ExtResource("14_6ymca")
-reward_type = "Coins"
+reward_type = "Gold"
 reward_amount = 50
 metadata/_custom_type_script = "uid://dk6ick82r7vsf"
 
@@ -83,7 +83,7 @@ metadata/_custom_type_script = "uid://dqdmxcap5f4pi"
 
 [sub_resource type="Resource" id="Resource_1ralu"]
 script = ExtResource("14_6ymca")
-reward_type = "Coins"
+reward_type = "Gold"
 reward_amount = 25
 metadata/_custom_type_script = "uid://dk6ick82r7vsf"
 
@@ -117,7 +117,7 @@ metadata/_custom_type_script = "uid://dqdmxcap5f4pi"
 
 [sub_resource type="Resource" id="Resource_6ymca"]
 script = ExtResource("14_6ymca")
-reward_type = "Coins"
+reward_type = "Gold"
 reward_amount = 25
 metadata/_custom_type_script = "uid://dk6ick82r7vsf"
 
@@ -137,10 +137,11 @@ size = Vector2(500, 500)
 
 [node name="World" type="Node2D" groups=["WorldCell"]]
 script = ExtResource("1_bvpb0")
-items_to_spawn = 100
+items_to_spawn = 240
 spawnable_items = Array[Resource]([ExtResource("2_jkr0i"), ExtResource("3_brk2l"), ExtResource("4_dhbhc"), ExtResource("5_gx83n"), ExtResource("6_u78vl"), ExtResource("7_4hbbq")])
 
 [node name="TestTilemap" parent="." instance=ExtResource("5_l3u84")]
+position = Vector2(-2608, -5728)
 
 [node name="Player" parent="." instance=ExtResource("2_qv2nv")]
 player_name = "DOOM"
@@ -173,12 +174,14 @@ can_move = false
 position = Vector2(128, 29)
 item_id = "quest_item_gold"
 item_name = "Gold"
+spawn_chance = 1.0
 
 [node name="TestQuestItem02" parent="PlacedItems" instance=ExtResource("11_s25ru")]
 modulate = Color(1, 0.313726, 0.313726, 1)
 position = Vector2(-144, 30)
 item_id = "quest_item_red_gold"
 item_name = "Red Gold"
+spawn_chance = 1.0
 
 [node name="Axe01" parent="PlacedItems" instance=ExtResource("10_s25ru")]
 position = Vector2(-208, -160)

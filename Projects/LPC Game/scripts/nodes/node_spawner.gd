@@ -6,16 +6,16 @@ extends Node2D
 @onready var world: Node2D = get_tree().get_first_node_in_group("WorldCell")
 @onready var sprite: Sprite2D = $Sprite2D
 
-var scenes_to_spawn
 var item
+var items_to_spawn: PackedScene
 
-func _ready():
+func _ready() -> void:
 	spawn_random_scenes()
 
-func spawn_random_scenes():
+func spawn_random_scenes() -> void:
 	if randf() > chance:
-		scenes_to_spawn = scenes.pick_random()
-		item = scenes_to_spawn.instantiate()
+		items_to_spawn = scenes.pick_random()
+		item = items_to_spawn.instantiate()
 		if randf() > item.spawn_chance:
 			item.queue_free()
 		else:
