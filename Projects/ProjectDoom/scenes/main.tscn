@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://buw5xqxsvt426"]
+
+[ext_resource type="Shader" uid="uid://c27ibs6i8pgiy" path="res://shaders/subpixel.gdshader" id="1_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://h8xrxfjjvrq" path="res://scenes/world/main_world.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bcvap8ckadqtj" path="res://scripts/main.gd" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://d4jk5nqaanp78" path="res://base/scripts/pause_menu_controller.gd" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://b51ffq7jnmic5" path="res://base/scenes/overlaid_menus/pause_menu.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://b7q0660nl8s1m" path="res://scenes/interface/user_interface.tscn" id="4_tefeu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbgi4"]
+shader = ExtResource("1_jyhfs")
+shader_parameter/camera_offset = Vector2(0, 0)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tbgi4")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." groups=["viewport"]]
+texture_filter = 1
+material = SubResource("ShaderMaterial_tbgi4")
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 640.0
+offset_bottom = 360.0
+scale = Vector2(2, 2)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(642, 362)
+render_target_update_mode = 4
+
+[node name="MainWorld" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_o5qli")]
+texture_filter = 1
+position = Vector2(320, 180)
+
+[node name="UserInterface" parent="SubViewportContainer" instance=ExtResource("4_tefeu")]
+
+[node name="PauseMenuController" type="Node" parent="." node_paths=PackedStringArray("focused_viewport")]
+script = ExtResource("2_sugp2")
+pause_menu_packed = ExtResource("3_jyhfs")
+focused_viewport = NodePath("../SubViewportContainer/SubViewport")
+metadata/_custom_type_script = "uid://d4jk5nqaanp78"

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc37235kj4384"]
+
+[ext_resource type="Script" uid="uid://b5oej1q4h7jvh" path="res://addons/maaacks_game_template/base/scripts/ui_sound_controller.gd" id="1_dmagn"]
+[ext_resource type="AudioStream" uid="uid://cl8c2w1gplqch" path="res://assets/sfx/click.wav" id="2_vuulw"]
+
+[node name="ProjectUISoundController" type="Node"]
+script = ExtResource("1_dmagn")
+button_pressed = ExtResource("2_vuulw")
+tab_selected = ExtResource("2_vuulw")

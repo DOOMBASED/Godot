@@ -1,0 +1,163 @@
+[gd_scene load_steps=6 format=3 uid="uid://h8xrxfjjvrq"]
+
+[ext_resource type="PackedScene" uid="uid://xve6jlx8hy7i" path="res://scenes/tilemap/tilemap_main_map.tscn" id="1_2i8n1"]
+[ext_resource type="PackedScene" uid="uid://co6875301eob4" path="res://scenes/decor/small_pine_tree.tscn" id="3_01o1s"]
+[ext_resource type="Script" uid="uid://bnw65sx4kuw8g" path="res://scripts/camera_subpixel.gd" id="3_5cb6b"]
+[ext_resource type="PackedScene" uid="uid://di6iariolcjs2" path="res://scenes/decor/small_boulder.tscn" id="4_5cb6b"]
+[ext_resource type="PackedScene" uid="uid://c6iyq60guhe1n" path="res://scenes/characters/player.tscn" id="4_dbnql"]
+
+[node name="MainWorld" type="Node2D"]
+
+[node name="MainMap" parent="." instance=ExtResource("1_2i8n1")]
+position = Vector2(-1558, -3761)
+
+[node name="Player" parent="." instance=ExtResource("4_dbnql")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_5cb6b")
+
+[node name="Nodes" type="Node2D" parent="."]
+
+[node name="SmallPineTree1" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(672, 224)
+
+[node name="SmallPineTree2" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(800, 96)
+
+[node name="SmallPineTree3" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(928, -32)
+
+[node name="SmallPineTree4" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(800, -160)
+
+[node name="SmallPineTree5" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(672, -32)
+
+[node name="SmallPineTree6" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(544, 96)
+
+[node name="SmallPineTree7" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(416, -32)
+
+[node name="SmallPineTree8" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(544, -160)
+
+[node name="SmallPineTree9" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(672, -288)
+
+[node name="SmallPineTree10" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(544, -416)
+
+[node name="SmallPineTree11" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(416, -288)
+
+[node name="SmallPineTree12" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(288, -160)
+
+[node name="SmallPineTree13" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(160, 480)
+
+[node name="SmallPineTree14" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(288, 352)
+
+[node name="SmallPineTree15" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(416, 224)
+
+[node name="SmallPineTree16" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(288, 96)
+
+[node name="SmallPineTree17" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(160, 224)
+
+[node name="SmallPineTree18" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(32, 352)
+
+[node name="SmallPineTree19" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(-96, 224)
+
+[node name="SmallPineTree20" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(32, 96)
+
+[node name="SmallPineTree21" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(160, -32)
+
+[node name="SmallPineTree22" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(32, -160)
+
+[node name="SmallPineTree23" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(-96, -32)
+
+[node name="SmallPineTree24" parent="Nodes" instance=ExtResource("3_01o1s")]
+position = Vector2(-224, 96)
+
+[node name="SmallBoulder1" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(32, -32)
+
+[node name="SmallBoulder2" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(-96, 96)
+
+[node name="SmallBoulder3" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(32, 224)
+
+[node name="SmallBoulder4" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(160, 96)
+
+[node name="SmallBoulder5" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(288, -32)
+
+[node name="SmallBoulder6" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(160, -160)
+
+[node name="SmallBoulder7" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(288, 224)
+
+[node name="SmallBoulder8" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(160, 352)
+
+[node name="SmallBoulder9" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(288, 480)
+
+[node name="SmallBoulder10" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(416, 352)
+
+[node name="SmallBoulder11" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(544, 224)
+
+[node name="SmallBoulder12" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(416, 96)
+
+[node name="SmallBoulder13" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(672, -160)
+
+[node name="SmallBoulder14" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(544, -32)
+
+[node name="SmallBoulder15" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(672, 96)
+
+[node name="SmallBoulder16" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(800, -32)
+
+[node name="SmallBoulder17" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(928, -160)
+
+[node name="SmallBoulder18" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(800, -288)
+
+[node name="SmallBoulder19" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(416, -416)
+
+[node name="SmallBoulder20" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(288, -288)
+
+[node name="SmallBoulder21" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(416, -160)
+
+[node name="SmallBoulder22" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(544, -288)
+
+[node name="SmallBoulder23" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(672, -416)
+
+[node name="SmallBoulder24" parent="Nodes" instance=ExtResource("4_5cb6b")]
+position = Vector2(544, -544)
