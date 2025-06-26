@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://dqlth4qeckgdj" path="res://assets/tiled_import/MainMap.tmx" id="1_r84iy"]
 
 [node name="MainMap" instance=ExtResource("1_r84iy")]
+z_index = -4096

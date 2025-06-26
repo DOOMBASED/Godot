@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://d0ybwxrw1ohmc"]
+
+[ext_resource type="Texture2D" uid="uid://drtbs300aavoo" path="res://tres/items/test_items/item_test_texture.tres" id="1_mdofe"]
+[ext_resource type="Script" uid="uid://dcnc88vt47ohy" path="res://scripts/class/class_item.gd" id="2_12qiq"]
+
+[resource]
+script = ExtResource("2_12qiq")
+item_id = "test_item"
+item_name = "Test Item"
+item_type = "Test"
+item_texture = ExtResource("1_mdofe")
+item_spawn_chance = 0.0
+item_quantity = 1
+metadata/_custom_type_script = "uid://dcnc88vt47ohy"

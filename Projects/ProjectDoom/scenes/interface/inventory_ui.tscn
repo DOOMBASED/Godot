@@ -1,0 +1,138 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdhf1upltypbs"]
+
+[ext_resource type="Script" uid="uid://cvpxi778akj87" path="res://scripts/ui/inventory_ui.gd" id="1_bnovf"]
+
+[node name="InventoryUI" type="MarginContainer"]
+custom_minimum_size = Vector2(220, 0)
+offset_right = 220.0
+offset_bottom = 60.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_bnovf")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="SlotGrid" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="UsageGrid" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Use" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Use"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Use"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UseButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Use"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Details" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Details"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DetailsButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Details"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Drop" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Drop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Drop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DropButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Drop"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Close" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Close"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Close"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Close"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Use/UseButton" to="." method="_on_use_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Details/DetailsButton" to="." method="_on_details_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Drop/DropButton" to="." method="_on_drop_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Close/CloseButton" to="." method="_on_close_button_pressed"]

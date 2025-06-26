@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EquippedItem" load_steps=3 format=3 uid="uid://bthnni735h5mv"]
+
+[ext_resource type="Texture2D" uid="uid://dnlrdb6c2om2j" path="res://tres/items/test_items/item_equipment_test_texture.tres" id="1_sbaok"]
+[ext_resource type="Script" uid="uid://lt17qb0ld0nj" path="res://scripts/class/class_item_equipped.gd" id="2_g5ir2"]
+
+[resource]
+script = ExtResource("2_g5ir2")
+item_id = "test_equipped"
+item_name = "Test Equip"
+item_type = "Equipment"
+item_texture = ExtResource("1_sbaok")
+item_effect = "damage"
+item_magnitude = 1.0
+metadata/_custom_type_script = "uid://lt17qb0ld0nj"

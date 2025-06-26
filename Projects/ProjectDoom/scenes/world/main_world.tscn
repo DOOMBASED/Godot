@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://h8xrxfjjvrq"]
+[gd_scene load_steps=10 format=3 uid="uid://h8xrxfjjvrq"]
 
 [ext_resource type="PackedScene" uid="uid://xve6jlx8hy7i" path="res://scenes/tilemap/tilemap_main_map.tscn" id="1_2i8n1"]
 [ext_resource type="PackedScene" uid="uid://co6875301eob4" path="res://scenes/decor/small_pine_tree.tscn" id="3_01o1s"]
-[ext_resource type="Script" uid="uid://bnw65sx4kuw8g" path="res://scripts/camera_subpixel.gd" id="3_5cb6b"]
+[ext_resource type="Script" uid="uid://bnw65sx4kuw8g" path="res://scripts/ui/camera_subpixel.gd" id="3_5cb6b"]
 [ext_resource type="PackedScene" uid="uid://di6iariolcjs2" path="res://scenes/decor/small_boulder.tscn" id="4_5cb6b"]
 [ext_resource type="PackedScene" uid="uid://c6iyq60guhe1n" path="res://scenes/characters/player.tscn" id="4_dbnql"]
+[ext_resource type="PackedScene" uid="uid://dmxh6q6q008ub" path="res://scenes/items/item_base.tscn" id="6_y4hen"]
+[ext_resource type="Resource" uid="uid://d0ybwxrw1ohmc" path="res://tres/items/test_items/item_test.tres" id="7_rnvp4"]
+[ext_resource type="Resource" uid="uid://b14yykumkgu67" path="res://tres/items/test_items/item_useable_test.tres" id="8_8cl5l"]
+[ext_resource type="Resource" uid="uid://bn3q0njrsds4g" path="res://tres/items/test_items/item_equipment_test.tres" id="9_qv2nv"]
 
 [node name="MainWorld" type="Node2D"]
 
@@ -12,6 +16,7 @@
 position = Vector2(-1558, -3761)
 
 [node name="Player" parent="." instance=ExtResource("4_dbnql")]
+position = Vector2(-1, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("3_5cb6b")
@@ -161,3 +166,39 @@ position = Vector2(672, -416)
 
 [node name="SmallBoulder24" parent="Nodes" instance=ExtResource("4_5cb6b")]
 position = Vector2(544, -544)
+
+[node name="ItemBase1" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-128, -128)
+base_item = ExtResource("7_rnvp4")
+
+[node name="ItemBase2" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-128, -200)
+base_item = ExtResource("7_rnvp4")
+
+[node name="ItemBase3" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-128, -272)
+base_item = ExtResource("7_rnvp4")
+
+[node name="ItemBase4" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-224, -128)
+base_item = ExtResource("8_8cl5l")
+
+[node name="ItemBase5" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-224, -200)
+base_item = ExtResource("8_8cl5l")
+
+[node name="ItemBase6" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-224, -272)
+base_item = ExtResource("8_8cl5l")
+
+[node name="ItemBase7" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-320, -128)
+base_item = ExtResource("9_qv2nv")
+
+[node name="ItemBase8" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-320, -200)
+base_item = ExtResource("9_qv2nv")
+
+[node name="ItemBase9" parent="." instance=ExtResource("6_y4hen")]
+position = Vector2(-320, -272)
+base_item = ExtResource("9_qv2nv")

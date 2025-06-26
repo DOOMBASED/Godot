@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemUsable" load_steps=3 format=3 uid="uid://b14yykumkgu67"]
+
+[ext_resource type="Script" uid="uid://dbgbqh7kehsqn" path="res://scripts/class/class_item_useable.gd" id="1_hflwt"]
+[ext_resource type="Texture2D" uid="uid://cihllksja1wpd" path="res://tres/items/test_items/item_useable_test_texture.tres" id="1_xtdl0"]
+
+[resource]
+script = ExtResource("1_hflwt")
+item_effect = "test_effect"
+item_magnitude = 1.0
+item_id = "test_usable"
+item_name = "Test Useable"
+item_type = "Useable"
+item_texture = ExtResource("1_xtdl0")
+item_spawn_chance = 0.0
+item_quantity = 1
+metadata/_custom_type_script = "uid://dbgbqh7kehsqn"
