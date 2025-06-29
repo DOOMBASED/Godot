@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemUsable" load_steps=3 format=3 uid="uid://dv36giwdgp6b6"]
+
+[ext_resource type="Texture2D" uid="uid://dd4cuvchn4uea" path="res://assets/sprites/potions/potion_w_blue.png" id="1_8ph4u"]
+[ext_resource type="Script" uid="uid://dbgbqh7kehsqn" path="res://scripts/class/class_item_useable.gd" id="2_eff3f"]
+
+[resource]
+script = ExtResource("2_eff3f")
+item_effect = "Magic"
+item_magnitude = 15.0
+item_id = "potion_blue"
+item_name = "Magic Potion"
+item_type = "Potion"
+item_texture = ExtResource("1_8ph4u")
+item_rarity = 0.0
+item_count = 1
+metadata/_custom_type_script = "uid://dcnc88vt47ohy"

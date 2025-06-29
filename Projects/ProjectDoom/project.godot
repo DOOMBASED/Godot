@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ProjectDOOM"
-run/main_scene="res://base/scenes/opening/opening_with_logo.tscn"
+run/main_scene="uid://buw5xqxsvt426"
 config/features=PackedStringArray("4.4")
 boot_splash/show_image=false
 boot_splash/fullsize=false
@@ -29,12 +29,14 @@ SceneLoader="*res://addons/maaacks_game_template/base/scenes/autoloads/scene_loa
 ProjectMusicController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_music_controller.tscn"
 ProjectUISoundController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_ui_sound_controller.tscn"
 Global="*res://scripts/main/global.gd"
-Inventory="*res://scripts/inventory.gd"
+Inventory="*res://scripts/ui/inventory.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/initial_position_type=0
+window/size/initial_position=Vector2i(1, 1)
 
 [editor_plugins]
 
@@ -42,7 +44,7 @@ enabled=PackedStringArray("res://addons/YATI/plugin.cfg", "res://addons/maaacks_
 
 [gui]
 
-theme/custom="res://base/resources/themes/steal_this_theme.tres"
+theme/custom="uid://d1svfjs6tmjkh"
 theme/custom_font="uid://oxelnataqj4p"
 common/drop_mouse_on_gui_input_disabled=true
 theme/default_filters/use_nearest_mipmap_filter=false
@@ -101,6 +103,12 @@ show_debug={
 slow_time={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194334,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+swing={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(182, 14),"global_position":Vector2(191, 62),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemUsable" load_steps=3 format=3 uid="uid://b6hvs6wcklnmm"]
+
+[ext_resource type="Texture2D" uid="uid://gad7vx8mfj64" path="res://assets/sprites/potions/potion_w_green.png" id="1_hpid7"]
+[ext_resource type="Script" uid="uid://dbgbqh7kehsqn" path="res://scripts/class/class_item_useable.gd" id="2_ahrll"]
+
+[resource]
+script = ExtResource("2_ahrll")
+item_effect = "Stamina"
+item_magnitude = 15.0
+item_id = "potion_green"
+item_name = "Stamina Potion"
+item_type = "Potion"
+item_texture = ExtResource("1_hpid7")
+item_rarity = 0.0
+item_count = 1
+metadata/_custom_type_script = "uid://dcnc88vt47ohy"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://h8xrxfjjvrq"]
+[gd_scene load_steps=12 format=3 uid="uid://h8xrxfjjvrq"]
 
 [ext_resource type="PackedScene" uid="uid://xve6jlx8hy7i" path="res://scenes/tilemap/tilemap_main_map.tscn" id="1_2i8n1"]
 [ext_resource type="PackedScene" uid="uid://co6875301eob4" path="res://scenes/decor/small_pine_tree.tscn" id="3_01o1s"]
@@ -6,14 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://di6iariolcjs2" path="res://scenes/decor/small_boulder.tscn" id="4_5cb6b"]
 [ext_resource type="PackedScene" uid="uid://c6iyq60guhe1n" path="res://scenes/characters/player.tscn" id="4_dbnql"]
 [ext_resource type="PackedScene" uid="uid://dmxh6q6q008ub" path="res://scenes/items/item_base.tscn" id="6_y4hen"]
-[ext_resource type="Resource" uid="uid://d0ybwxrw1ohmc" path="res://tres/items/test_items/item_test.tres" id="7_rnvp4"]
-[ext_resource type="Resource" uid="uid://b14yykumkgu67" path="res://tres/items/test_items/item_useable_test.tres" id="8_8cl5l"]
-[ext_resource type="Resource" uid="uid://bn3q0njrsds4g" path="res://tres/items/test_items/item_equipment_test.tres" id="9_qv2nv"]
+[ext_resource type="Resource" uid="uid://db2um1catejm0" path="res://tres/items/potions/item_potion_red.tres" id="7_rnvp4"]
+[ext_resource type="Resource" uid="uid://b6hvs6wcklnmm" path="res://tres/items/potions/item_potion_green.tres" id="8_qv2nv"]
+[ext_resource type="Resource" uid="uid://dv36giwdgp6b6" path="res://tres/items/potions/item_potion_blue.tres" id="9_dapv1"]
+[ext_resource type="Resource" uid="uid://bsaklgbs85eet" path="res://tres/items/potions/item_potion_yellow.tres" id="10_o3fth"]
+[ext_resource type="Resource" uid="uid://dvkaht1a0y15x" path="res://tres/items/potions/item_poison_purple.tres" id="11_dapv1"]
 
-[node name="MainWorld" type="Node2D"]
+[node name="MainWorld" type="Node2D" groups=["world"]]
 
 [node name="MainMap" parent="." instance=ExtResource("1_2i8n1")]
 position = Vector2(-1558, -3761)
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("4_dbnql")]
 position = Vector2(-1, 0)
@@ -22,183 +25,377 @@ position = Vector2(-1, 0)
 script = ExtResource("3_5cb6b")
 
 [node name="Nodes" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="SmallPineTree1" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(672, 224)
+position = Vector2(320, -320)
 
 [node name="SmallPineTree2" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(800, 96)
+position = Vector2(448, -448)
 
 [node name="SmallPineTree3" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(928, -32)
+position = Vector2(576, -576)
 
 [node name="SmallPineTree4" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(800, -160)
+position = Vector2(448, -704)
 
 [node name="SmallPineTree5" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(672, -32)
+position = Vector2(320, -576)
 
 [node name="SmallPineTree6" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(544, 96)
+position = Vector2(192, -448)
 
 [node name="SmallPineTree7" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(416, -32)
+position = Vector2(64, -576)
 
 [node name="SmallPineTree8" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(544, -160)
+position = Vector2(192, -704)
 
 [node name="SmallPineTree9" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(672, -288)
+position = Vector2(320, -832)
 
 [node name="SmallPineTree10" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(544, -416)
+position = Vector2(192, -960)
 
 [node name="SmallPineTree11" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(416, -288)
+position = Vector2(64, -832)
 
 [node name="SmallPineTree12" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(288, -160)
+position = Vector2(-64, -704)
 
 [node name="SmallPineTree13" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(160, 480)
+position = Vector2(-192, -64)
 
 [node name="SmallPineTree14" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(288, 352)
+position = Vector2(-64, -192)
 
 [node name="SmallPineTree15" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(416, 224)
+position = Vector2(64, -320)
 
 [node name="SmallPineTree16" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(288, 96)
+position = Vector2(-64, -448)
 
 [node name="SmallPineTree17" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(160, 224)
+position = Vector2(-192, -320)
 
 [node name="SmallPineTree18" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(32, 352)
+position = Vector2(-320, -192)
 
 [node name="SmallPineTree19" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(-96, 224)
+position = Vector2(-448, -320)
 
 [node name="SmallPineTree20" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(32, 96)
+position = Vector2(-320, -448)
 
 [node name="SmallPineTree21" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(160, -32)
+position = Vector2(-192, -576)
 
 [node name="SmallPineTree22" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(32, -160)
+position = Vector2(-320, -704)
 
 [node name="SmallPineTree23" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(-96, -32)
+position = Vector2(-448, -576)
 
 [node name="SmallPineTree24" parent="Nodes" instance=ExtResource("3_01o1s")]
-position = Vector2(-224, 96)
+position = Vector2(-576, -448)
 
 [node name="SmallBoulder1" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(32, -32)
+position = Vector2(-320, -576)
 
 [node name="SmallBoulder2" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(-96, 96)
+position = Vector2(-448, -448)
 
 [node name="SmallBoulder3" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(32, 224)
+position = Vector2(-320, -320)
 
 [node name="SmallBoulder4" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(160, 96)
+position = Vector2(-192, -448)
 
 [node name="SmallBoulder5" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(288, -32)
+position = Vector2(-64, -576)
 
 [node name="SmallBoulder6" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(160, -160)
+position = Vector2(-192, -704)
 
 [node name="SmallBoulder7" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(288, 224)
+position = Vector2(-64, -320)
 
 [node name="SmallBoulder8" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(160, 352)
+position = Vector2(-192, -192)
 
 [node name="SmallBoulder9" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(288, 480)
+position = Vector2(-64, -64)
 
 [node name="SmallBoulder10" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(416, 352)
+position = Vector2(64, -192)
 
 [node name="SmallBoulder11" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(544, 224)
+position = Vector2(192, -320)
 
 [node name="SmallBoulder12" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(416, 96)
+position = Vector2(64, -448)
 
 [node name="SmallBoulder13" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(672, -160)
+position = Vector2(320, -704)
 
 [node name="SmallBoulder14" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(544, -32)
+position = Vector2(192, -576)
 
 [node name="SmallBoulder15" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(672, 96)
+position = Vector2(320, -448)
 
 [node name="SmallBoulder16" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(800, -32)
+position = Vector2(448, -576)
 
 [node name="SmallBoulder17" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(928, -160)
+position = Vector2(576, -704)
 
 [node name="SmallBoulder18" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(800, -288)
+position = Vector2(448, -832)
 
 [node name="SmallBoulder19" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(416, -416)
+position = Vector2(64, -960)
 
 [node name="SmallBoulder20" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(288, -288)
+position = Vector2(-64, -832)
 
 [node name="SmallBoulder21" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(416, -160)
+position = Vector2(64, -704)
 
 [node name="SmallBoulder22" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(544, -288)
+position = Vector2(192, -832)
 
 [node name="SmallBoulder23" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(672, -416)
+position = Vector2(320, -960)
 
 [node name="SmallBoulder24" parent="Nodes" instance=ExtResource("4_5cb6b")]
-position = Vector2(544, -544)
+position = Vector2(192, -1088)
 
-[node name="ItemBase1" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-128, -128)
+[node name="Potions" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="HealthPotion1" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, 100)
 base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase2" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-128, -200)
+[node name="HealthPotion2" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, 60)
 base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase3" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-128, -272)
+[node name="HealthPotion3" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, 20)
 base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase4" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-224, -128)
-base_item = ExtResource("8_8cl5l")
+[node name="HealthPotion4" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, 20)
+base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase5" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-224, -200)
-base_item = ExtResource("8_8cl5l")
+[node name="HealthPotion5" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, 60)
+base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase6" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-224, -272)
-base_item = ExtResource("8_8cl5l")
+[node name="HealthPotion6" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, 100)
+base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase7" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-320, -128)
-base_item = ExtResource("9_qv2nv")
+[node name="HealthPotion7" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, 100)
+base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase8" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-320, -200)
-base_item = ExtResource("9_qv2nv")
+[node name="HealthPotion8" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, 60)
+base_item = ExtResource("7_rnvp4")
 
-[node name="ItemBase9" parent="." instance=ExtResource("6_y4hen")]
-position = Vector2(-320, -272)
-base_item = ExtResource("9_qv2nv")
+[node name="HealthPotion9" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, 20)
+base_item = ExtResource("7_rnvp4")
+
+[node name="StaminaPotion1" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, 100)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion2" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, 60)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion3" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, 20)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion4" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, 20)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion5" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, 60)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion6" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, 100)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion7" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, 100)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion8" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, 60)
+base_item = ExtResource("8_qv2nv")
+
+[node name="StaminaPotion9" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, 20)
+base_item = ExtResource("8_qv2nv")
+
+[node name="MagicPotion1" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, -20)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion2" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, -60)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion3" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, -100)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion4" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, -100)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion5" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, -60)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion6" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, -20)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion7" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, -20)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion8" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, -60)
+base_item = ExtResource("9_dapv1")
+
+[node name="MagicPotion9" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, -100)
+base_item = ExtResource("9_dapv1")
+
+[node name="SlotPotion1" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, -20)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion2" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, -60)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion3" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, -100)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion4" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, -100)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion5" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, -60)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion6" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, -20)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion7" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, -20)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion8" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, -60)
+base_item = ExtResource("10_o3fth")
+
+[node name="SlotPotion9" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, -100)
+base_item = ExtResource("10_o3fth")
+
+[node name="Poison01" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, -140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison02" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, -140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison03" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, -140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison04" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, -140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison05" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, -140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison06" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, -140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison07" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, -140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison08" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, -100)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison09" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, -60)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison10" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, -20)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison11" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, 20)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison12" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, 60)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison13" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, 100)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison14" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(384, 140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison15" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(344, 140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison16" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(304, 140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison17" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(264, 140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison18" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(224, 140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison19" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(184, 140)
+base_item = ExtResource("11_dapv1")
+
+[node name="Poison20" parent="Potions" instance=ExtResource("6_y4hen")]
+position = Vector2(144, 140)
+base_item = ExtResource("11_dapv1")

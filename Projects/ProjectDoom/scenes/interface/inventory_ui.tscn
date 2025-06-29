@@ -5,7 +5,7 @@
 [node name="InventoryUI" type="MarginContainer"]
 custom_minimum_size = Vector2(220, 0)
 offset_right = 220.0
-offset_bottom = 60.0
+offset_bottom = 160.0
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
@@ -13,118 +13,54 @@ theme_override_constants/margin_bottom = 4
 script = ExtResource("1_bnovf")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="InventoryContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/InventoryContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InventoryContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="SlotGrid" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="SlotGrid" type="GridContainer" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 182)
 layout_mode = 2
 columns = 4
 
-[node name="UsageGrid" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="UsageGrid" type="GridContainer" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 columns = 2
 
-[node name="Use" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
+[node name="ClosePanel" type="Panel" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid"]
+self_modulate = Color(1, 1, 1, 0.784314)
 custom_minimum_size = Vector2(100, 18)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Use"]
+[node name="CloseLabel" type="Label" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/ClosePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Use"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="UseButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Use"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Details" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
-custom_minimum_size = Vector2(100, 18)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Details"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Details"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DetailsButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Details"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Drop" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
-custom_minimum_size = Vector2(100, 18)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Drop"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Drop"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DropButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Drop"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Close" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid"]
-custom_minimum_size = Vector2(100, 18)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Close"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+theme_override_constants/outline_size = 4
 text = "Close"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CloseButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Close"]
-modulate = Color(1, 1, 1, 0)
+[node name="CloseButton" type="Button" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/ClosePanel"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -132,7 +68,175 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Use/UseButton" to="." method="_on_use_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Details/DetailsButton" to="." method="_on_details_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Drop/DropButton" to="." method="_on_drop_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/UsageGrid/Close/CloseButton" to="." method="_on_close_button_pressed"]
+[node name="DetailsPanel" type="Panel" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid"]
+self_modulate = Color(1, 1, 1, 0.784314)
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="DetailsLabel" type="Label" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/DetailsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 4
+text = "Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DetailsButton" type="Button" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/DetailsPanel"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AssignPanel" type="Panel" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.784314)
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="AssignLabel" type="Label" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/AssignPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 4
+text = "Assign"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AssignButton" type="Button" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/AssignPanel"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DropPanel" type="Panel" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid"]
+self_modulate = Color(1, 1, 1, 0.784314)
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="DropLabel" type="Label" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/DropPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 4
+text = "Drop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DropButton" type="Button" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/DropPanel"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UsePanel" type="Panel" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid"]
+self_modulate = Color(1, 1, 1, 0.784314)
+custom_minimum_size = Vector2(100, 18)
+layout_mode = 2
+
+[node name="UseLabel" type="Label" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/UsePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 4
+text = "Use"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UseButton" type="Button" parent="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/UsePanel"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DetailsContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/DetailsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/DetailsContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(226, 226)
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ItemTextureDisplay" type="TextureRect" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="ItemNameLabel" type="Label" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(226, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Name:     null"
+
+[node name="ItemTypeLabel" type="Label" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(226, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Type:     null"
+
+[node name="ItemEffectLabel" type="Label" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(226, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Effect:   null"
+
+[node name="ItemQuantityLabel" type="Label" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(226, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Quantity: 0"
+
+[node name="UseMessageLabel" type="Label" parent="HBoxContainer/DetailsContainer/MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(226, 18)
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Already at max Inventory."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/ClosePanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/DetailsPanel/DetailsButton" to="." method="_on_details_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/AssignPanel/AssignButton" to="." method="_on_assign_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/DropPanel/DropButton" to="." method="_on_drop_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/InventoryContainer/MarginContainer/VBoxContainer/UsageGrid/UsePanel/UseButton" to="." method="_on_use_button_pressed"]

@@ -7,3 +7,5 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0.352941, 0.352941, 1)
 gradient = SubResource("Gradient_yhef8")
 width = 32
 height = 32
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)

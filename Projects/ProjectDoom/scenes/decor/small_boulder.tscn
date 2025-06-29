@@ -3,11 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://dn548x4cifos1" path="res://assets/sprites/small_boulder.png" id="1_5fk7h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_04idf"]
-size = Vector2(32, 32)
+size = Vector2(32, 16)
 
 [node name="SmallBoulder" type="StaticBody2D"]
+z_index = -4095
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_04idf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

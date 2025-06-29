@@ -11,7 +11,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if camera_position.round() != player.global_position.round():
-		#print("checking camera")
 		camera_position = camera_position.lerp(player.global_position, delta * camera_speed)
 		var camera_subpixel_offset = camera_position.round() - camera_position
 		Global.viewport.material.set_shader_parameter("camera_offset", camera_subpixel_offset)

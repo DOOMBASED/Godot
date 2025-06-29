@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemUsable" load_steps=3 format=3 uid="uid://db2um1catejm0"]
+
+[ext_resource type="Texture2D" uid="uid://4et142fdyvfl" path="res://assets/sprites/potions/potion_w_red.png" id="1_2chir"]
+[ext_resource type="Script" uid="uid://dbgbqh7kehsqn" path="res://scripts/class/class_item_useable.gd" id="2_08n2i"]
+
+[resource]
+script = ExtResource("2_08n2i")
+item_effect = "Health"
+item_magnitude = 15.0
+item_id = "potion_red"
+item_name = "Health Potion"
+item_type = "Potion"
+item_texture = ExtResource("1_2chir")
+item_rarity = 0.0
+item_count = 1
+metadata/_custom_type_script = "uid://dcnc88vt47ohy"

@@ -3,11 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://bp8q782pa3gm2" path="res://assets/sprites/small_pine_tree.png" id="1_07y3k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_04idf"]
-size = Vector2(32, 64)
+size = Vector2(32, 48)
 
 [node name="SmallPineTree" type="StaticBody2D"]
+z_index = -4095
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_04idf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

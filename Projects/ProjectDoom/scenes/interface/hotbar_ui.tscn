@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctt4efbt3ol5b"]
+
+[ext_resource type="Script" uid="uid://dwssl4nypbcmr" path="res://scripts/ui/hotbar_ui.gd" id="1_4yqmk"]
+
+[node name="HotbarUI" type="MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_4yqmk")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HotbarContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/HotbarContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/HotbarContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="SlotContainer" type="HBoxContainer" parent="HBoxContainer/HotbarContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2

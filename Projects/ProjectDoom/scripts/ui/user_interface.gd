@@ -14,10 +14,10 @@ extends CanvasLayer
 
 var player: Player = null
 
+var health_tween: float
+var h_tween: Tween
 var stamina_tween: float
 var s_tween: Tween
-#var magic_tween: float
-#var m_tween: Tween
 
 func _ready() -> void:
 	Global.set_player_interface(self)
@@ -25,19 +25,23 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	check_stats_bars()
-	if test_labels.visible == true:
-		#print("checking debug")
+	if test_labels.visible:
 		check_test_labels()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if Input.is_action_just_pressed("show_inventory"):
 			inventory_ui.visible = !inventory_ui.visible
-			inventory_ui.usage_grid.visible = false
-			if inventory_ui.visible == true:
-				Inventory.inventory_updated.emit()
+			inventory_ui.details_container.visible = false
+			inventory_ui.selected_item = null
+			Inventory.inventory_updated.emit()
 		if Input.is_action_just_pressed("show_debug"):
 			test_labels.visible = !test_labels.visible
+		if Input.is_action_just_pressed("slow_time"):
+			if Engine.time_scale == 1.0:
+				Engine.time_scale = 0.3
+			elif Engine.time_scale == 0.3:
+				Engine.time_scale = 1.0
 
 func check_test_labels() -> void:
 	test_label_1.text = str(" 	 Stats: HP: " + str(player.health).pad_decimals(0) + " | SP: ") + str(player.stamina).pad_decimals(0) + " | MP: " + str(player.magic).pad_decimals(0)
@@ -46,12 +50,11 @@ func check_test_labels() -> void:
 	test_label_4.text = 	" 	 Nothing to display"
 
 func check_stats_bars() -> void:
-	#health_bar.value = player.health
 	if player.stamina < player.stamina_max:
-		#print("checking stamina bars")
 		stamina_tween = player.stamina
 		s_tween = create_tween()
 		s_tween.tween_property(stamina_bar, "value", stamina_tween, 0.1)
-	#magic_tween = player.magic
-	#m_tween = create_tween()
-	#m_tween.tween_property(magic_bar, "value", magic_tween, 0.1)
+	if player.health < player.health_max ||  health_bar.value < player.health:
+		health_tween = player.health
+		h_tween = create_tween()
+		h_tween.tween_property(health_bar, "value", health_tween, 0.1)

@@ -7,14 +7,6 @@ var player_inventory: InventoryNode
 
 var player_name: String = "null"
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if Input.is_action_just_pressed("slow_time"):
-			if Engine.time_scale == 1.0:
-				Engine.time_scale = 0.3
-			elif Engine.time_scale == 0.3:
-				Engine.time_scale = 1.0
-
 func set_viewport(current_viewport: SubViewportContainer):
 	viewport = current_viewport
 
